@@ -6,24 +6,30 @@
 package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.player.PlayerData;
 
 /**
  *
  * @author brenn
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
-public abstract class AbstractUnitObject {
+public abstract class AbstractUnitObject implements Changeable{
     
 //    ***CONSTRUCTORS********************************************************************************************************************************
-        public AbstractUnitObject(){
-            
-        }
+    public AbstractUnitObject(){
         
+    }
+
     
 //    ***DECLARTION OF FIELDS********************************************************************************************************************************
 
+    //Units values sometimes change and players need to know defaults to true
+    public boolean change = true;
     //Subclasses should have direct access to their location, If necessary getters could also be used by subclasses
     protected float x , y , z;
+    
+    private PlayerData owner;
     
     /*Variables that define unit behaviors
     Speed - How fast the unit can move over time
@@ -75,8 +81,21 @@ public abstract class AbstractUnitObject {
     public void setZ(float z) {
         this.z = z;
     }
+
+    public PlayerData getOwner() {
+        return owner;
+    }
+
+    public void setOwner(PlayerData owner) {
+        change = true;
+        this.owner = owner;
+    }
     
 //    ***LOGIC CODE********************************************************************************************************************************
 
+    @Override
+    public boolean hasChanged(){
+        return change;
+    }
     
 }

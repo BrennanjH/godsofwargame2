@@ -24,8 +24,7 @@ import org.springframework.web.socket.handler.AbstractWebSocketHandler;
  */
 public class WebSocketHandling extends AbstractWebSocketHandler  { //More overrides may be needed and can be found in extended class
     
-    //Spring object
-    private ApplicationContext context; 
+    
     
     //this is temporarily kept here 
     private final int currency = 25000;
@@ -71,12 +70,12 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         if(users == null){
             //Instantiate as an arrayList
             users = new ArrayList<>();
-            context = new AnnotationConfigApplicationContext(GameStateConfig.class);
+            
         } else {
             //Add new session to users
             users.add(session);
             //Create new playerData object for user
-            PlayerData newPlayer = context.getBean( "",PlayerData.class);
+            PlayerData newPlayer = new PlayerData(currency, session);
             
             //Add playerData to gameState
             //TODO 

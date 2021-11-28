@@ -1,6 +1,7 @@
 package com.simplesoftwaresolutions.godsofwargame.player;
 
 
+import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -18,19 +19,29 @@ import org.springframework.web.socket.WebSocketSession;
  */
 
 @Component("playerData")
-public class PlayerData {
+public class PlayerData implements Changeable{
+    //Boolean that signifies a change to one of the fields
+    public boolean change = true;
+    
     private int points;
     private int currency;
     private List<AbstractUnitObject> units;
     private String nickName;
+
     
+    
+    //Players have a many to many relationship with teams
+    private List<Team> affiliatedTeams;
+            
     private transient UserIdentity uid;
     
     public PlayerData( int currency) {
+        change = true;
         this.points = 0;
         this.currency = currency;
     }
     public PlayerData( int currency, WebSocketSession newPlayer){
+        change = true;
         uid = new UserIdentity(newPlayer);
         this.points = 0;
         this.currency = currency;
@@ -42,6 +53,7 @@ public class PlayerData {
     }
 
     public void setPoints(int points) {
+        change = true;
         this.points = points;
     }
 
@@ -50,6 +62,7 @@ public class PlayerData {
     }
 
     public void setCurrency(int currency) {
+        change = true;
         this.currency = currency;
     }
 
@@ -61,6 +74,27 @@ public class PlayerData {
         this.units = units;
     }
     
+    public List<Team> getAffiliatedTeams() {
+        return affiliatedTeams;
+    }
+
+    public void setAffiliatedTeams(List<Team> affiliatedTeams) {
+        change = true;
+        this.affiliatedTeams = affiliatedTeams;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     
+    @Override
+    public boolean hasChanged() {
+        return change;
+    }
     
 }
