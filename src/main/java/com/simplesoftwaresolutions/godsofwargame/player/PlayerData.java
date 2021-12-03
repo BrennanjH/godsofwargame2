@@ -18,7 +18,6 @@ import org.springframework.web.socket.WebSocketSession;
  * @author brenn
  */
 
-@Component("playerData")
 public class PlayerData implements Changeable{
     //Boolean that signifies a change to one of the fields
     public boolean change = true;

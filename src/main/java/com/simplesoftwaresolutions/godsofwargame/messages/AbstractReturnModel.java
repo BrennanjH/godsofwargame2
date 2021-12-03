@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
 public abstract class AbstractReturnModel {
     
-    private String className;
+    protected String className;
     
     //Builds the implementing subclasses field with the necessary information needed by the type of message
     abstract public void build();

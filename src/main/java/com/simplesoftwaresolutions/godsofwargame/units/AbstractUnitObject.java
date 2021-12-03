@@ -7,6 +7,7 @@ package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.game.SimpleTransform;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerData;
 
 /**
@@ -27,9 +28,9 @@ public abstract class AbstractUnitObject implements Changeable{
     //Units values sometimes change and players need to know defaults to true
     public boolean change = true;
     //Subclasses should have direct access to their location, If necessary getters could also be used by subclasses
-    protected float x , y , z;
+    protected SimpleTransform transform;
     
-    private PlayerData owner;
+    protected PlayerData owner;
     
     /*Variables that define unit behaviors
     Speed - How fast the unit can move over time
@@ -58,28 +59,12 @@ public abstract class AbstractUnitObject implements Changeable{
     
 //    ***GETTERS AND SETTERS********************************************************************************************************************************
 
-    public float getX() {
-        return x;
+    public SimpleTransform getTransform() {
+        return transform;
     }
 
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public float getZ() {
-        return z;
-    }
-
-    public void setZ(float z) {
-        this.z = z;
+    public void setTransform(SimpleTransform transform) {
+        this.transform = transform;
     }
 
     public PlayerData getOwner() {
@@ -90,6 +75,47 @@ public abstract class AbstractUnitObject implements Changeable{
         change = true;
         this.owner = owner;
     }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        this.health = health;
+    }
+
+    public float getDamage() {
+        return damage;
+    }
+
+    public void setDamage(float damage) {
+        this.damage = damage;
+    }
+
+    public float getFireSpeed() {
+        return fireSpeed;
+    }
+
+    public void setFireSpeed(float fireSpeed) {
+        this.fireSpeed = fireSpeed;
+    }
+
+    public float getTargetingRange() {
+        return targetingRange;
+    }
+
+    public void setTargetingRange(float targetingRange) {
+        this.targetingRange = targetingRange;
+    }
+    
     
 //    ***LOGIC CODE********************************************************************************************************************************
 
