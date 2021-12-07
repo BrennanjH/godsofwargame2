@@ -5,22 +5,16 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
-/**
+/** A general class that represents most units in the game, 
+ * These units require no special consideration in how they are created
+ * or destroyed
  *
  * @author brenn
  */
-public class UnitTank extends AbstractUnitObject {
+public class StandardUnit extends AbstractUnitObject {
 
-    @Override
-    public void move() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void attack() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
+    
     @Override
     public void removeSelf() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

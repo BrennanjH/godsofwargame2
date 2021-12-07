@@ -35,7 +35,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        System.out.println("New Text Message Received");
+        System.out.println("New Text Message Received: \n" + message.getPayload());
         //De-Serialize message with Jackson
         ObjectMapper mapper = new ObjectMapper();
         Command requestedAction = mapper.readValue(message.getPayload(), Command.class);

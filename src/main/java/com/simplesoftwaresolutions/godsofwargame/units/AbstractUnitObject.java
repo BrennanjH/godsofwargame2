@@ -27,6 +27,11 @@ public abstract class AbstractUnitObject implements Changeable{
 
     //Units values sometimes change and players need to know defaults to true
     public boolean change = true;
+    
+    protected AbstractMovementPlatform movementPlatform;
+
+    protected AbstractTurretPlatform turretPlatform;
+    
     //Subclasses should have direct access to their location, If necessary getters could also be used by subclasses
     protected SimpleTransform transform;
     
@@ -39,15 +44,18 @@ public abstract class AbstractUnitObject implements Changeable{
     fireSpeed - How often the main weapon can fire
     targetingRange - How close a hostile unit must be before unit can fire
     */
-    protected float speed, health, damage, fireSpeed, targetingRange;
     
 //    ***ABSTRACTION FOR SUBCLASSES********************************************************************************************************************************
     
-    //Most units can move to some degree
-    abstract public void move();
+    //convenience method to access movementplatform move method
+    public void move(){
+        movementPlatform.move();
+    }
     
-    //Causes the Unit to attack, If the unit already has a target they will target
-    abstract public void attack();
+    //convenience method to access turretPlatforms attack method
+    public void attack(){
+        turretPlatform.attack();
+    }
 
     //Units need to "die" in some sense but how they die is up to the unit's direct choice
     abstract public void removeSelf();
@@ -76,45 +84,7 @@ public abstract class AbstractUnitObject implements Changeable{
         this.owner = owner;
     }
 
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public float getHealth() {
-        return health;
-    }
-
-    public void setHealth(float health) {
-        this.health = health;
-    }
-
-    public float getDamage() {
-        return damage;
-    }
-
-    public void setDamage(float damage) {
-        this.damage = damage;
-    }
-
-    public float getFireSpeed() {
-        return fireSpeed;
-    }
-
-    public void setFireSpeed(float fireSpeed) {
-        this.fireSpeed = fireSpeed;
-    }
-
-    public float getTargetingRange() {
-        return targetingRange;
-    }
-
-    public void setTargetingRange(float targetingRange) {
-        this.targetingRange = targetingRange;
-    }
+    
     
     
 //    ***LOGIC CODE********************************************************************************************************************************
