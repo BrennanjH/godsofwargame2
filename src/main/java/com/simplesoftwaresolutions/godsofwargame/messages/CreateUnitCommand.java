@@ -8,7 +8,8 @@ package com.simplesoftwaresolutions.godsofwargame.messages;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 
 /** A command that adds a new unit to the game and then properly informs players of it
- *
+ * Unit's implement their own createSelf() which will handle creation so only validation
+ * is performed by this command
  * @author brenn
  */
 public class CreateUnitCommand implements Command{
