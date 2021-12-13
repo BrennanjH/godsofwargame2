@@ -5,6 +5,9 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages;
 
+import javax.websocket.Session;
+import org.springframework.web.socket.WebSocketSession;
+
 /** A command that changes a players nickname
  *
  * @author brenn
@@ -24,6 +27,16 @@ public class ChangeNickNameCommand implements Command{
 
     @Override
     public String testValue() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void injectGameState(com.simplesoftwaresolutions.godsofwargame.game.GameState gameState) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void injectSession(WebSocketSession id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

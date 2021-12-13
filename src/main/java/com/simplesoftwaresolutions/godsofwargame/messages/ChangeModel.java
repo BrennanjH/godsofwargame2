@@ -12,6 +12,10 @@ package com.simplesoftwaresolutions.godsofwargame.messages;
  */
 public class ChangeModel extends AbstractReturnModel{
 
+    
+    public ChangeModel(){
+        
+    }
     @Override
     public void build() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

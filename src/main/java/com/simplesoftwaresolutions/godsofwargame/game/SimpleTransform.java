@@ -13,7 +13,15 @@ public class SimpleTransform {
     private float px, py, pz;
     private float rx, ry, rz;
     private float sx, sy, sz;
+    private Vector3 velocity;
 
+    public Vector3 getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector3 velocity) {
+        this.velocity = velocity;
+    }
     public float getPx() {
         return px;
     }

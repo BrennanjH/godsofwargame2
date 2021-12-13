@@ -7,6 +7,7 @@ package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.game.SimpleTransform;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerData;
 
@@ -26,24 +27,20 @@ public abstract class AbstractUnitObject implements Changeable{
 //    ***DECLARTION OF FIELDS********************************************************************************************************************************
 
     //Units values sometimes change and players need to know defaults to true
-    public boolean change = true;
+    public transient boolean change = true;
     
+    //The following Fields are to be serialized when sending this object to clients
     protected AbstractMovementPlatform movementPlatform;
 
     protected AbstractTurretPlatform turretPlatform;
     
+    //An object that stores refrence information about the object
+    public InstanceId meta;
+    
     //Subclasses should have direct access to their location, If necessary getters could also be used by subclasses
     protected SimpleTransform transform;
+    //End of Serializable fields
     
-    protected PlayerData owner;
-    
-    /*Variables that define unit behaviors
-    Speed - How fast the unit can move over time
-    health - How much damage a unit can take before dying
-    damage - How much Damage a unit can do per shot of weapon
-    fireSpeed - How often the main weapon can fire
-    targetingRange - How close a hostile unit must be before unit can fire
-    */
     
 //    ***ABSTRACTION FOR SUBCLASSES********************************************************************************************************************************
     
@@ -75,13 +72,28 @@ public abstract class AbstractUnitObject implements Changeable{
         this.transform = transform;
     }
 
-    public PlayerData getOwner() {
-        return owner;
+    public AbstractMovementPlatform getMovementPlatform() {
+        return movementPlatform;
     }
 
-    public void setOwner(PlayerData owner) {
-        change = true;
-        this.owner = owner;
+    public void setMovementPlatform(AbstractMovementPlatform movementPlatform) {
+        this.movementPlatform = movementPlatform;
+    }
+
+    public AbstractTurretPlatform getTurretPlatform() {
+        return turretPlatform;
+    }
+
+    public void setTurretPlatform(AbstractTurretPlatform turretPlatform) {
+        this.turretPlatform = turretPlatform;
+    }
+
+    public InstanceId getMeta() {
+        return meta;
+    }
+
+    public void setMeta(InstanceId meta) {
+        this.meta = meta;
     }
 
     

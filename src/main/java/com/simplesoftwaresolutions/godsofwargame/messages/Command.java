@@ -6,6 +6,8 @@
 package com.simplesoftwaresolutions.godsofwargame.messages;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import org.springframework.web.socket.WebSocketSession;
 
 /**
  *
@@ -22,4 +24,7 @@ public interface Command {
     
     //A debugging method that can be used to easily log the type of command
     public String testValue();
+    
+    public void injectGameState(GameState gameState);
+    public void injectSession(WebSocketSession id);
 }

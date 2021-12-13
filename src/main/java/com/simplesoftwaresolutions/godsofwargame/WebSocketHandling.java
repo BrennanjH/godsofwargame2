@@ -6,6 +6,7 @@
 package com.simplesoftwaresolutions.godsofwargame;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerData;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     //this is temporarily kept here 
     private final int currency = 25000;
     
+    private static GameState gameState;
     //List of all currently working clients connected to server
     static List<WebSocketSession> users;
     
@@ -36,9 +38,15 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
         System.out.println("New Text Message Received: \n" + message.getPayload());
+        
         //De-Serialize message with Jackson
         ObjectMapper mapper = new ObjectMapper();
         Command requestedAction = mapper.readValue(message.getPayload(), Command.class);
+        
+        //Pass serverside fields that commands might need
+        requestedAction.injectGameState(gameState);
+        requestedAction.injectSession(session);
+        
         //Execute command
         requestedAction.execute();
         //Create Change model for each user
@@ -65,20 +73,19 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println("Session started: " + session.getId());
-        //Instantiate session list for message handling, and Spring object factory
-        if(users == null){
-            //Instantiate as an arrayList
-            users = new ArrayList<>();
-            
-        } else {
-            //Add new session to users
-            users.add(session);
-            //Create new playerData object for user
-            PlayerData newPlayer = new PlayerData(currency, session);
-            
-            //Add playerData to gameState
-            //TODO 
+        
+        
+        if(gameState == null){
+            gameState = new GameState();
         }
+        if(users == null){
+            users = new ArrayList<>();
+        } 
+        //Add new session to users
+        users.add(session);
+        gameState.addPlayer(session);
+        
+        
         
     }
 }
