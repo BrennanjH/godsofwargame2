@@ -2,6 +2,7 @@ package com.simplesoftwaresolutions.godsofwargame.player;
 
 
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -20,31 +21,23 @@ import org.springframework.web.socket.WebSocketSession;
 
 public class PlayerData implements Changeable{
     //Boolean that signifies a change to one of the fields
-    public boolean change = true;
+    public transient boolean change = true;
     
     private int points;
     private int currency;
     private List<AbstractUnitObject> units;
-    private String nickName;
-
-    
     
     //Players have a many to many relationship with teams
     private List<Team> affiliatedTeams;
             
     private transient UserIdentity uid;
     
-    public PlayerData( int currency) {
+    public PlayerData( GameState gameState, WebSocketSession newPlayer){
         change = true;
+        uid = new UserIdentity(gameState, newPlayer);
         this.points = 0;
-        this.currency = currency;
-    }
-    public PlayerData( int currency, WebSocketSession newPlayer){
-        change = true;
-        uid = new UserIdentity(newPlayer);
-        this.points = 0;
-        this.currency = currency;
-        nickName = uid.getNickname();
+        this.currency = 25000;
+        
     }
 
     public int getPoints() {
@@ -80,14 +73,6 @@ public class PlayerData implements Changeable{
     public void setAffiliatedTeams(List<Team> affiliatedTeams) {
         change = true;
         this.affiliatedTeams = affiliatedTeams;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
     }
 
     

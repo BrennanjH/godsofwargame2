@@ -5,6 +5,7 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.player;
 
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import org.springframework.web.socket.WebSocketSession;
 
 /** A class that links a session's Id to a nickname that the player uses;
@@ -13,13 +14,13 @@ import org.springframework.web.socket.WebSocketSession;
  */
 public class UserIdentity {
     
-    private String nickname;
+    private StringBuilder nickname;
     
     private String id;
 
-    public UserIdentity(WebSocketSession newUser) {
+    public UserIdentity(GameState gameState, WebSocketSession newUser) {
         this.id = newUser.getId();
-        this.nickname = id;
+        this.nickname = gameState.getNickNames().get(newUser.getId());
     }
 
     
@@ -41,22 +42,14 @@ public class UserIdentity {
         this.id = id;
     }
 
-    /**
-     * Get the value of nickname
-     *
-     * @return the value of nickname
-     */
-    public String getNickname() {
+    public StringBuilder getNickname() {
         return nickname;
     }
 
-    /**
-     * Set the value of nickname
-     *
-     * @param nickname new value of nickname
-     */
-    public void setNickname(String nickname) {
+    public void setNickname(StringBuilder nickname) {
         this.nickname = nickname;
     }
+
+    
 
 }
