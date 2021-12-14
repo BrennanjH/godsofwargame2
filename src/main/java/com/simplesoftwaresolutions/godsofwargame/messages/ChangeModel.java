@@ -6,9 +6,9 @@
 package com.simplesoftwaresolutions.godsofwargame.messages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.game.Createable;
 import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-import java.util.ArrayList;
 import java.util.List;
 
 /** An object that holds onto the objects that have changed since the last message sent
@@ -20,12 +20,24 @@ public class ChangeModel extends AbstractReturnModel{
 
     private List<Changeable> update;
     private List<Destroyable> remove;
+    private List<Createable> newObjects;
     
     public ChangeModel(GameState gameState){
         this.gameState = gameState;
-        gameState.getChangedObjects();
-        gameState.getChangedObjects();
-        gameState.getDestroyed();
+        
+        //Get list of Changed objects
+        this.update = gameState.getChangedObjects();
+        
+        //Get list of deleted objects
+        this.remove = gameState.getDestroyed();
+        
+        //Get List of new objects
+        newObjects = gameState.getNewObjects();
+        
+        //Clear lists
+        gameState.getChangedObjects().clear();
+        gameState.getDestroyed().clear();
+        gameState.getNewObjects().clear();
     }
     @Override
     public void build() {

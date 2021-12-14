@@ -9,12 +9,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.messages.ChangeModel;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
-import com.simplesoftwaresolutions.godsofwargame.messages.CreateObjectModel;
-import com.simplesoftwaresolutions.godsofwargame.player.PlayerData;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -51,20 +48,10 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         //Execute command
         requestedAction.execute();
         //prep models for sending
-        if(!gameState.getNewObjects().isEmpty()){
-            var newObjectModel = new CreateObjectModel(gameState);
-            //Create unique object model for each User
-            //TODO
-            //Serialize Model
-            String payload = mapper.writeValueAsString(newObjectModel);
-            TextMessage toSend = new TextMessage(payload);
-            
-            //send message to respective clients
-            for(WebSocketSession s : users){ //Currently just broadcasting messages
-                s.sendMessage(toSend);
-            }
-        }
-        if(!gameState.getChangedObjects().isEmpty() || !gameState.getDestroyed().isEmpty()){
+        
+        if(!gameState.getChangedObjects().isEmpty() 
+                || !gameState.getDestroyed().isEmpty()
+                || !gameState.getNewObjects().isEmpty()){
             
             var changeModel = new ChangeModel(gameState);
             
