@@ -30,9 +30,11 @@ public class GameState{
     
     private HashMap<PlayerData, AbstractUnitObject> units;
     
+    //As objects interact with the server they will be placed in one of the following for serialization
     private List<Changeable> changedObjects;
     private List<Destroyable> destroyed;
-    
+    private List<Createable> newObjects;
+            
     private Map map;
     
     public GameState(){
@@ -86,6 +88,14 @@ public class GameState{
         this.teams = teams;
     }
 
+    public HashMap<PlayerData, AbstractUnitObject> getUnits() {
+        return units;
+    }
+
+    public List<Createable> getNewObjects() {
+        return newObjects;
+    }
+    
     public HashMap<String, StringBuilder> getNickNames() {
         return nickNames;
     }

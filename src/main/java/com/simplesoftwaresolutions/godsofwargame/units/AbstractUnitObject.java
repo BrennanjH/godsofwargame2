@@ -7,6 +7,7 @@ package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.game.Createable;
 import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
@@ -17,7 +18,7 @@ import com.simplesoftwaresolutions.godsofwargame.game.SimpleTransform;
  * @author brenn
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
-public abstract class AbstractUnitObject implements Changeable, Destroyable{
+public abstract class AbstractUnitObject implements Changeable, Destroyable, Createable{
     
 //    ***CONSTRUCTORS********************************************************************************************************************************
     public AbstractUnitObject(){
@@ -108,4 +109,11 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable{
     public void addToDestroyingQueue(GameState gameState){
         gameState.getDestroyed().add(this);
     }
+
+    @Override
+    public void addToNewObjectsQueue(GameState gameState){
+        gameState.getNewObjects().add(this);
+    }
+    
+    
 }

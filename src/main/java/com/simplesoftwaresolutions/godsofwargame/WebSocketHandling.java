@@ -7,7 +7,9 @@ package com.simplesoftwaresolutions.godsofwargame;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import com.simplesoftwaresolutions.godsofwargame.messages.ChangeModel;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
+import com.simplesoftwaresolutions.godsofwargame.messages.CreateObjectModel;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerData;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,10 +51,22 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         
         //Execute command
         requestedAction.execute();
-        //Create Change model for each user
-        //TODO 
-        //Serialize Change model list
-        //TODO 
+        //prep models for sending
+        if(!gameState.getNewObjects().isEmpty()){
+            var newObjectModel = new CreateObjectModel(gameState);
+            //Create unique object model for each User
+            //TODO
+            //Serialize Model
+            //TODO
+        }
+        if(!gameState.getChangedObjects().isEmpty() || !gameState.getDestroyed().isEmpty()){
+            var changeModel = new ChangeModel(gameState);
+            //Create unique object model for each User
+            //TODO
+            //Serialize model
+            //TODO
+        }
+        
         //Send out change model to respective users
         //TODO 
         
