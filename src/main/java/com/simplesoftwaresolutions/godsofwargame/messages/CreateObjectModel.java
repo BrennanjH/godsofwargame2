@@ -9,7 +9,7 @@ import com.simplesoftwaresolutions.godsofwargame.game.Createable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import java.util.List;
 
-/** A model that when recieved by the frontend will create a new unit matching 
+/** A model that when received by the frontend will create a new unit matching 
  * these details
  *
  * @author brenn

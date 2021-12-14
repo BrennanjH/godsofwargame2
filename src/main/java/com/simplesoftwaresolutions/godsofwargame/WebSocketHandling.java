@@ -34,7 +34,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     private static GameState gameState;
     //List of all currently working clients connected to server
     static List<WebSocketSession> users;
-    
+    private ObjectMapper mapper = new ObjectMapper();
     //An object that wraps important gameState pieces
     
     @Override
@@ -42,7 +42,6 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         System.out.println("New Text Message Received: \n" + message.getPayload());
         
         //De-Serialize message with Jackson
-        ObjectMapper mapper = new ObjectMapper();
         Command requestedAction = mapper.readValue(message.getPayload(), Command.class);
         
         //Pass serverside fields that commands might need
@@ -57,20 +56,31 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
             //Create unique object model for each User
             //TODO
             //Serialize Model
-            //TODO
+            String payload = mapper.writeValueAsString(newObjectModel);
+            TextMessage toSend = new TextMessage(payload);
+            
+            //send message to respective clients
+            for(WebSocketSession s : users){ //Currently just broadcasting messages
+                s.sendMessage(toSend);
+            }
         }
         if(!gameState.getChangedObjects().isEmpty() || !gameState.getDestroyed().isEmpty()){
+            
             var changeModel = new ChangeModel(gameState);
+            
             //Create unique object model for each User
             //TODO
+            
             //Serialize model
-            //TODO
+            String payload = mapper.writeValueAsString(changeModel);
+            TextMessage toSend = new TextMessage(payload);
+            
+            //send message to respective clients
+            for(WebSocketSession s : users){ //Currently just broadcasting messages
+                s.sendMessage(toSend);
+            }
         }
         
-        //Send out change model to respective users
-        //TODO 
-        
-        session.sendMessage(message);
     }
     
     @Override
