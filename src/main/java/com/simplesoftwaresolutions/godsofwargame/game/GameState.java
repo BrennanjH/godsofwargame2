@@ -28,9 +28,10 @@ public class GameState{
     //List of all players in the game mapped by their nickName
     private HashMap<StringBuilder, PlayerData> players;
     
-    //PlayerData has a list of units itself but it is for their units only
+    private HashMap<PlayerData, AbstractUnitObject> units;
     
-    private List<AbstractUnitObject> units;
+    private List<Changeable> changedObjects;
+    private List<Destroyable> destroyed;
     
     private Map map;
     
@@ -38,9 +39,14 @@ public class GameState{
         teams = new ArrayList<>();
         nickNames = new HashMap<>();
         players = new HashMap<>();
-        units = new ArrayList<>();
+        changedObjects = new ArrayList<>();
+        destroyed = new ArrayList<>();
     }
     
+    /** Adds a new player to the gamestate and sets up their references
+     * 
+     * @param newPlayer 
+     */
     public void addPlayer(WebSocketSession newPlayer){
         //Set the player nickname
         nickNames.put(newPlayer.getId(),
@@ -96,14 +102,7 @@ public class GameState{
         this.players = players;
     }
 
-    public List<AbstractUnitObject> getUnits() {
-        return units;
-    }
-
-    public void setUnits(List<AbstractUnitObject> units) {
-        this.units = units;
-    }
-
+    
     public Map getMap() {
         return map;
     }
@@ -111,5 +110,14 @@ public class GameState{
     public void setMap(Map map) {
         this.map = map;
     }
+
+    public List<Changeable> getChangedObjects() {
+        return changedObjects;
+    }
+
+    public List<Destroyable> getDestroyed() {
+        return destroyed;
+    }
+
     
 }

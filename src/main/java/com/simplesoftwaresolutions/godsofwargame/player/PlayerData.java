@@ -2,10 +2,10 @@ package com.simplesoftwaresolutions.godsofwargame.player;
 
 
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import java.util.List;
-import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
 /*
@@ -19,33 +19,31 @@ import org.springframework.web.socket.WebSocketSession;
  * @author brenn
  */
 
-public class PlayerData implements Changeable{
-    //Boolean that signifies a change to one of the fields
-    public transient boolean change = true;
+public class PlayerData implements Changeable,Destroyable {
     
     private int points;
     private int currency;
-    private List<AbstractUnitObject> units;
     
     //Players have a many to many relationship with teams
     private List<Team> affiliatedTeams;
-            
-    private transient UserIdentity uid;
+    
+    private UserIdentity uid;
     
     public PlayerData( GameState gameState, WebSocketSession newPlayer){
-        change = true;
+        
         uid = new UserIdentity(gameState, newPlayer);
         this.points = 0;
         this.currency = 25000;
         
     }
 
+    
     public int getPoints() {
         return points;
     }
 
     public void setPoints(int points) {
-        change = true;
+        
         this.points = points;
     }
 
@@ -54,16 +52,13 @@ public class PlayerData implements Changeable{
     }
 
     public void setCurrency(int currency) {
-        change = true;
+        
         this.currency = currency;
     }
 
-    public List<AbstractUnitObject> getUnits() {
-        return units;
-    }
-
-    public void setUnits(List<AbstractUnitObject> units) {
-        this.units = units;
+    public void addUnit(AbstractUnitObject newUnit){
+        
+        
     }
     
     public List<Team> getAffiliatedTeams() {
@@ -71,14 +66,20 @@ public class PlayerData implements Changeable{
     }
 
     public void setAffiliatedTeams(List<Team> affiliatedTeams) {
-        change = true;
+        
         this.affiliatedTeams = affiliatedTeams;
     }
 
-    
     @Override
-    public boolean hasChanged() {
-        return change;
+    public void addToSerializationQueue(GameState gameState) {
+        
     }
+
+    @Override
+    public void addToDestroyingQueue(GameState gameState) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     
 }

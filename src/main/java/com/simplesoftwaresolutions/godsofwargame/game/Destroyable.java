@@ -5,12 +5,10 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.game;
 
-/** Sub-classes store volatile information that needs to be updated on frontends
- * This class is used to find if server message is needed
+/** Objects that can be removed from the general sphere of gamestate implement this class
  *
  * @author brenn
  */
-public interface Changeable {
-   
-    public void addToSerializationQueue(GameState gameState);
+public interface Destroyable {
+    public void addToDestroyingQueue(GameState gameState);
 }

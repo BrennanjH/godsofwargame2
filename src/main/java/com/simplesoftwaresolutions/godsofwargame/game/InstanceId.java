@@ -13,16 +13,16 @@ package com.simplesoftwaresolutions.godsofwargame.game;
  */
 public class InstanceId {
     
-    private String OwnerNickName;
+    private StringBuilder OwnerNickName;
     
     //Although an int would be better here, An objects Id is frequently serialized so String is better
     private String InstanceId;
 
-    public String getOwnerNickName() {
+    public StringBuilder getOwnerNickName() {
         return OwnerNickName;
     }
 
-    public void setOwnerNickName(String OwnerNickName) {
+    public void setOwnerNickName(StringBuilder OwnerNickName) {
         this.OwnerNickName = OwnerNickName;
     }
 

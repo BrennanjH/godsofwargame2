@@ -10,14 +10,10 @@ package com.simplesoftwaresolutions.godsofwargame.game;
  * @author brenn
  */
 public class Map implements Changeable{ //May not need to be Changeable
-    public boolean change;
-    
-    
     
     @Override
-    public boolean hasChanged() {
-        return change;
-        
+    public void addToSerializationQueue(GameState gameState) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

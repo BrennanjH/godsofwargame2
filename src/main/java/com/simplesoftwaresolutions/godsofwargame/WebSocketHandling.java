@@ -68,7 +68,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         
         System.out.println("size of users after removing player: " + users.size());
         //Remove Sessions Respected player data from gameState
-        
+        gameState.removePlayer(session);
     }
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {

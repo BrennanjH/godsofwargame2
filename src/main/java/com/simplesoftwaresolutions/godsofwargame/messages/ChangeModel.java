@@ -5,6 +5,12 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages;
 
+import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import java.util.ArrayList;
+import java.util.List;
+
 /** An object that holds onto the objects that have changed since the last message sent
  * does not send non-changed objects
  *
@@ -12,13 +18,24 @@ package com.simplesoftwaresolutions.godsofwargame.messages;
  */
 public class ChangeModel extends AbstractReturnModel{
 
+    private List<Changeable> update;
+    private List<Destroyable> remove;
     
-    public ChangeModel(){
-        
+    public ChangeModel(GameState gameState){
+        this.gameState = gameState;
+        gameState.getChangedObjects();
+        gameState.getChangedObjects();
+        gameState.getDestroyed();
     }
     @Override
     public void build() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gameState.getPlayers();
+    }
+    @Override
+    public void build(GameState gameState){
+        this.gameState = gameState;
+        
+        build();
     }
     
 }

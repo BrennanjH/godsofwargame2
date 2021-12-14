@@ -7,16 +7,17 @@ package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.game.SimpleTransform;
-import com.simplesoftwaresolutions.godsofwargame.player.PlayerData;
 
 /**
  *
  * @author brenn
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
-public abstract class AbstractUnitObject implements Changeable{
+public abstract class AbstractUnitObject implements Changeable, Destroyable{
     
 //    ***CONSTRUCTORS********************************************************************************************************************************
     public AbstractUnitObject(){
@@ -26,9 +27,6 @@ public abstract class AbstractUnitObject implements Changeable{
     
 //    ***DECLARTION OF FIELDS********************************************************************************************************************************
 
-    //Units values sometimes change and players need to know defaults to true
-    public transient boolean change = true;
-    
     //The following Fields are to be serialized when sending this object to clients
     protected AbstractMovementPlatform movementPlatform;
 
@@ -102,8 +100,12 @@ public abstract class AbstractUnitObject implements Changeable{
 //    ***LOGIC CODE********************************************************************************************************************************
 
     @Override
-    public boolean hasChanged(){
-        return change;
+    public void addToSerializationQueue(GameState gameState) {
+        gameState.getChangedObjects().add(this);
     }
     
+    @Override
+    public void addToDestroyingQueue(GameState gameState){
+        gameState.getDestroyed().add(this);
+    }
 }
