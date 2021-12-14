@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class CreateObjectModel extends AbstractReturnModel{
     private List<Createable> newObjects;
-    private GameState gameState;
+    private transient GameState gameState;
     
     public CreateObjectModel(GameState gameState){
         newObjects = gameState.getNewObjects();

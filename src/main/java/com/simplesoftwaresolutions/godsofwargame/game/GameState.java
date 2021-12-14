@@ -19,10 +19,8 @@ import org.springframework.web.socket.WebSocketSession;
  * @author brenn
  */
 public class GameState{
-    //Defines the relationShip players have
-    private List<Team> teams;
     
-    //Link of Session I'd To NickName
+//Link of Session I'd To NickName
     private HashMap<String, StringBuilder> nickNames;
     
     //List of all players in the game mapped by their nickName
@@ -31,14 +29,14 @@ public class GameState{
     private HashMap<PlayerData, AbstractUnitObject> units;
     
     //As objects interact with the server they will be placed in one of the following for serialization
-    private List<Changeable> changedObjects;
-    private List<Destroyable> destroyed;
-    private List<Createable> newObjects;
+    private transient List<Changeable> changedObjects;
+    private transient List<Destroyable> destroyed;
+    private transient List<Createable> newObjects;
             
     private Map map;
     
     public GameState(){
-        teams = new ArrayList<>();
+        
         nickNames = new HashMap<>();
         players = new HashMap<>();
         changedObjects = new ArrayList<>();
@@ -78,14 +76,6 @@ public class GameState{
         
         //Remove player from session object last
         nickNames.remove(lostPlayer.getId());
-    }
-
-    public List<Team> getTeams() {
-        return teams;
-    }
-
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
     }
 
     public HashMap<PlayerData, AbstractUnitObject> getUnits() {
