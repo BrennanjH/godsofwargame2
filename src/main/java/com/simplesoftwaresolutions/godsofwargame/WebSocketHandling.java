@@ -23,10 +23,10 @@ import org.springframework.web.socket.handler.AbstractWebSocketHandler;
  *
  * @author brenn
  */
-@Component
+
 public class WebSocketHandling extends AbstractWebSocketHandler  { //More overrides may be needed and can be found in extended class
     
-    @Autowired
+    
     private static GameState gameState;
     //List of all currently working clients connected to server
     static List<WebSocketSession> users;
@@ -45,7 +45,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         requestedAction.injectSession(session);
         
         //Execute command
-        requestedAction.execute();
+        requestedAction.execute(gameState, session);
         //prep models for sending
         
         if(!gameState.getChangedObjects().isEmpty() 

@@ -23,8 +23,10 @@ public class CreateUnitCommand implements Command{
     private AbstractUnitObject unit;
 
     @Override
-    public void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void execute(GameState gameState, WebSocketSession session) {
+        unit.setGameState(gameState);
+        
+        unit.createSelf();
     }
 
     @Override
@@ -46,4 +48,6 @@ public class CreateUnitCommand implements Command{
     public void injectSession(WebSocketSession id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 }

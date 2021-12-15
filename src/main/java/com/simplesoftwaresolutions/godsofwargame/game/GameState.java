@@ -35,7 +35,7 @@ public class GameState{
     
     private Map map;
     
-    LoadState loadState; 
+    public LoadState loadState; 
     
     public GameState(){
         

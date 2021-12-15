@@ -24,19 +24,11 @@ public class MoveUnitCommand implements Command{
     private AbstractUnitObject movingUnit;
     
     
-    @Override 
-    public void execute() {
-        //Check if Unit Owner is the same as command sender
-        
-            //Get messagers nickname
-            messager.getId();
-            //compare nickame to Unit's Owner
-        
-        //perform createSelf()
-        
+    @Override
+    public void execute(GameState gameState, WebSocketSession session) {
         
     }
-
+    
     @Override
     public boolean isBuilt() {
         return gameState != null && movingUnit != null;
@@ -56,5 +48,7 @@ public class MoveUnitCommand implements Command{
     public void injectSession(WebSocketSession id) {
         messager = id;
     }
+
+    
     
 }

@@ -40,7 +40,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     protected SimpleTransform transform;
     //End of Serializable fields
     
-    
+    private transient GameState gameState;
 //    ***ABSTRACTION FOR SUBCLASSES********************************************************************************************************************************
     
     //convenience method to access movementplatform move method
@@ -58,7 +58,10 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     
     //Units might have special properties in how they are created, Those are expressed by it's create Self
     //As Units are created by reflection from a frontend client a constructor is not a good place for this code.
-    abstract public void createSelf();
+    public void createSelf(){
+        gameState.getNewObjects().add( this);
+        
+    }
     
     
 //    ***GETTERS AND SETTERS********************************************************************************************************************************
@@ -95,6 +98,14 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         this.meta = meta;
     }
 
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+    
     
     
     

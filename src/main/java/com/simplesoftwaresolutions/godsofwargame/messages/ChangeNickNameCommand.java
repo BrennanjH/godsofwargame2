@@ -5,7 +5,8 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages;
 
-import javax.websocket.Session;
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import org.springframework.web.socket.WebSocketSession;
 
 /** A command that changes a players nickname
@@ -14,10 +15,19 @@ import org.springframework.web.socket.WebSocketSession;
  */
 public class ChangeNickNameCommand implements Command{
 
-
+    String newNickName;
+    
     @Override
-    public void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void execute(GameState gameState, WebSocketSession session) {
+        if(gameState.loadState != LoadState.PREGAME){
+            return;
+        } else {
+            gameState.changeNickName(session, newNickName);
+            gameState.getChangedObjects().add(
+                    gameState.getPlayerData().get(
+                            gameState.getNickNames().get(session.getId())));
+        }
+        
     }
 
     @Override
