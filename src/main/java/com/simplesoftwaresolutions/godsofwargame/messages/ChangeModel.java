@@ -39,15 +39,6 @@ public class ChangeModel extends AbstractReturnModel{
         gameState.getDestroyed().clear();
         gameState.getNewObjects().clear();
     }
-    @Override
-    public void build() {
-        gameState.getPlayers();
-    }
-    @Override
-    public void build(GameState gameState){
-        this.gameState = gameState;
-        
-        build();
-    }
+    
     
 }

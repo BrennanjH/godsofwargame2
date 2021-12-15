@@ -5,12 +5,12 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.game;
 
-import com.simplesoftwaresolutions.godsofwargame.player.PlayerData;
+import com.simplesoftwaresolutions.godsofwargame.player.PlayerValues;
+import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -22,13 +22,11 @@ import org.springframework.web.socket.WebSocketSession;
 @Component
 public class GameState{
     
-    //Link of Session I'd To NickName
+    //Link of Session Id To NickName
     private HashMap<String, StringBuilder> nickNames;
     
-    //List of all players in the game mapped by their nickName
-    private HashMap<StringBuilder, PlayerData> players;
-    
-    private HashMap<PlayerData, List<AbstractUnitObject>> units;
+    //Session nickName to PlayerProfile
+    private HashMap<StringBuilder, PlayerProfile> playerData;
     
     //As objects interact with the server they will be placed in one of the following for serialization
     private transient List<Changeable> changedObjects;
@@ -41,10 +39,16 @@ public class GameState{
     
     public GameState(){
         
+        playerData = new HashMap<>();
         nickNames = new HashMap<>();
-        players = new HashMap<>();
+        //players = new HashMap<>();
+        
+        //Create Queues
         changedObjects = new ArrayList<>();
         destroyed = new ArrayList<>();
+        newObjects = new ArrayList<>();
+        
+        //Set loadState
         loadState = LoadState.PREGAME;
     }
     
@@ -57,9 +61,13 @@ public class GameState{
         StringBuilder temp = nickNames.put(newPlayer.getId(),
                 new StringBuilder(newPlayer.getId()));
         
-        //Using new nickName add player to 
-        players.put(nickNames.get(newPlayer.getId()), new PlayerData(this, newPlayer));
-        units.put(players.get(temp), new ArrayList<>());
+        //Using new nickName create playerData
+        playerData.put(nickNames.get(newPlayer.getId()), new PlayerProfile(this, temp, newPlayer));
+        
+        //Add player Profile to newObject
+        newObjects.add(playerData.get(temp));
+        
+        
     }
     
     /**NickNames are used to find some data to remove the use of session ids outside of 
@@ -82,27 +90,20 @@ public class GameState{
      */
     public void removePlayer(WebSocketSession lostPlayer){ //Order removed is important
         //Grab all the players related objects & keys
-        PlayerData data = players.get(  nickNames.get( lostPlayer.getId() )  );
-        List<AbstractUnitObject> playersUnits = units.get(players.get(  nickNames.get( lostPlayer.getId() )  ));
+        StringBuilder playerName = nickNames.get(lostPlayer.getId());
+        PlayerProfile focus = playerData.get(playerName);
         
         //Place the players respective objects into destroy for final removal
-        destroyed.add(data);
-        destroyed.addAll(playersUnits);
+        destroyed.add(focus);
         
-        //The following removals must happen in this order
-        //Remove player from units
-        units.remove(  players.get(  nickNames.get( lostPlayer.getId() )  )  );
-        
-        //remove player from players
-        players.remove(nickNames.get(lostPlayer.getId()));
+        //The Following must be removed in this order
+        //Remove PlayerProfile
+        playerData.remove(playerName);
         
         //Remove player from session object last
         nickNames.remove(lostPlayer.getId());
     }
 
-    public HashMap<PlayerData, List<AbstractUnitObject>> getUnits() {
-        return units;
-    }
 
     public List<Createable> getNewObjects() {
         return newObjects;
@@ -115,15 +116,7 @@ public class GameState{
     public void setNickNames(HashMap<String, StringBuilder> nickNames) {
         this.nickNames = nickNames;
     }
-
-    public HashMap<StringBuilder, PlayerData> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(HashMap<StringBuilder, PlayerData> players) {
-        this.players = players;
-    }
-
+    
     
     public Map getMap() {
         return map;
@@ -139,6 +132,10 @@ public class GameState{
 
     public List<Destroyable> getDestroyed() {
         return destroyed;
+    }
+
+    public HashMap<StringBuilder, PlayerProfile> getPlayerData() {
+        return playerData;
     }
 
     

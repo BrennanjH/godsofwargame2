@@ -18,9 +18,6 @@ public abstract class AbstractReturnModel {
     protected String className;
     
     protected transient GameState gameState;
-    //Builds the implementing subclasses field with the necessary information needed by the type of message
-    abstract public void build();
-    abstract public void build(GameState gameState);
     
     
     

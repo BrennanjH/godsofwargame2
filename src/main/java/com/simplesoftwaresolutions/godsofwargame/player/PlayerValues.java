@@ -19,7 +19,7 @@ import org.springframework.web.socket.WebSocketSession;
  * @author brenn
  */
 
-public class PlayerData implements Changeable,Destroyable {
+public class PlayerValues implements Changeable,Destroyable {
     
     private int points;
     private int currency;
@@ -29,7 +29,7 @@ public class PlayerData implements Changeable,Destroyable {
     
     private UserIdentity uid;
     
-    public PlayerData( GameState gameState, WebSocketSession newPlayer){
+    public PlayerValues( GameState gameState, WebSocketSession newPlayer){
         
         uid = new UserIdentity(gameState, newPlayer);
         this.points = 0;
