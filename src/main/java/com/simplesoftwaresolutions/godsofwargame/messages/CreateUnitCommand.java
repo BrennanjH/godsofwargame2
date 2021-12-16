@@ -24,9 +24,21 @@ public class CreateUnitCommand implements Command{
 
     @Override
     public void execute(GameState gameState, WebSocketSession session) {
-        unit.setGameState(gameState);
+        StringBuilder commandMaker = gameState.getNickNames().get(session.getId());
+        //Make sure the Command Issuer is the same person as the units Owner
+        if(commandMaker.compareTo(unit.getMeta().getOwnerNickName()) == 0){
+            //Set the Unit's string builder to the sessions
+            unit.getMeta().setOwnerNickName(commandMaker);
+            
+            //Inject Dependents
+            unit.setGameState(gameState);
+            
+            //Allow the Unit to handle it's own creation
+            unit.createSelf(gameState.getPlayerData().get(commandMaker));
+        }
         
-        unit.createSelf();
+        
+        
     }
 
     @Override
