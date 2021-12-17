@@ -5,10 +5,10 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
-import javax.websocket.Session;
 import org.springframework.web.socket.WebSocketSession;
+import com.simplesoftwaresolutions.godsofwargame.units.*;
 
 /** A command that adds a new unit to the game and then properly informs players of it
  * Unit's implement their own createSelf() which will handle creation so only validation
@@ -16,15 +16,21 @@ import org.springframework.web.socket.WebSocketSession;
  * @author brenn
  */
 public class CreateUnitCommand implements Command{
-    
-    
     private String className;
     
+    
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
     private AbstractUnitObject unit;
 
     @Override
     public void execute(GameState gameState, WebSocketSession session) {
+        System.out.println("Beginning command execution: " + testValue());
         StringBuilder commandMaker = gameState.getNickNames().get(session.getId());
+        System.out.println("CreateUnitCommand: execute(): Checking state of field commandMaker; " + commandMaker == null);
+        System.out.println("CreateUnitCommand: execute(): Checking state of field commandMaker; " + commandMaker);
+        
+        System.out.println("CreateUnitCommand: execute(): Checking state of field unit; " + unit != null);
+        System.out.println("CreateUnitCommand: execute(): Checking state of field unit; " + unit);
         //Make sure the Command Issuer is the same person as the units Owner
         if(commandMaker.compareTo(unit.getMeta().getOwnerNickName()) == 0){
             //Set the Unit's string builder to the sessions
@@ -43,23 +49,15 @@ public class CreateUnitCommand implements Command{
 
     @Override
     public boolean isBuilt() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (unit != null);
     }
 
     @Override
     public String testValue() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Command: [CreateUnitCommand]";
     }
 
-    @Override
-    public void injectGameState(GameState gameState) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void injectSession(WebSocketSession id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     
 }

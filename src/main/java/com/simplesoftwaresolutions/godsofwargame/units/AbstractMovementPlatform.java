@@ -5,10 +5,13 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /** an abstract class that defines the behavior of a tank movement platform
  *
  * @author brenn
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
 public abstract class AbstractMovementPlatform {
     
     /*Variables that define unit behaviors

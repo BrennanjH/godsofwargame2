@@ -32,22 +32,14 @@ public class ChangeNickNameCommand implements Command{
 
     @Override
     public boolean isBuilt() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return newNickName != null;
     }
 
     @Override
     public String testValue() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Command: [ChangeNickNameCommand]";
     }
 
-    @Override
-    public void injectGameState(com.simplesoftwaresolutions.godsofwargame.game.GameState gameState) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void injectSession(WebSocketSession id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }

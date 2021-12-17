@@ -5,8 +5,6 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-
 /** A general class that represents most units in the game, 
  * These units require no special consideration in how they are created
  * or destroyed

@@ -5,6 +5,7 @@
  */
 package com.simplesoftwaresolutions.godsofwargame;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.messages.ChangeModel;
@@ -30,7 +31,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     private static GameState gameState;
     //List of all currently working clients connected to server
     static List<WebSocketSession> users;
-    private ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper;
     //An object that wraps important gameState pieces
     
     @Override
@@ -40,9 +41,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         //De-Serialize message with Jackson
         Command requestedAction = mapper.readValue(message.getPayload(), Command.class);
         
-        //Pass serverside fields that commands might need
-        requestedAction.injectGameState(gameState);
-        requestedAction.injectSession(session);
+        
         
         //Execute command
         requestedAction.execute(gameState, session);
@@ -104,6 +103,9 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         if(users == null){
             users = new ArrayList<>();
         } 
+        if(mapper == null){
+            mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        }
         //Add new session to users
         users.add(session);
         //Set up player data

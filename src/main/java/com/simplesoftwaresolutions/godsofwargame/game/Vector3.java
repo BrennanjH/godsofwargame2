@@ -6,6 +6,7 @@
 package com.simplesoftwaresolutions.godsofwargame.game;
 
 /** A class that attempts to look the same as the unity Vector3 object
+ * hold 3 floats that represent x,y,z
  *
  * @author brenn
  */

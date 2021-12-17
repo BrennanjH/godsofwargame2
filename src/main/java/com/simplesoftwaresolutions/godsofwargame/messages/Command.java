@@ -25,6 +25,4 @@ public interface Command {
     //A debugging method that can be used to easily log the type of command
     public String testValue();
     
-    public void injectGameState(GameState gameState);
-    public void injectSession(WebSocketSession id);
 }

@@ -5,10 +5,13 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  *
  * @author brenn
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
 public abstract class AbstractTurretPlatform {
     
     /*Variables that define unit behaviors

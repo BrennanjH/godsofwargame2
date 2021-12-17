@@ -39,16 +39,7 @@ public class MoveUnitCommand implements Command{
         return "Command: [MoveUnitCommand]";
     }
 
-    @Override
-    public void injectGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
-
-    @Override
-    public void injectSession(WebSocketSession id) {
-        messager = id;
-    }
-
+    
     
     
 }

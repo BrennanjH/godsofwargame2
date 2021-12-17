@@ -22,14 +22,13 @@ import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 public abstract class AbstractUnitObject implements Changeable, Destroyable, Createable{
     
 //    ***CONSTRUCTORS********************************************************************************************************************************
-    public AbstractUnitObject(){
-        
-    }
-
+    
     
 //    ***DECLARTION OF FIELDS********************************************************************************************************************************
 
-    //The following Fields are to be serialized when sending this object to clients
+    //The following Fields are to be serialized when sending this object to clients ***************
+    protected String className;// = "com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject";
+    
     protected AbstractMovementPlatform movementPlatform;
 
     protected AbstractTurretPlatform turretPlatform;
@@ -39,7 +38,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     
     //Subclasses should have direct access to their location, If necessary getters could also be used by subclasses
     protected SimpleTransform transform;
-    //End of Serializable fields
+    //End of Serializable fields ******************************************************************
     
     private transient GameState gameState;
 //    ***ABSTRACTION FOR SUBCLASSES********************************************************************************************************************************
