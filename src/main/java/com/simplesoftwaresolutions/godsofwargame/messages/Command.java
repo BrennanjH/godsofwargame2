@@ -5,6 +5,8 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import org.springframework.web.socket.WebSocketSession;
@@ -14,6 +16,10 @@ import org.springframework.web.socket.WebSocketSession;
  * @author brenn
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
+@JsonSubTypes({
+    @Type(value = CreateUnitCommand.class),
+    @Type(value = ChangeNickNameCommand.class)
+})
 public interface Command {
     
     //All commands have a series of tasks they attempt to complete, They start here

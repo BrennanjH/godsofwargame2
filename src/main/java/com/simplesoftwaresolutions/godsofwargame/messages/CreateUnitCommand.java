@@ -5,6 +5,8 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import org.springframework.web.socket.WebSocketSession;
@@ -16,20 +18,26 @@ import com.simplesoftwaresolutions.godsofwargame.units.*;
  * @author brenn
  */
 public class CreateUnitCommand implements Command{
-    private String className;
     
     
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
     private AbstractUnitObject unit;
-
+    
+    @JsonCreator
+    public CreateUnitCommand(@JsonProperty("unit")AbstractUnitObject unit){
+        this.unit = unit;
+    }
+    
     @Override
     public void execute(GameState gameState, WebSocketSession session) {
         System.out.println("Beginning command execution: " + testValue());
         StringBuilder commandMaker = gameState.getNickNames().get(session.getId());
-        System.out.println("CreateUnitCommand: execute(): Checking state of field commandMaker; " + commandMaker == null);
+        System.out.println("CreateUnitCommand: execute(): Checking null state of field commandMaker; " + (commandMaker == null));
         System.out.println("CreateUnitCommand: execute(): Checking state of field commandMaker; " + commandMaker);
         
-        System.out.println("CreateUnitCommand: execute(): Checking state of field unit; " + unit != null);
+        //System.out.println("CreateUnitCommand: execute(): Checking state of field className; " + className);
+        
+        System.out.println("CreateUnitCommand: execute(): Checking null state of field unit; " + (unit == null));
         System.out.println("CreateUnitCommand: execute(): Checking state of field unit; " + unit);
         //Make sure the Command Issuer is the same person as the units Owner
         if(commandMaker.compareTo(unit.getMeta().getOwnerNickName()) == 0){
@@ -57,7 +65,14 @@ public class CreateUnitCommand implements Command{
         return "Command: [CreateUnitCommand]";
     }
 
-
-
+    
+    public AbstractUnitObject getUnit() {
+        return unit;
+    }
+    
+    
+    public void setUnit(AbstractUnitObject unit) {
+        this.unit = unit;
+    }
     
 }

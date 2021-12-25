@@ -5,6 +5,10 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.game.Createable;
@@ -19,9 +23,22 @@ import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
  * @author brenn
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
+@JsonSubTypes({
+    @Type(value = StandardUnit.class)
+})
 public abstract class AbstractUnitObject implements Changeable, Destroyable, Createable{
     
 //    ***CONSTRUCTORS********************************************************************************************************************************
+    
+    public AbstractUnitObject(AbstractMovementPlatform movementPlatform,
+            AbstractTurretPlatform turretPlatform,
+            InstanceId meta,
+            SimpleTransform transform) {
+        this.movementPlatform = movementPlatform;
+        this.turretPlatform = turretPlatform;
+        this.meta = meta;
+        this.transform = transform;
+    }
     
     
 //    ***DECLARTION OF FIELDS********************************************************************************************************************************
@@ -110,6 +127,14 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
     
     

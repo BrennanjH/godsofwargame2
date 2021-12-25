@@ -104,7 +104,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
             users = new ArrayList<>();
         } 
         if(mapper == null){
-            mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            mapper = new ObjectMapper();//.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         }
         //Add new session to users
         users.add(session);
