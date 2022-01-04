@@ -5,14 +5,13 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.game;
 
-import com.simplesoftwaresolutions.godsofwargame.player.PlayerValues;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
-import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
+import org.springframework.stereotype.Component;
+import org.springframework.web.socket.WebSocketSession;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.springframework.stereotype.Component;
-import org.springframework.web.socket.WebSocketSession;
 
 /** The class represents the current game as an unbiased third party 
  * (players, units, Map, Teams)
@@ -35,8 +34,9 @@ public class GameState{
     
     private Map map;
     
-    public LoadState loadState; 
-    
+    public LoadState loadState;
+
+
     public GameState(){
         
         playerData = new HashMap<>();
@@ -75,7 +75,7 @@ public class GameState{
      * using this method
      * 
      * @param alteredUser
-     * @param newNickName 
+     * @param newNickName the new nickname requested by user
      */
     public void changeNickName(WebSocketSession alteredUser, String newNickName){
         //replace Original Nicknames value
@@ -88,7 +88,7 @@ public class GameState{
      * Removes all objects owned by the player from the server and adds it to removal queue
      * @param lostPlayer 
      */
-    public void removePlayer(WebSocketSession lostPlayer){ //Order removed is important
+    public void removePlayer( WebSocketSession lostPlayer){ //Order removed is important
         //Grab all the players related objects & keys
         StringBuilder playerName = nickNames.get(lostPlayer.getId());
         PlayerProfile focus = playerData.get(playerName);
@@ -105,19 +105,40 @@ public class GameState{
     }
 
 
-    public List<Createable> getNewObjects() {
-        return newObjects;
-    }
-    
-    public HashMap<String, StringBuilder> getNickNames() {
-        return nickNames;
+
+    /**
+     * Adds passed in value to gamestates changedObjects queue list
+     * @param toBeAdded
+     */
+    public void addChangeableToQueue(Changeable toBeAdded){
+        changedObjects.add(toBeAdded);
     }
 
-    public void setNickNames(HashMap<String, StringBuilder> nickNames) {
-        this.nickNames = nickNames;
+    /**
+     * Adds a passed in value to gamestates destroyed queue list
+     * @param toBeAddedToQueue
+     */
+    public void addDestroyableToQueue(Destroyable toBeAddedToQueue){
+        destroyed.add(toBeAddedToQueue);
     }
-    
-    
+
+    /**
+     * Adds passed in value to gamestates newObjects queue list
+     * @param toBeAdded
+     */
+    public void addCreatableToQueue(Createable toBeAdded){
+        newObjects.add(toBeAdded);
+    }
+
+
+//**GETTER AND SETTERS********************************************************************************************************************
+    public List<Destroyable> getDestroyed() {
+        return destroyed;
+    }
+
+    public HashMap<StringBuilder, PlayerProfile> getPlayerData() {
+        return playerData;
+    }
     public Map getMap() {
         return map;
     }
@@ -126,17 +147,19 @@ public class GameState{
         this.map = map;
     }
 
+    public List<Createable> getNewObjects() {
+        return newObjects;
+    }
+
+    public HashMap<String, StringBuilder> getNickNames() {
+        return nickNames;
+    }
+
     public List<Changeable> getChangedObjects() {
         return changedObjects;
     }
 
-    public List<Destroyable> getDestroyed() {
-        return destroyed;
+    public StringBuilder getNickName(WebSocketSession session){
+        return nickNames.get(session.getId());
     }
-
-    public HashMap<StringBuilder, PlayerProfile> getPlayerData() {
-        return playerData;
-    }
-
-    
 }

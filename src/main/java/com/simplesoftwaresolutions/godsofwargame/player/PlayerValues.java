@@ -71,7 +71,7 @@ public class PlayerValues implements Changeable,Destroyable {
     }
 
     @Override
-    public void addToSerializationQueue(GameState gameState) {
+    public void addToChangeableQueue(GameState gameState) {
         
     }
 

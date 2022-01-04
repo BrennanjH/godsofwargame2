@@ -143,7 +143,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 //    ***LOGIC CODE********************************************************************************************************************************
 
     @Override
-    public void addToSerializationQueue(GameState gameState) {
+    public void addToChangeableQueue(GameState gameState) {
         gameState.getChangedObjects().add(this);
     }
     

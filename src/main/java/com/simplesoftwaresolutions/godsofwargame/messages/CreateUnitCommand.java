@@ -50,9 +50,7 @@ public class CreateUnitCommand implements Command{
             //Allow the Unit to handle it's own creation
             unit.createSelf(gameState.getPlayerData().get(commandMaker));
         }
-        
-        
-        
+
     }
 
     @Override

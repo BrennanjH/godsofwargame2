@@ -22,6 +22,7 @@ public class SimpleTransform {
     public void setVelocity(Vector3 velocity) {
         this.velocity = velocity;
     }
+    
     public float getPx() {
         return px;
     }

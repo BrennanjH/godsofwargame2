@@ -12,7 +12,7 @@ package com.simplesoftwaresolutions.godsofwargame.game;
 public class Map implements Changeable{ //May not need to be Changeable
     
     @Override
-    public void addToSerializationQueue(GameState gameState) {
+    public void addToChangeableQueue(GameState gameState) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

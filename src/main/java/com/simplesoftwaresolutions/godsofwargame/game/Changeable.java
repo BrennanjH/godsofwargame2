@@ -12,5 +12,5 @@ package com.simplesoftwaresolutions.godsofwargame.game;
  */
 public interface Changeable {
    
-    public void addToSerializationQueue(GameState gameState);
+    public void addToChangeableQueue(GameState gameState);
 }

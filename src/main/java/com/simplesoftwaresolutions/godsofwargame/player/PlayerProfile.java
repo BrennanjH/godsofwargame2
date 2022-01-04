@@ -10,9 +10,10 @@ import com.simplesoftwaresolutions.godsofwargame.game.Createable;
 import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
+import org.springframework.web.socket.WebSocketSession;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.socket.WebSocketSession;
 
 /** A class that represents the entirety of a player at once, 
  *
@@ -23,6 +24,7 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
     private PlayerValues playerValues;
     private StringBuilder names;
 
+    public PlayerProfile(){}
     public PlayerProfile( GameState gameState, StringBuilder id, WebSocketSession session){
         units = new ArrayList<>();
         playerValues = new PlayerValues(gameState, session);
@@ -54,7 +56,8 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
 
     @Override
     public void addToDestroyingQueue(GameState gameState) {
-        gameState.getDestroyed().add(this);
+        gameState.addDestroyableToQueue(this);
+        //gameState.getDestroyed().add(this);
     }
 
     @Override
@@ -63,7 +66,7 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
     }
 
     @Override
-    public void addToSerializationQueue(GameState gameState) {
+    public void addToChangeableQueue(GameState gameState) {
         gameState.getChangedObjects().add(this);
     }
     
