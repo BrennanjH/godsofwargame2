@@ -72,7 +72,7 @@ class GameStateTest {
     void addChangeableToQueue(){
         //Generate Environment
         GameState testGameState = new GameState();
-        Changeable mockPlayerProfile = new PlayerProfile();
+        Changeable mockPlayerProfile = mock(PlayerProfile.class);
 
         //Perform Tested Method
         testGameState.addChangeableToQueue(mockPlayerProfile);
@@ -85,7 +85,7 @@ class GameStateTest {
     void addCreatableToQueue(){
         //Generate Environment
         GameState testGameState = new GameState();
-        Createable mockPlayerProfile = new PlayerProfile();
+        Createable mockPlayerProfile =  mock(PlayerProfile.class);
 
         //Perform Tested Method
         testGameState.addCreatableToQueue(mockPlayerProfile);
@@ -99,7 +99,7 @@ class GameStateTest {
     void addDestroyableToQueue(){
         //Generate Environment
         GameState testGameState = new GameState();
-        Destroyable mockPlayerProfile = new PlayerProfile();
+        Destroyable mockPlayerProfile =  mock(PlayerProfile.class);
 
         //Perform Tested Method
         testGameState.addDestroyableToQueue(mockPlayerProfile );

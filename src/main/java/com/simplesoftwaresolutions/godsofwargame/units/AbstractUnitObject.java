@@ -74,7 +74,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     //As Units are created by reflection from a frontend client a constructor is not a good place for this code.
     public void createSelf(PlayerProfile owner){
         gameState.getNewObjects().add( this);
-        owner.getUnits().add(this);
+        owner.getPlayerValues().getUnits().add(this);
         
         //Check if player can afford unit
         //TODO

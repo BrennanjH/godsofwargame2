@@ -3,6 +3,9 @@ package com.simplesoftwaresolutions.godsofwargame.player;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.socket.WebSocketSession;
+
+import static org.mockito.Mockito.mock;
 
 class PlayerProfileTest {
 
@@ -10,7 +13,7 @@ class PlayerProfileTest {
     void addToDestroyingQueue() {
         //Create environment
         GameState testGameState =  new GameState();
-        PlayerProfile testPlayerProfile = new PlayerProfile();
+        PlayerProfile testPlayerProfile = new PlayerProfile(testGameState,  new StringBuilder(), mock(WebSocketSession.class));
 
         //Perform Method
         testPlayerProfile.addToDestroyingQueue(testGameState);
@@ -25,7 +28,7 @@ class PlayerProfileTest {
     void addToNewObjectsQueue() {
         //Create environment
         GameState testGameState =  new GameState();
-        PlayerProfile testPlayerProfile = new PlayerProfile();
+        PlayerProfile testPlayerProfile = new PlayerProfile(testGameState,  new StringBuilder(), mock(WebSocketSession.class));
 
         //Perform Method
         testPlayerProfile.addToNewObjectsQueue(testGameState);
@@ -39,7 +42,7 @@ class PlayerProfileTest {
     void addToSerializationQueue() {
         //Create environment
         GameState testGameState =  new GameState();
-        PlayerProfile testPlayerProfile = new PlayerProfile();
+        PlayerProfile testPlayerProfile = new PlayerProfile(testGameState, new StringBuilder(), mock(WebSocketSession.class));
 
         //Perform Method
         testPlayerProfile.addToChangeableQueue(testGameState);

@@ -6,7 +6,7 @@
 package com.simplesoftwaresolutions.godsofwargame.game;
 
 /** When used marks an object as something that could be created from scratch
- * Stored by GameState in a List<NewObjects> newObjects, 
+ * Stored by GameState in a List of newObjects,
  *
  * @author brenn
  */

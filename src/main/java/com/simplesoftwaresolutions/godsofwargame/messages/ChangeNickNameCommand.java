@@ -5,6 +5,8 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import org.springframework.web.socket.WebSocketSession;
@@ -16,12 +18,17 @@ import org.springframework.web.socket.WebSocketSession;
 public class ChangeNickNameCommand implements Command{
 
     String newNickName;
-    
+    @JsonCreator
+    public ChangeNickNameCommand(@JsonProperty("newNickName") String name){
+        this.newNickName = name;
+    }
     @Override
     public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
         if(gameState.loadState != LoadState.PREGAME){
             return;
         } else {
+            if(newNickName == null)
+                throw new NullExpectedField();
             gameState.changeNickName(session, newNickName);
             gameState.getChangedObjects().add(
                     gameState.getPlayerData().get(

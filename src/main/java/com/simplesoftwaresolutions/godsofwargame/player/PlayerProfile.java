@@ -9,10 +9,8 @@ import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.game.Createable;
 import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import org.springframework.web.socket.WebSocketSession;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** A class that represents the entirety of a player at once, 
@@ -20,22 +18,17 @@ import java.util.List;
  * @author brenn
  */
 public class PlayerProfile implements Destroyable, Createable, Changeable{
-    private List<AbstractUnitObject> units;
+
     private PlayerValues playerValues;
-    private StringBuilder names;
 
-    public PlayerProfile(){}
+    private UserIdentity uid;
+    private List<Team> joinedTeams;
+
+
     public PlayerProfile( GameState gameState, StringBuilder id, WebSocketSession session){
-        units = new ArrayList<>();
+        uid = new UserIdentity(gameState, session, id);
         playerValues = new PlayerValues(gameState, session);
-        names = id;
-    }
-    public List<AbstractUnitObject> getUnits() {
-        return units;
-    }
 
-    public void setUnits(List<AbstractUnitObject> units) {
-        this.units = units;
     }
 
     public PlayerValues getPlayerValues() {
@@ -46,13 +39,16 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
         this.playerValues = playerValues;
     }
 
-    public StringBuilder getNames() {
-        return names;
+
+    public List<Team> getJoinedTeams() {
+        return joinedTeams;
     }
 
-    public void setNames(StringBuilder names) {
-        this.names = names;
+    public void setJoinedTeams(List<Team> joinedTeams) {
+        this.joinedTeams = joinedTeams;
     }
+
+
 
     @Override
     public void addToDestroyingQueue(GameState gameState) {
@@ -69,6 +65,10 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
     public void addToChangeableQueue(GameState gameState) {
         gameState.getChangedObjects().add(this);
     }
-    
-    
+
+
+    public UserIdentity getUid() {
+        return uid;
+    }
+
 }

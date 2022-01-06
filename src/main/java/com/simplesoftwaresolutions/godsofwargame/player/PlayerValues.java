@@ -2,11 +2,12 @@ package com.simplesoftwaresolutions.godsofwargame.player;
 
 
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
-import java.util.List;
 import org.springframework.web.socket.WebSocketSession;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,19 +20,23 @@ import org.springframework.web.socket.WebSocketSession;
  * @author brenn
  */
 
-public class PlayerValues implements Changeable,Destroyable {
+public class PlayerValues implements Changeable {
     
     private int points;
     private int currency;
-    
+
+    private List<AbstractUnitObject> units;
+
+
+
     //Players have a many to many relationship with teams
     private List<Team> affiliatedTeams;
-    
-    private UserIdentity uid;
-    
+
+
+
     public PlayerValues( GameState gameState, WebSocketSession newPlayer){
-        
-        uid = new UserIdentity(gameState, newPlayer);
+        units = new ArrayList<>();
+
         this.points = 0;
         this.currency = 25000;
         
@@ -60,7 +65,14 @@ public class PlayerValues implements Changeable,Destroyable {
         
         
     }
-    
+    public List<AbstractUnitObject> getUnits() {
+        return units;
+    }
+
+
+    public void setUnits(List<AbstractUnitObject> units) {
+        this.units = units;
+    }
     public List<Team> getAffiliatedTeams() {
         return affiliatedTeams;
     }
@@ -75,10 +87,7 @@ public class PlayerValues implements Changeable,Destroyable {
         
     }
 
-    @Override
-    public void addToDestroyingQueue(GameState gameState) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     
     

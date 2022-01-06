@@ -11,6 +11,6 @@ package com.simplesoftwaresolutions.godsofwargame.game;
  */
 public enum LoadState {
     PREGAME,
-    FULLYLOADED
+    FULLY_LOADED
     
 }

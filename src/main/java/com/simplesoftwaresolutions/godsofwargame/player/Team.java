@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface Team {
     //Teams have a many to many relationship with PlayerData
-    public List<PlayerValues> getPlayersOnTeam();
+    public List<PlayerProfile> getPlayersOnTeam();
 }

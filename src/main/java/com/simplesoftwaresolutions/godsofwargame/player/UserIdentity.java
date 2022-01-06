@@ -18,9 +18,9 @@ public class UserIdentity {
     
     private String id;
 
-    public UserIdentity(GameState gameState, WebSocketSession newUser) {
+    public UserIdentity(GameState gameState, WebSocketSession newUser, StringBuilder nickName) {
         this.id = newUser.getId();
-        this.nickname = gameState.getNickNames().get(newUser.getId());
+        this.nickname = nickName;
     }
 
     
@@ -44,10 +44,6 @@ public class UserIdentity {
 
     public StringBuilder getNickname() {
         return nickname;
-    }
-
-    public void setNickname(StringBuilder nickname) {
-        this.nickname = nickname;
     }
 
     
