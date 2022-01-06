@@ -24,6 +24,7 @@ public abstract class AbstractTurretPlatform {
     
     
     abstract public void attack();
+    abstract public boolean isBuilt();
 
     
     

@@ -5,7 +5,6 @@
  */
 package com.simplesoftwaresolutions.godsofwargame;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.messages.ChangeModel;
@@ -13,8 +12,7 @@ import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -44,7 +42,11 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         
         
         //Execute command
-        requestedAction.execute(gameState, session);
+        try {
+            requestedAction.execute(gameState, session);
+        } catch (com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField nullExpectedField) {
+            nullExpectedField.printStackTrace();
+        }
         //prep models for sending
         
         if(!gameState.getChangedObjects().isEmpty() 

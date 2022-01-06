@@ -25,7 +25,7 @@ public class MoveUnitCommand implements Command{
     
     
     @Override
-    public void execute(GameState gameState, WebSocketSession session) {
+    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
         
     }
     

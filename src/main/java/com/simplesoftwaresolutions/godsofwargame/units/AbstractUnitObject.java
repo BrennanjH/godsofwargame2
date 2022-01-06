@@ -5,17 +5,10 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.game.Createable;
-import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
-import com.simplesoftwaresolutions.godsofwargame.game.SimpleTransform;
+import com.simplesoftwaresolutions.godsofwargame.game.*;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
 /**
@@ -29,7 +22,9 @@ import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 public abstract class AbstractUnitObject implements Changeable, Destroyable, Createable{
     
 //    ***CONSTRUCTORS********************************************************************************************************************************
-    
+    public AbstractUnitObject(){
+
+    }
     public AbstractUnitObject(AbstractMovementPlatform movementPlatform,
             AbstractTurretPlatform turretPlatform,
             InstanceId meta,
@@ -41,7 +36,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     }
     
     
-//    ***DECLARTION OF FIELDS********************************************************************************************************************************
+//    ***DECLARATION OF FIELDS********************************************************************************************************************************
 
     //The following Fields are to be serialized when sending this object to clients ***************
     protected String className;// = "com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject";
@@ -72,7 +67,9 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 
     //Units need to "die" in some sense but how they die is up to the unit's direct choice
     abstract public void removeSelf();
-    
+
+    abstract public boolean isBuilt();
+
     //Units might have special properties in how they are created, Those are expressed by it's create Self
     //As Units are created by reflection from a frontend client a constructor is not a good place for this code.
     public void createSelf(PlayerProfile owner){

@@ -29,18 +29,18 @@ public class CreateUnitCommand implements Command{
     }
     
     @Override
-    public void execute(GameState gameState, WebSocketSession session) {
+    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
         System.out.println("Beginning command execution: " + testValue());
+
+        if( !unit.isBuilt() ){
+            System.out.println("^Command CreateUnit Failed To Create Unit^");
+            throw new NullExpectedField();
+        }
+
         StringBuilder commandMaker = gameState.getNickNames().get(session.getId());
-        System.out.println("CreateUnitCommand: execute(): Checking null state of field commandMaker; " + (commandMaker == null));
-        System.out.println("CreateUnitCommand: execute(): Checking state of field commandMaker; " + commandMaker);
-        
-        //System.out.println("CreateUnitCommand: execute(): Checking state of field className; " + className);
-        
-        System.out.println("CreateUnitCommand: execute(): Checking null state of field unit; " + (unit == null));
-        System.out.println("CreateUnitCommand: execute(): Checking state of field unit; " + unit);
         //Make sure the Command Issuer is the same person as the units Owner
         if(commandMaker.compareTo(unit.getMeta().getOwnerNickName()) == 0){
+            System.out.println("CreateUnitCommand: Execute(): conditional passed");
             //Set the Unit's string builder to the sessions
             unit.getMeta().setOwnerNickName(commandMaker);
             
@@ -50,7 +50,6 @@ public class CreateUnitCommand implements Command{
             //Allow the Unit to handle it's own creation
             unit.createSelf(gameState.getPlayerData().get(commandMaker));
         }
-
     }
 
     @Override

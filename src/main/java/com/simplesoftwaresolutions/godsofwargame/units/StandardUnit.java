@@ -26,14 +26,26 @@ public class StandardUnit extends AbstractUnitObject {
         
         super( movementPlatform, turretPlatform, meta, transform);
     }
-    
+    public StandardUnit(){
+
+    }
     @Override
     public void removeSelf() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
+    @Override
+    public boolean isBuilt() {
+        boolean nullCheck = (movementPlatform != null)
+                && (turretPlatform != null)
+                && (meta != null)
+                && (transform != null);
+        if(nullCheck) {
+            return nullCheck && movementPlatform.isBuilt() && turretPlatform.isBuilt();
+        } else {
+            return false;
+        }
+    }
 
-    
-    
+
 }

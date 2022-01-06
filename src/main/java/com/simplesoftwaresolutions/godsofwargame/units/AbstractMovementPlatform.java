@@ -22,6 +22,8 @@ public abstract class AbstractMovementPlatform {
     
     abstract void move();
 
+    abstract public boolean isBuilt();
+
     public float getSpeed() {
         return speed;
     }
