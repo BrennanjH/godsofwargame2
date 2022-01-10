@@ -49,7 +49,6 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
     }
 
 
-
     @Override
     public void addToDestroyingQueue(GameState gameState) {
         gameState.addDestroyableToQueue(this);

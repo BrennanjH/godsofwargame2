@@ -29,8 +29,6 @@ public class PlayerValues implements Changeable {
 
 
 
-    //Players have a many to many relationship with teams
-    private List<Team> affiliatedTeams;
 
 
 
@@ -73,14 +71,7 @@ public class PlayerValues implements Changeable {
     public void setUnits(List<AbstractUnitObject> units) {
         this.units = units;
     }
-    public List<Team> getAffiliatedTeams() {
-        return affiliatedTeams;
-    }
 
-    public void setAffiliatedTeams(List<Team> affiliatedTeams) {
-        
-        this.affiliatedTeams = affiliatedTeams;
-    }
 
     @Override
     public void addToChangeableQueue(GameState gameState) {
