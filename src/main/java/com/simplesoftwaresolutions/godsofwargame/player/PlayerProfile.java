@@ -11,6 +11,7 @@ import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import org.springframework.web.socket.WebSocketSession;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** A class that represents the entirety of a player at once, 
@@ -28,7 +29,7 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
     public PlayerProfile( GameState gameState, StringBuilder id, WebSocketSession session){
         uid = new UserIdentity(gameState, session, id);
         playerValues = new PlayerValues(gameState, session);
-
+        joinedTeams = new ArrayList<>();
     }
 
     public PlayerValues getPlayerValues() {
@@ -70,4 +71,25 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
         return uid;
     }
 
+
+    /** A method to remove a Coalition from A player Profile
+     * @param coalition The coalition that is being removed
+     * @param profile the profile that the coalition is being removed from
+     */
+    public static void removeCoalitionFromProfile(Coalition coalition, PlayerProfile profile){
+        profile.getJoinedTeams().remove(coalition);
+    }
+
+    /** gets list of
+     * @return Returns a List of all PlayerProfiles Currently joined Coalitions
+     */
+    public List<Coalition> getProfileCoalitions(){
+        List<Coalition> oldTeams = new ArrayList<>();
+        for( Team T : this.getJoinedTeams() ) {
+            if( T.getType() == Coalition.class){
+                oldTeams.add((Coalition) T);
+            }
+        }
+        return oldTeams;
+    }
 }

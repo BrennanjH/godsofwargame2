@@ -26,7 +26,7 @@ public class GameState{
     
     //Session nickName to PlayerProfile
     private HashMap<StringBuilder, PlayerProfile> playerData;
-    
+
     //As objects interact with the server they will be placed in one of the following for serialization
     private transient List<Changeable> changedObjects;
     private transient List<Destroyable> destroyed;
@@ -41,8 +41,7 @@ public class GameState{
         
         playerData = new HashMap<>();
         nickNames = new HashMap<>();
-        //players = new HashMap<>();
-        
+
         //Create Queues
         changedObjects = new ArrayList<>();
         destroyed = new ArrayList<>();

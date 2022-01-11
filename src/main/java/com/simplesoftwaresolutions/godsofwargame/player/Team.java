@@ -5,6 +5,7 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.player;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -14,4 +15,6 @@ import java.util.List;
 public interface Team {
     //Teams have a many to many relationship with PlayerData
     public List<PlayerProfile> getPlayersOnTeam();
+    public String getTeamName();
+    public Type getType();
 }
