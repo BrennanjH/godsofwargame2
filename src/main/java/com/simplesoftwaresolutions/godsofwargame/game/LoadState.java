@@ -10,7 +10,8 @@ package com.simplesoftwaresolutions.godsofwargame.game;
  * @author brenn
  */
 public enum LoadState {
-    PREGAME,
+    LOBBY,
+    PRE_GAME,
     FULLY_LOADED
     
 }
