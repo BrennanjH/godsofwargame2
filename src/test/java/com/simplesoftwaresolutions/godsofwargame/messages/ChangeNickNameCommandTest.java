@@ -24,7 +24,7 @@ class ChangeNickNameCommandTest {
         when(session.getId()).thenReturn("WSID");
         gameState.addPlayer(session);
 
-        gameState.loadState = LoadState.PREGAME; //Make sure loadState is PreGame
+        gameState.loadState = LoadState.LOBBY; //Make sure loadState is PreGame
     }
     @Test
     void executeFullyLoaded(){
@@ -46,7 +46,7 @@ class ChangeNickNameCommandTest {
     void execute() {
         //Init Env
         Command command = new ChangeNickNameCommand("NewNickName");
-        gameState.loadState = LoadState.PREGAME;
+        gameState.loadState = LoadState.LOBBY;
         //Action
         try {
             command.execute(gameState, session);
@@ -60,7 +60,7 @@ class ChangeNickNameCommandTest {
     void executeExceptions(){
         //Init Env
         Command command = new ChangeNickNameCommand(null);
-        gameState.loadState = LoadState.PREGAME;
+        gameState.loadState = LoadState.LOBBY;
 
         //Test Exception
         Assertions.assertThrows(NullExpectedField.class , () -> { command.execute(gameState, session);});

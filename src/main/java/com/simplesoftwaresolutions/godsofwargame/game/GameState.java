@@ -48,7 +48,7 @@ public class GameState{
         newObjects = new ArrayList<>();
         
         //Set loadState
-        loadState = LoadState.PREGAME;
+        loadState = LoadState.LOBBY;
     }
     
     /** Adds a new player to the gamestate and sets up their references

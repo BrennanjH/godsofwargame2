@@ -34,7 +34,7 @@ public class ChangeCoalitionCommand implements Command {
         if(switchTo == null) {
             throw new NullExpectedField();
         }
-        if( gameState.loadState == LoadState.PREGAME) {
+        if( gameState.loadState == LoadState.LOBBY) {
             //Get PlayerProfile of request sender
             PlayerProfile requestSenderProfile = gameState.getPlayerData()
                     .get(gameState.getNickName(session));

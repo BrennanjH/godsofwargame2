@@ -26,7 +26,7 @@ public class ChangeNickNameCommand implements Command {
     }
     @Override
     public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
-        if(gameState.loadState != LoadState.PREGAME){
+        if(gameState.loadState != LoadState.LOBBY){
             return;
         } else {
             if(newNickName == null)
