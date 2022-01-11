@@ -2,6 +2,7 @@ package com.simplesoftwaresolutions.godsofwargame.messages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
+import com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages.ChangeNickNameCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

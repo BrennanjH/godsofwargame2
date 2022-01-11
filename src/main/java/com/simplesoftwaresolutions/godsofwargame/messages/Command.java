@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages.ChangeNickNameCommand;
 import org.springframework.web.socket.WebSocketSession;
 
 /**

@@ -1,10 +1,12 @@
-package com.simplesoftwaresolutions.godsofwargame.messages;
+package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
+import com.simplesoftwaresolutions.godsofwargame.messages.Command;
+import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.Coalition;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import com.simplesoftwaresolutions.godsofwargame.player.Team;
@@ -17,7 +19,7 @@ import java.util.List;
  *
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
-public class ChangeCoalitionCommand implements Command{
+public class ChangeCoalitionCommand implements Command {
 
     //The name of the team that session is switching too
     String switchTo;
