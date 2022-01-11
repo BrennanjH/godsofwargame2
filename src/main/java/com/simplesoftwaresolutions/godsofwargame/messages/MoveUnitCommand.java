@@ -34,12 +34,5 @@ public class MoveUnitCommand implements Command{
         return gameState != null && movingUnit != null;
     }
 
-    @Override
-    public String testValue() {
-        return "Command: [MoveUnitCommand]";
-    }
 
-    
-    
-    
 }

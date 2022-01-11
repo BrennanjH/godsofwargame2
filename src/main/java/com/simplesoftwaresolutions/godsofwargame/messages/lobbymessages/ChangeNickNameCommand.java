@@ -44,11 +44,5 @@ public class ChangeNickNameCommand implements Command {
         return newNickName != null;
     }
 
-    @Override
-    public String testValue() {
-        return "Command: [ChangeNickNameCommand]";
-    }
 
-    
-    
 }

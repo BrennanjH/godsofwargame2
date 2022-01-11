@@ -30,7 +30,6 @@ public class CreateUnitCommand implements Command{
     
     @Override
     public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
-        System.out.println("Beginning command execution: " + testValue());
 
         if( !unit.isBuilt() ){
             System.out.println("^Command CreateUnit Failed To Create Unit^");
@@ -57,12 +56,6 @@ public class CreateUnitCommand implements Command{
         return (unit != null);
     }
 
-    @Override
-    public String testValue() {
-        return "Command: [CreateUnitCommand]";
-    }
-
-    
     public AbstractUnitObject getUnit() {
         return unit;
     }

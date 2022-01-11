@@ -70,11 +70,6 @@ public class ChangeCoalitionCommand implements Command {
         return false;
     }
 
-    @Override
-    public String testValue() {
-        return null;
-    }
-
     /*Loops through all player profiles in passed gameState and then loops through each profiles personal list of known
     * teams and after searching all teams in each profile returns a list of each team that shares the switchTo name*/
     private List<Team> loopThroughTeams(GameState gameState, String teamName){

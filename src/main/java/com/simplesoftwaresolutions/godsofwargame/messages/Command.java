@@ -28,8 +28,5 @@ public interface Command {
     
     //returns true if a command has been fully prepped and can be expected to run without error
     public boolean isBuilt();
-    
-    //A debugging method that can be used to easily log the type of command
-    public String testValue();
-    
+
 }
