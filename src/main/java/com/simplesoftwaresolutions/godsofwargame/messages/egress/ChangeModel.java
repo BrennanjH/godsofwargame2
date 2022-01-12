@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.messages;
+package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.game.Createable;
 import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import com.simplesoftwaresolutions.godsofwargame.messages.AbstractReturnModel;
+import org.hibernate.cfg.NotYetImplementedException;
+
 import java.util.List;
 
 /** An object that holds onto the objects that have changed since the last message sent
@@ -16,7 +19,7 @@ import java.util.List;
  *
  * @author brenn
  */
-public class ChangeModel extends AbstractReturnModel{
+public class ChangeModel extends AbstractReturnModel implements EgressCommands{
 
     private List<Changeable> update;
     private List<Destroyable> remove;
@@ -39,6 +42,10 @@ public class ChangeModel extends AbstractReturnModel{
         gameState.getDestroyed().clear();
         gameState.getNewObjects().clear();
     }
-    
-    
+
+
+    @Override
+    public void sendToPlayers(GameState gameState) {
+        throw new NotYetImplementedException();
+    }
 }

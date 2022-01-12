@@ -30,7 +30,8 @@ public class GameState{
     private transient List<Destroyable> destroyed;
     private transient List<Createable> newObjects;
 
-    Timer timer;
+    private Timer timer;
+    //A not well protected list, Most alterations need a bit of logic
     List<TimerTask> tasks;
 
     private Map map;
@@ -170,13 +171,13 @@ public class GameState{
         return playerData.get(nickNames.get(session.getId()));
     }
 
-    public Timer getTimer() {
-        return timer;
+    public void schedule( TimerTask task, long time){
+        timer.schedule(task, time);
+
+        //Register task with gameState
+        tasks.add(task);
     }
 
-    public void setTimer(Timer timer) {
-        this.timer = timer;
-    }
 
     public List<TimerTask> getTasks() {
         return tasks;

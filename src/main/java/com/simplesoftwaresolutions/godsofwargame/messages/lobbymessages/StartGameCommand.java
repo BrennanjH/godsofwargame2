@@ -40,6 +40,7 @@ public class StartGameCommand implements Command {
             boolean allPlayersReady = true;
             for (StringBuilder b:
                  gameState.getPlayerData().keySet()) {
+
                 if ( !( gameState.getPlayerData().get(b).getPlayerValues().isReadyState() ) ) {
                     allPlayersReady = false;
                     break;
@@ -53,11 +54,9 @@ public class StartGameCommand implements Command {
                 //If Not, Start a 10-second countdown Timer
                 TimerTask task = new TaskStart(gameState);
 
-                gameState.getTimer().schedule(task, 10000);
+                gameState.schedule(task, 10000);
             }
 
-
-            //Once started all player roles should be switch to GAME_MEMBER (this might be placed into a helper class)
         }
 
     }

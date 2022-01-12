@@ -30,21 +30,22 @@ public class CancelStartCommand implements Command {
                 //Verify Command Sender is lobby Host
                 && gameState.getPlayerFromSession(session).serverRole == ServerRole.LOBBY_HOST){
             int indexOf = -1;
+            //Check if timer has a startgame task going
             for ( TimerTask t : gameState.getTasks()){
+                //If a taskStart is found cancel it and save it's index for removal
                 if(t.getClass() == TaskStart.class) {
                     t.cancel();
                     indexOf = gameState.getTasks().indexOf(t);
                     break;
                 }
             }
+            //remove task from task list
             if(indexOf != -1) {
                 gameState.getTasks().remove(indexOf);
             }
 
         }
 
-
-        //Cancel Timer
     }
 
     @Override

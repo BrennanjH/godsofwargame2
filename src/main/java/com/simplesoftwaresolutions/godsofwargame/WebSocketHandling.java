@@ -8,7 +8,7 @@ package com.simplesoftwaresolutions.godsofwargame;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
-import com.simplesoftwaresolutions.godsofwargame.messages.ChangeModel;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.ChangeModel;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.springframework.web.socket.CloseStatus;

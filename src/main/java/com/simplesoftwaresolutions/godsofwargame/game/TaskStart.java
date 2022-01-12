@@ -10,6 +10,9 @@ public class TaskStart extends TimerTask {
     }
     @Override
     public void run() {
+
         handler.SwitchToPreGame(gameState);
+        //remove self from gameState task list
+        gameState.getTasks().remove(this);
     }
 }
