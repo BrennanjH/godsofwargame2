@@ -21,8 +21,9 @@ import java.util.List;
 public class PlayerProfile implements Destroyable, Createable, Changeable{
 
     private PlayerValues playerValues;
-
+    public ServerRole serverRole;
     private UserIdentity uid;
+
     private List<Team> joinedTeams;
 
 
@@ -30,6 +31,7 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
         uid = new UserIdentity(gameState, session, id);
         playerValues = new PlayerValues(gameState, session);
         joinedTeams = new ArrayList<>();
+        serverRole = ServerRole.LOBBY_MEMBER;
     }
 
     public PlayerValues getPlayerValues() {

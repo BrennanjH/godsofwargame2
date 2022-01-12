@@ -32,9 +32,10 @@ public class ChangeNickNameCommand implements Command {
             if(newNickName == null)
                 throw new NullExpectedField();
             gameState.changeNickName(session, newNickName);
-            gameState.getChangedObjects().add(
-                    gameState.getPlayerData().get(
-                            gameState.getNickNames().get(session.getId())));
+            gameState.getChangedObjects()
+                    .add(gameState.getPlayerData()
+                            .get(gameState.getNickNames()
+                                    .get(session.getId())));
         }
         
     }

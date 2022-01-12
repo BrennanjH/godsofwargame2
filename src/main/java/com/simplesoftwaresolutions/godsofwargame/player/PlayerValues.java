@@ -27,14 +27,14 @@ public class PlayerValues implements Changeable {
 
     private List<AbstractUnitObject> units;
 
-
+    public boolean readyState;
 
 
 
 
     public PlayerValues( GameState gameState, WebSocketSession newPlayer){
         units = new ArrayList<>();
-
+        readyState = false;
         this.points = 0;
         this.currency = 25000;
         
@@ -78,8 +78,11 @@ public class PlayerValues implements Changeable {
         
     }
 
+    public boolean isReadyState() {
+        return readyState;
+    }
 
-
-    
-    
+    public void setReadyState(boolean readyState) {
+        this.readyState = readyState;
+    }
 }

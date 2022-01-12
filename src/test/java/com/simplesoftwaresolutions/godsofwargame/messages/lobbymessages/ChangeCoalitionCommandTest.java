@@ -1,8 +1,8 @@
-package com.simplesoftwaresolutions.godsofwargame.messages;
+package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
-import com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages.ChangeCoalitionCommand;
+import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.Coalition;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import org.junit.jupiter.api.Assertions;

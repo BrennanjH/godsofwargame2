@@ -1,0 +1,55 @@
+package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
+import com.simplesoftwaresolutions.godsofwargame.game.TaskStart;
+import com.simplesoftwaresolutions.godsofwargame.messages.Command;
+import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
+import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
+import org.springframework.web.socket.WebSocketSession;
+
+import java.util.TimerTask;
+
+/**
+ * A command sent by the games lobby host, No internal fields exist because this command assumes that countdown is stopping
+ * cancels the first instance of a
+ *
+ */
+public class CancelStartCommand implements Command {
+
+    @JsonCreator
+    public CancelStartCommand(){
+
+    }
+
+    @Override
+    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
+        //Verify loadState is LOBBY
+        if(gameState.loadState == LoadState.LOBBY
+                //Verify Command Sender is lobby Host
+                && gameState.getPlayerFromSession(session).serverRole == ServerRole.LOBBY_HOST){
+            int indexOf = -1;
+            for ( TimerTask t : gameState.getTasks()){
+                if(t.getClass() == TaskStart.class) {
+                    t.cancel();
+                    indexOf = gameState.getTasks().indexOf(t);
+                    break;
+                }
+            }
+            if(indexOf != -1) {
+                gameState.getTasks().remove(indexOf);
+            }
+
+        }
+
+
+        //Cancel Timer
+    }
+
+    @Override
+    public boolean isBuilt() {
+        return false;
+    }
+
+}

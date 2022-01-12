@@ -10,7 +10,19 @@ package com.simplesoftwaresolutions.godsofwargame.game;
  * @author brenn
  */
 public class Map implements Changeable{ //May not need to be Changeable
-    
+    String mapName;
+
+    public Map(){
+        mapName = "Brennan's folly";
+    }
+    public String getMapName() {
+        return mapName;
+    }
+
+    public void setMapName(String mapName) {
+        this.mapName = mapName;
+    }
+
     @Override
     public void addToChangeableQueue(GameState gameState) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

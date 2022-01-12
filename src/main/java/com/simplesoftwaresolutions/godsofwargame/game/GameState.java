@@ -9,9 +9,7 @@ import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /** The class represents the current game as an unbiased third party 
  * (players, units, Map, Teams)
@@ -31,7 +29,10 @@ public class GameState{
     private transient List<Changeable> changedObjects;
     private transient List<Destroyable> destroyed;
     private transient List<Createable> newObjects;
-    
+
+    Timer timer;
+    List<TimerTask> tasks;
+
     private Map map;
     
     public LoadState loadState;
@@ -46,7 +47,10 @@ public class GameState{
         changedObjects = new ArrayList<>();
         destroyed = new ArrayList<>();
         newObjects = new ArrayList<>();
-        
+
+        map = new Map();
+        timer = new Timer();
+        tasks = new ArrayList<>();
         //Set loadState
         loadState = LoadState.LOBBY;
     }
@@ -160,5 +164,25 @@ public class GameState{
 
     public StringBuilder getNickName(WebSocketSession session){
         return nickNames.get(session.getId());
+    }
+
+    public PlayerProfile getPlayerFromSession(WebSocketSession session){
+        return playerData.get(nickNames.get(session.getId()));
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
+
+    public List<TimerTask> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TimerTask> tasks) {
+        this.tasks = tasks;
     }
 }

@@ -1,8 +1,9 @@
-package com.simplesoftwaresolutions.godsofwargame.messages;
+package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
-import com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages.ChangeNickNameCommand;
+import com.simplesoftwaresolutions.godsofwargame.messages.Command;
+import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
