@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.messages;
+package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
@@ -18,9 +18,7 @@ public abstract class AbstractReturnModel {
     protected String className;
     
     protected transient GameState gameState;
-    
-    
-    
+
     public String getClassName() {
         return className;
     }
@@ -28,6 +26,5 @@ public abstract class AbstractReturnModel {
     public void setClassName(String className) {
         this.className = className;
     }
-    
-    
+
 }

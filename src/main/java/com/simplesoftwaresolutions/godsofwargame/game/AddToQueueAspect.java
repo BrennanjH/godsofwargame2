@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class AddToQueueAspect {
-    @After("")
+    @After("execution(public void add*())")
     public void afterChangeableAction(){
 
     }

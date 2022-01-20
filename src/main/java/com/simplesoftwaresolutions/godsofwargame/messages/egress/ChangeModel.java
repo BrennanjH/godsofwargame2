@@ -9,8 +9,6 @@ import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.game.Createable;
 import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-import com.simplesoftwaresolutions.godsofwargame.messages.AbstractReturnModel;
-import org.hibernate.cfg.NotYetImplementedException;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ import java.util.List;
  *
  * @author brenn
  */
-public class ChangeModel extends AbstractReturnModel implements EgressCommands{
+public class ChangeModel extends AbstractReturnModel {
 
     private List<Changeable> update;
     private List<Destroyable> remove;
@@ -44,8 +42,5 @@ public class ChangeModel extends AbstractReturnModel implements EgressCommands{
     }
 
 
-    @Override
-    public void sendToPlayers(GameState gameState) {
-        throw new NotYetImplementedException();
-    }
+
 }
