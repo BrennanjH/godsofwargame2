@@ -14,9 +14,14 @@
 	<name>godsofwargame2</name>
 	<description>Gods of wargame remade with spring boot, spring, and hibernate.</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.github.theminecoder</groupId>
+			<artifactId>agones-java-sdk</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -76,6 +81,14 @@
 </dependency>
                         -->
 	</dependencies>
+
+	<repositories>
+		<!-- The repo the java sdk for agones is sourced from -->
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>

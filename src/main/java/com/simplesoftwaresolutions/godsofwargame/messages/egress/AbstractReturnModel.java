@@ -27,4 +27,10 @@ public abstract class AbstractReturnModel {
         this.className = className;
     }
 
+    /**
+     * The object sends itself to user
+     */
+    public void sendData() {
+
+    }
 }

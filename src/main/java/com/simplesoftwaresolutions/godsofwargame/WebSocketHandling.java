@@ -8,8 +8,8 @@ package com.simplesoftwaresolutions.godsofwargame;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.ChangeModel;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.ChangeModel;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -26,8 +26,13 @@ import java.util.List;
  */
 
 public class WebSocketHandling extends AbstractWebSocketHandler  { //More overrides may be needed and can be found in extended class
-    
-    
+
+
+    public WebSocketHandling(GameState gameState){
+        this.gameState = gameState;
+    }
+
+
     private static GameState gameState;
     //List of all currently working clients connected to server
     static List<WebSocketSession> users;
@@ -117,9 +122,12 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
      * Initiates the fields present in WebSocketHandling that have not yet initialized
      */
     private void init(){
+        /*
         if(gameState == null){
             gameState = new GameState();
         }
+
+         */
         if(users == null){
             users = new ArrayList<>();
         }

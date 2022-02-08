@@ -6,6 +6,7 @@
 package com.simplesoftwaresolutions.godsofwargame.game;
 
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -17,6 +18,7 @@ import java.util.*;
  * @author brenn
  */
 @Component
+@Scope("singleton")
 public class GameState{
     
     //Link of Session Id To NickName
@@ -186,4 +188,5 @@ public class GameState{
     public void setTasks(List<TimerTask> tasks) {
         this.tasks = tasks;
     }
+
 }
