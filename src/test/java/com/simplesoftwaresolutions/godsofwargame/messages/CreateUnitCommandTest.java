@@ -2,6 +2,7 @@ package com.simplesoftwaresolutions.godsofwargame.messages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
+import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import com.simplesoftwaresolutions.godsofwargame.units.AntiAirGunTurretPlatform;
 import com.simplesoftwaresolutions.godsofwargame.units.LightTrackMovementPlatform;
@@ -28,9 +29,10 @@ class CreateUnitCommandTest {
     @Test
     void execute() {
         //Init Env
-        AbstractUnitObject unit = new StandardUnit(new LightTrackMovementPlatform()
-                ,new AntiAirGunTurretPlatform()
-                ,new InstanceId());
+        AbstractUnitObject unit = new StandardUnit( new LightTrackMovementPlatform(),
+                                                    new AntiAirGunTurretPlatform(),
+                                                    new InstanceId(),
+                                                    new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);
 
 
@@ -49,9 +51,10 @@ class CreateUnitCommandTest {
     @Test
     void executeRealUser() {
         //Init Env
-        AbstractUnitObject unit = new StandardUnit(new LightTrackMovementPlatform()
-                ,new AntiAirGunTurretPlatform()
-                ,new InstanceId());
+        AbstractUnitObject unit = new StandardUnit( new LightTrackMovementPlatform(),
+                new AntiAirGunTurretPlatform(),
+                new InstanceId(),
+                new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);
 
 

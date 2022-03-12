@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.*;
+import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
 /**
@@ -26,11 +27,13 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 
     }
     public AbstractUnitObject(AbstractMovementPlatform movementPlatform,
-            AbstractTurretPlatform turretPlatform,
-            InstanceId meta) {
+                              AbstractTurretPlatform turretPlatform,
+                              InstanceId meta,
+                              FullPositionalCord locationData) {
         this.movementPlatform = movementPlatform;
         this.turretPlatform = turretPlatform;
         this.meta = meta;
+        this.locationData = locationData;
     }
     
     
@@ -42,11 +45,14 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     protected AbstractMovementPlatform movementPlatform;
 
     protected AbstractTurretPlatform turretPlatform;
-    
-    //An object that stores refrence information about the object
+
+    //Stores where a unit exists in the world space
+    protected FullPositionalCord locationData;
+
+    //An object that stores reference information about the object
     public InstanceId meta;
 
-    //End of Serializable fields ******************************************************************
+//End of Serializable fields ******************************************************************
     
     private transient GameState gameState;
 //    ***ABSTRACTION FOR SUBCLASSES********************************************************************************************************************************
