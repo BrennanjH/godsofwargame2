@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED;
+package com.simplesoftwaresolutions.godsofwargame.units;
 
-/** A slow moving but higher health ground platform
+/**
  *
  * @author brenn
  */
+public class HeavyCannonTurretPlatform extends AbstractTurretPlatform{
 
-public class HeavyTrackMovementPlatform extends AbstractMovementPlatform{
-
+    
     @Override
-    void move() {
+    public void attack() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -21,6 +21,5 @@ public class HeavyTrackMovementPlatform extends AbstractMovementPlatform{
     public boolean isBuilt() {
         return true;
     }
-
 
 }

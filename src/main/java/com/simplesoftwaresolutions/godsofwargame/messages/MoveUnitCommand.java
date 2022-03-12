@@ -7,7 +7,7 @@ package com.simplesoftwaresolutions.godsofwargame.messages;
 
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-import com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED.AbstractUnitObject;
+import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import org.springframework.web.socket.WebSocketSession;
 
 /** A unit sent here is given a units transform and it's velocity

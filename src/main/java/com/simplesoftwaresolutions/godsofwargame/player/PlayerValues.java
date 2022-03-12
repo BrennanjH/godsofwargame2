@@ -3,7 +3,7 @@ package com.simplesoftwaresolutions.godsofwargame.player;
 
 import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-import com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED.AbstractUnitObject;
+import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.ArrayList;

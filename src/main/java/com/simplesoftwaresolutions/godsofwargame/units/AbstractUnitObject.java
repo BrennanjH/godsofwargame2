@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED;
+package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;

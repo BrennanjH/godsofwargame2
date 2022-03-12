@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED;
+package com.simplesoftwaresolutions.godsofwargame.units;
 
-/** A class that represents the anti-air guns attack behavior
+/** A slow moving but higher health ground platform
  *
  * @author brenn
  */
-public class AntiAirGunTurretPlatform extends AbstractTurretPlatform {
-    
+
+public class HeavyTrackMovementPlatform extends AbstractMovementPlatform{
+
     @Override
-    public void attack() {
+    void move() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -20,5 +21,6 @@ public class AntiAirGunTurretPlatform extends AbstractTurretPlatform {
     public boolean isBuilt() {
         return true;
     }
+
 
 }
