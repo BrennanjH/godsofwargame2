@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.units;
+package com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -27,12 +27,10 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     }
     public AbstractUnitObject(AbstractMovementPlatform movementPlatform,
             AbstractTurretPlatform turretPlatform,
-            InstanceId meta,
-            SimpleTransform transform) {
+            InstanceId meta) {
         this.movementPlatform = movementPlatform;
         this.turretPlatform = turretPlatform;
         this.meta = meta;
-        this.transform = transform;
     }
     
     
@@ -47,9 +45,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     
     //An object that stores refrence information about the object
     public InstanceId meta;
-    
-    //Subclasses should have direct access to their location, If necessary getters could also be used by subclasses
-    protected SimpleTransform transform;
+
     //End of Serializable fields ******************************************************************
     
     private transient GameState gameState;
@@ -86,13 +82,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     
 //    ***GETTERS AND SETTERS********************************************************************************************************************************
 
-    public SimpleTransform getTransform() {
-        return transform;
-    }
 
-    public void setTransform(SimpleTransform transform) {
-        this.transform = transform;
-    }
 
     public AbstractMovementPlatform getMovementPlatform() {
         return movementPlatform;

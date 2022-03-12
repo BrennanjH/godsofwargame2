@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.units;
+package com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  *
  * @author brenn
  */
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
 public abstract class AbstractMovementPlatform {
     

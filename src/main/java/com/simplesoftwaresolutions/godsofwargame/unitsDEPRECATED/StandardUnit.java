@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.units;
+package com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
-import com.simplesoftwaresolutions.godsofwargame.game.SimpleTransform;
 
 /** A general class that represents most units in the game, 
  * These units require no special consideration in how they are created
@@ -21,10 +20,9 @@ public class StandardUnit extends AbstractUnitObject {
     @JsonCreator
     public StandardUnit(@JsonProperty("movementPlatform")AbstractMovementPlatform movementPlatform,
             @JsonProperty("turretPlatform")AbstractTurretPlatform turretPlatform,
-            @JsonProperty("meta")InstanceId meta,
-            @JsonProperty("transform")SimpleTransform transform){
+            @JsonProperty("meta")InstanceId meta){
         
-        super( movementPlatform, turretPlatform, meta, transform);
+        super( movementPlatform, turretPlatform, meta);
     }
     public StandardUnit(){
 
@@ -38,8 +36,8 @@ public class StandardUnit extends AbstractUnitObject {
     public boolean isBuilt() {
         boolean nullCheck = (movementPlatform != null)
                 && (turretPlatform != null)
-                && (meta != null)
-                && (transform != null);
+                && (meta != null) ;
+                //&& (transform != null);
         if(nullCheck) {
             return nullCheck && movementPlatform.isBuilt() && turretPlatform.isBuilt();
         } else {

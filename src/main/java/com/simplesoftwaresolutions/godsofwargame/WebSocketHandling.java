@@ -29,7 +29,9 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
 
 
     public WebSocketHandling(GameState gameState){
+        System.out.println("WebsocketHandling constructor entered");
         this.gameState = gameState;
+
     }
 
 
@@ -114,7 +116,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         }
         //Add new session to users
         users.add(session);
-        
+        //System.out.println("Agones address " + agones.gameServer().getStatus().getAddress() );
     }
 
 

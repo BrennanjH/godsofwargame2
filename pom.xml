@@ -17,11 +17,19 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+<!--		<dependency>-->
+<!--			<groupId>com.github.theminecoder</groupId>-->
+<!--			<artifactId>agones-java-sdk</artifactId>-->
+<!--			<version>1.0.2</version>-->
+<!--		</dependency>-->
+
 		<dependency>
-			<groupId>com.github.theminecoder</groupId>
-			<artifactId>agones-java-sdk</artifactId>
-			<version>1.0.0</version>
+			<groupId>com.github.Cubxity</groupId>
+			<artifactId>AgonesKt</artifactId>
+			<version>master-05e93fea95-1</version>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -73,7 +81,13 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-        <!--
+
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<!--
 <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-test</artifactId>

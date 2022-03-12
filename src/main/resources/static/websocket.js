@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var wsUri = "ws://localhost:8080/socket" ;//+ document.location.host;// + document.location.pathname + "godsofwargame";//TODO oncreation of new matchmaking lobby change this to be dynamic
+var wsUri = "ws://localhost:8649/socket" ;//+ document.location.host;// + document.location.pathname + "godsofwargame";//TODO oncreation of new matchmaking lobby change this to be dynamic
 var websocket = new WebSocket(wsUri);
 
 sendText("25");

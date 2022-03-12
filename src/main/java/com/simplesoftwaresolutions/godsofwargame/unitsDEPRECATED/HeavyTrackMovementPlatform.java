@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.units;
+package com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED;
 
-/**
+/** A slow moving but higher health ground platform
  *
  * @author brenn
  */
-public class LightTrackMovementPlatform extends AbstractMovementPlatform {
+
+public class HeavyTrackMovementPlatform extends AbstractMovementPlatform{
 
     @Override
     void move() {
@@ -20,5 +21,6 @@ public class LightTrackMovementPlatform extends AbstractMovementPlatform {
     public boolean isBuilt() {
         return true;
     }
+
 
 }

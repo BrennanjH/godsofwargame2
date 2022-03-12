@@ -2,11 +2,10 @@ package com.simplesoftwaresolutions.godsofwargame.messages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
-import com.simplesoftwaresolutions.godsofwargame.game.SimpleTransform;
-import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
-import com.simplesoftwaresolutions.godsofwargame.units.AntiAirGunTurretPlatform;
-import com.simplesoftwaresolutions.godsofwargame.units.LightTrackMovementPlatform;
-import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
+import com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED.AbstractUnitObject;
+import com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED.AntiAirGunTurretPlatform;
+import com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED.LightTrackMovementPlatform;
+import com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED.StandardUnit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -31,8 +30,7 @@ class CreateUnitCommandTest {
         //Init Env
         AbstractUnitObject unit = new StandardUnit(new LightTrackMovementPlatform()
                 ,new AntiAirGunTurretPlatform()
-                ,new InstanceId()
-                ,new SimpleTransform());
+                ,new InstanceId());
         Command command = new CreateUnitCommand(unit);
 
 
@@ -53,8 +51,7 @@ class CreateUnitCommandTest {
         //Init Env
         AbstractUnitObject unit = new StandardUnit(new LightTrackMovementPlatform()
                 ,new AntiAirGunTurretPlatform()
-                ,new InstanceId()
-                ,new SimpleTransform());
+                ,new InstanceId());
         Command command = new CreateUnitCommand(unit);
 
 

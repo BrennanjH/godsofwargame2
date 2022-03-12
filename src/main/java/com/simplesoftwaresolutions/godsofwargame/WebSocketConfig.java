@@ -24,13 +24,16 @@ public class WebSocketConfig implements WebSocketConfigurer  {
 
     GameState gameState;
 
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(new WebSocketHandling( gameState), "/socket").setAllowedOrigins("*");
     }
 
+    //The gamestate needs to be built and shared for users
     @Autowired
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
 }

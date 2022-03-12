@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.units;
+package com.simplesoftwaresolutions.godsofwargame.unitsDEPRECATED;
 
-/** A class that represents the anti-air guns attack behavior
+/**
  *
  * @author brenn
  */
-public class AntiAirGunTurretPlatform extends AbstractTurretPlatform {
+public class HeavyCannonTurretPlatform extends AbstractTurretPlatform{
+
     
     @Override
     public void attack() {
