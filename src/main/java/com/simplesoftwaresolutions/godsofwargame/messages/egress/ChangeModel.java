@@ -5,9 +5,6 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
-import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.game.Createable;
-import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 
 import java.util.List;

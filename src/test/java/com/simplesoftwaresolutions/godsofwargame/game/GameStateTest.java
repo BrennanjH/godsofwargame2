@@ -1,5 +1,8 @@
 package com.simplesoftwaresolutions.godsofwargame.game;
 
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

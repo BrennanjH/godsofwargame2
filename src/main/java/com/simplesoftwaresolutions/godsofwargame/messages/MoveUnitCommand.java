@@ -7,6 +7,7 @@ package com.simplesoftwaresolutions.godsofwargame.messages;
 
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -32,6 +33,11 @@ public class MoveUnitCommand implements Command{
     @Override
     public boolean isBuilt() {
         return gameState != null && movingUnit != null;
+    }
+
+    @Override
+    public LoadState[] expectedLoadStates() {
+        return new LoadState[] {LoadState.FULLY_LOADED} ;
     }
 
 

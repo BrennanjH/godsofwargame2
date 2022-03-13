@@ -98,6 +98,9 @@ public class ChangeCoalitionCommand implements Command {
         return null;
     }
 
-
+    @Override
+    public LoadState[] expectedLoadStates() {
+        return new LoadState[] {LoadState.LOBBY};
+    }
 
 }

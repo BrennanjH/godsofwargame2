@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import org.springframework.web.socket.WebSocketSession;
 import com.simplesoftwaresolutions.godsofwargame.units.*;
 
@@ -54,6 +55,11 @@ public class CreateUnitCommand implements Command{
     @Override
     public boolean isBuilt() {
         return (unit != null);
+    }
+
+    @Override
+    public LoadState[] expectedLoadStates() {
+        return new LoadState[] {LoadState.PRE_GAME, LoadState.FULLY_LOADED};
     }
 
     public AbstractUnitObject getUnit() {

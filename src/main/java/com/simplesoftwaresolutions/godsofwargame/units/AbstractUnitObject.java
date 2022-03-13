@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.*;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
 /**
@@ -20,7 +23,7 @@ import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 @JsonSubTypes({
     @Type(value = StandardUnit.class)
 })
-public abstract class AbstractUnitObject implements Changeable, Destroyable, Createable{
+public abstract class AbstractUnitObject implements Changeable, Destroyable, Createable {
     
 //    ***CONSTRUCTORS********************************************************************************************************************************
     public AbstractUnitObject(){

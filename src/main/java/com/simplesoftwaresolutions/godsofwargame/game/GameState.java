@@ -5,6 +5,9 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.game;
 
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

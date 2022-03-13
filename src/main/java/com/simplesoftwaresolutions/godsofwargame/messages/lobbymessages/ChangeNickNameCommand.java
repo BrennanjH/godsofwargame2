@@ -45,5 +45,9 @@ public class ChangeNickNameCommand implements Command {
         return newNickName != null;
     }
 
+    @Override
+    public LoadState[] expectedLoadStates() {
+        return new LoadState[] {LoadState.LOBBY};
+    }
 
 }

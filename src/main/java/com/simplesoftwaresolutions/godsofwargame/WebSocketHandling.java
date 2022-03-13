@@ -10,7 +10,10 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.ChangeModel;
+import com.simplesoftwaresolutions.godsofwargame.messages.services.CommunicationService;
+import com.simplesoftwaresolutions.godsofwargame.messages.services.MessageService;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -28,18 +31,24 @@ import java.util.List;
 public class WebSocketHandling extends AbstractWebSocketHandler  { //More overrides may be needed and can be found in extended class
 
 
+    @Autowired
     public WebSocketHandling(GameState gameState){
         System.out.println("WebsocketHandling constructor entered");
         this.gameState = gameState;
-
+        messageService = new MessageService(gameState);
     }
 
+    /**
+     * A Communication service that will handle the message built and verify its integrity
+     */
+    private CommunicationService messageService;
 
+    //A wrapper on integral game related objects
     private static GameState gameState;
     //List of all currently working clients connected to server
     static List<WebSocketSession> users;
+    //Json handler
     private ObjectMapper mapper;
-    //An object that wraps important gameState pieces
     
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
@@ -48,14 +57,10 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         //De-Serialize message with Jackson
         Command requestedAction = mapper.readValue(message.getPayload(), Command.class);
 
-        //Execute command
-        try {
-            requestedAction.execute(gameState, session);
-        } catch (com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField nullExpectedField) {
-            nullExpectedField.printStackTrace();
-        }
+        //Execute command inside command service
+        messageService.setCommand(requestedAction);
+
         //prep models for sending
-        
         if(!gameState.getChangedObjects().isEmpty() 
                 || !gameState.getDestroyed().isEmpty()
                 || !gameState.getNewObjects().isEmpty()){

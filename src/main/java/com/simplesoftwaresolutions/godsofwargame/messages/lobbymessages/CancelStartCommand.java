@@ -53,4 +53,9 @@ public class CancelStartCommand implements Command {
         return false;
     }
 
+    @Override
+    public LoadState[] expectedLoadStates() {
+        return new LoadState[] {LoadState.LOBBY};
+    }
+
 }

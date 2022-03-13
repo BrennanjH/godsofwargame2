@@ -5,9 +5,9 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.player;
 
-import com.simplesoftwaresolutions.godsofwargame.game.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.game.Createable;
-import com.simplesoftwaresolutions.godsofwargame.game.Destroyable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import org.springframework.web.socket.WebSocketSession;
 

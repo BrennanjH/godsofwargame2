@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplesoftwaresolutions.godsofwargame.game;
+package com.simplesoftwaresolutions.godsofwargame.messages.egress;
+
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 
 /** Objects that can be removed from the general sphere of gamestate implement this class
  *

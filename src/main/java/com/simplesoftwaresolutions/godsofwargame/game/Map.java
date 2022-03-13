@@ -5,11 +5,13 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.game;
 
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
+
 /** A class that represents the current map the game is using
  *
  * @author brenn
  */
-public class Map implements Changeable{ //May not need to be Changeable
+public class Map implements Changeable { //May not need to be Changeable
     String mapName;
 
     public Map(){
