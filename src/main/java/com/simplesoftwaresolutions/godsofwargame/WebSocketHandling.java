@@ -11,9 +11,9 @@ import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.ChangeModel;
 import com.simplesoftwaresolutions.godsofwargame.messages.services.CommunicationService;
-import com.simplesoftwaresolutions.godsofwargame.messages.services.MessageService;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -27,19 +27,19 @@ import java.util.List;
  *
  * @author brenn
  */
-
+@Component
 public class WebSocketHandling extends AbstractWebSocketHandler  { //More overrides may be needed and can be found in extended class
 
 
     @Autowired
-    public WebSocketHandling(GameState gameState){
+    public WebSocketHandling(GameState gameState, CommunicationService communicationService){
         System.out.println("WebsocketHandling constructor entered");
         this.gameState = gameState;
-        messageService = new MessageService();
+        messageService = communicationService;
     }
 
     /**
-     * A Communication service that will handle the message built and verify its integrity
+     * A Communication service that will handle the commands built and verify their integrity
      */
     private CommunicationService messageService;
 

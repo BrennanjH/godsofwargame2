@@ -46,7 +46,7 @@ public class GameState{
 
     public LoadState loadState;
 
-
+    @Deprecated
     public GameState(){
         
         playerData = new HashMap<>();
@@ -77,7 +77,6 @@ public class GameState{
         destroyed = new ArrayList<>();
         newObjects = new ArrayList<>();
 
-        map = new Map();
         this.boardManager = boardManager; //Spring bean
 
         timer = new Timer();

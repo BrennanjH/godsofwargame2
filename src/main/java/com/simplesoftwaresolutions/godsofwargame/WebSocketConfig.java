@@ -5,7 +5,6 @@
  */
 package com.simplesoftwaresolutions.godsofwargame;
 
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -23,18 +22,15 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer  {
 
-    private GameState gameState;
-
+    private WebSocketHandling ws;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new WebSocketHandling( gameState), "/socket").setAllowedOrigins("*");
+        registry.addHandler( ws , "/socket").setAllowedOrigins("*");
     }
 
-    //The gamestate needs to be built and shared for users
     @Autowired
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
+    public void setWs(WebSocketHandling ws) {
+        this.ws = ws;
     }
-
 }

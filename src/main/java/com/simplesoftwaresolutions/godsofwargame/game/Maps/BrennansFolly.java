@@ -10,8 +10,7 @@ import java.util.List;
 
 public class BrennansFolly implements Map {
 
-    @Override
-    public List<List<Terrain>> generateMap() {
+    public static List<List<Terrain>> generateMap() {
         List<List<Terrain>> terrainBoard = new ArrayList<>();
         for(int i=0;i<10;i++){
             terrainBoard.add(new ArrayList<>());
