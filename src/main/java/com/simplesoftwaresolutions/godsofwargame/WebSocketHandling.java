@@ -35,7 +35,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     public WebSocketHandling(GameState gameState){
         System.out.println("WebsocketHandling constructor entered");
         this.gameState = gameState;
-        messageService = new MessageService(gameState);
+        messageService = new MessageService();
     }
 
     /**
@@ -58,8 +58,8 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         Command requestedAction = mapper.readValue(message.getPayload(), Command.class);
 
         //Execute command inside command service
-        messageService.setCommand(requestedAction);
-
+        //messageService.setCommand(requestedAction);
+        messageService.handleCommand(gameState, session, requestedAction);
         //prep models for sending
         if(!gameState.getChangedObjects().isEmpty() 
                 || !gameState.getDestroyed().isEmpty()

@@ -10,7 +10,6 @@ public interface CommunicationService {
      * @param gameState the game State object currently in use
      * @param session The session of the user who sent the command
      */
-    public boolean handleCommand(GameState gameState, WebSocketSession session);
+    public boolean handleCommand(GameState gameState, WebSocketSession session, Command command);
 
-    public void setCommand(Command command);
 }

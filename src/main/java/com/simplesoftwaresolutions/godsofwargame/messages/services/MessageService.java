@@ -8,18 +8,10 @@ import org.springframework.web.socket.WebSocketSession;
 
 public class MessageService implements CommunicationService{
 
-    private Command command;
-
-    private GameState gameState;
-
-    public MessageService(GameState gameState) {
-        this.gameState = gameState;
-    }
-
     @Override
-    public boolean handleCommand(GameState gameState, WebSocketSession session) {
+    public boolean handleCommand(GameState gameState, WebSocketSession session, Command command) {
         //Verify that command is usable by
-        if( isExpectedLoadStateInArray(command.expectedLoadStates(),this.gameState.loadState) ) {
+        if( isExpectedLoadStateInArray(command.expectedLoadStates(),gameState.loadState) ) {
 
             try {
                 command.execute(gameState,session);
@@ -39,15 +31,6 @@ public class MessageService implements CommunicationService{
                 return true;
         }
         return false;
-    }
-
-    public Command getCommand() {
-        return command;
-    }
-
-    @Override
-    public void setCommand(Command command) {
-        this.command = command;
     }
 
 }
