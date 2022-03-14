@@ -9,6 +9,7 @@ import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
@@ -40,7 +41,9 @@ public class GameState{
     List<TimerTask> tasks;
 
     private Map map;
-    
+
+    BoardManager boardManager;
+
     public LoadState loadState;
 
 
@@ -55,6 +58,28 @@ public class GameState{
         newObjects = new ArrayList<>();
 
         map = new Map();
+        //boardManager = new boardManager();
+
+        timer = new Timer();
+        tasks = new ArrayList<>();
+        //Set loadState
+        loadState = LoadState.LOBBY;
+    }
+
+    @Autowired
+    public GameState(BoardManager boardManager){
+
+        playerData = new HashMap<>();
+        nickNames = new HashMap<>();
+
+        //Create Queues
+        changedObjects = new ArrayList<>();
+        destroyed = new ArrayList<>();
+        newObjects = new ArrayList<>();
+
+        map = new Map();
+        this.boardManager = boardManager; //Spring bean
+
         timer = new Timer();
         tasks = new ArrayList<>();
         //Set loadState

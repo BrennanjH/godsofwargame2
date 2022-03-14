@@ -11,6 +11,7 @@ import org.springframework.web.socket.WebSocketSession;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@Deprecated
 class ChangeMapCommandTest {
 
     @Test

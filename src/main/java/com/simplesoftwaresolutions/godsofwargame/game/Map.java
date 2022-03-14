@@ -11,6 +11,7 @@ import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
  *
  * @author brenn
  */
+@Deprecated
 public class Map implements Changeable { //May not need to be Changeable
     String mapName;
 
