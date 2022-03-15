@@ -1,7 +1,11 @@
 package com.simplesoftwaresolutions.godsofwargame.game;
 
+import com.simplesoftwaresolutions.godsofwargame.Terrain.Terrain;
+import com.simplesoftwaresolutions.godsofwargame.game.Maps.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * A dedicated object that allows the server safely interact with the Board without leaving artifacts behind
@@ -15,4 +19,13 @@ public class BoardManager {
     public BoardManager(Board gameBoard) {
         this.gameBoard = gameBoard;
     }
+
+    public void setMap(Map newMap){
+        gameBoard.setTerrainBoard(newMap.generateMap());
+    }
+
+    public List<List<Terrain>>   getTerrainLists() {
+        return gameBoard.getTerrainBoard();
+    }
+
 }

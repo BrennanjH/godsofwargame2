@@ -1,72 +1,104 @@
 package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
 
+import com.simplesoftwaresolutions.godsofwargame.game.Board;
+import com.simplesoftwaresolutions.godsofwargame.game.BoardManager;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
+import com.simplesoftwaresolutions.godsofwargame.game.Maps.BrennansFolly;
+import com.simplesoftwaresolutions.godsofwargame.game.Maps.Map;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.socket.WebSocketSession;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@Deprecated
 class ChangeMapCommandTest {
+
+    GameState gs;
+    ChangeMapCommand command;
+    WebSocketSession session;
+
+    @BeforeEach
+    void setUp(){
+        //Create gameState object
+        gs = new GameState(new BoardManager(new Board()));
+
+        //Create a map command with a valid map
+        Map map = new BrennansFolly();
+        command = new ChangeMapCommand(map);
+
+        //Add player to gamestate
+        session = mock(WebSocketSession.class);
+        when(session.getId()).thenReturn("WSID");
+        gs.addPlayer(session);
+
+        //Assign player a role
+        gs.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_HOST;
+    }
 
     @Test
     void execute() {
-        ChangeMapCommand command = new ChangeMapCommand("NewMap");
-        WebSocketSession session = mock(WebSocketSession.class);
-        GameState gameState = new GameState();
-        when(session.getId()).thenReturn("TESTID");
+        //env
 
-        gameState.addPlayer(session);
-        gameState.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_HOST;
+        //exec
         try {
-            command.execute(gameState, session);
+            command.execute(gs,session);
         } catch (NullExpectedField e) {
             e.printStackTrace();
         }
-
-        Assertions.assertTrue(gameState.getMap().getMapName().compareTo("NewMap") == 0);
+        //assert
+        Assertions.assertTrue(
+                gs.getBoardManager().getTerrainLists().size() == 10 &&
+                        gs.getBoardManager().getTerrainLists().get(0).size() == 15);
+        //List created by map isn't accesible by test so instead we look to verify that the size is as expected
     }
+
     @Test
-    void executeGameStarted() {
-        ChangeMapCommand command = new ChangeMapCommand("NewMap");
-        WebSocketSession session = mock(WebSocketSession.class);
-        GameState gameState = new GameState();
-        when(session.getId()).thenReturn("TESTID");
+    void executeThrown() {
+        //env
+        command = new ChangeMapCommand(null);
 
-        gameState.addPlayer(session);
-        gameState.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_HOST;
-
-        gameState.loadState = LoadState.FULLY_LOADED;
-        try {
-            command.execute(gameState, session);
-        } catch (NullExpectedField e) {
-            e.printStackTrace();
-        }
-
-        Assertions.assertFalse(gameState.getMap().getMapName().compareTo("NewMap") == 0);
+        //assert & exec
+        Assertions.assertThrows(NullExpectedField.class, () -> command.execute(gs,session));
     }
+
     @Test
-    void executeNotHost() {
-        ChangeMapCommand command = new ChangeMapCommand("NewMap");
-        WebSocketSession session = mock(WebSocketSession.class);
-        GameState gameState = new GameState();
-        when(session.getId()).thenReturn("TESTID");
+    void executeInvalidUser() {
+        //env
 
-        gameState.addPlayer(session);
-        gameState.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_MEMBER;
-
+        gs.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_MEMBER;
+        //exec
         try {
-            command.execute(gameState, session);
+            command.execute(gs,session);
         } catch (NullExpectedField e) {
             e.printStackTrace();
         }
-
-        Assertions.assertFalse(gameState.getMap().getMapName().compareTo("NewMap") == 0);
+        //assert
+        Assertions.assertNull(gs.getBoardManager().getTerrainLists());
     }
 
+    @Test
+    void isBuilt() {
+        //env
+
+        //exec
+
+        //assert
+    }
+
+    @Test
+    void expectedLoadStates() {
+        //env
+
+        //exec & assert
+        LoadState[] ls = command.expectedLoadStates();
+        //Assert
+        Assertions.assertTrue(ls.length == 1);
+        Assertions.assertTrue(ls[0] == LoadState.LOBBY);
+
+    }
 }

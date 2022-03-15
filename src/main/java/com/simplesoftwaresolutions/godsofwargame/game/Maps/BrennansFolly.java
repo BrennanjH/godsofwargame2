@@ -8,9 +8,12 @@ import com.simplesoftwaresolutions.godsofwargame.Terrain.Water;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is a test map that is not to be used but it should never be deleted either unless maps change conceptually
+ */
 public class BrennansFolly implements Map {
 
-    public static List<List<Terrain>> generateMap() {
+    public List<List<Terrain>> generateMap() {
         List<List<Terrain>> terrainBoard = new ArrayList<>();
         for(int i=0;i<10;i++){
             terrainBoard.add(new ArrayList<>());

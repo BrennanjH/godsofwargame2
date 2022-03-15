@@ -40,7 +40,6 @@ public class GameState{
     //A not well protected list, Most alterations need a bit of logic
     List<TimerTask> tasks;
 
-    private Map map;
 
     BoardManager boardManager;
 
@@ -57,8 +56,6 @@ public class GameState{
         destroyed = new ArrayList<>();
         newObjects = new ArrayList<>();
 
-        map = new Map();
-        //boardManager = new boardManager();
 
         timer = new Timer();
         tasks = new ArrayList<>();
@@ -172,13 +169,7 @@ public class GameState{
     public HashMap<StringBuilder, PlayerProfile> getPlayerData() {
         return playerData;
     }
-    public Map getMap() {
-        return map;
-    }
 
-    public void setMap(Map map) {
-        this.map = map;
-    }
 
     public List<Createable> getNewObjects() {
         return newObjects;
@@ -216,4 +207,11 @@ public class GameState{
         this.tasks = tasks;
     }
 
+    public BoardManager getBoardManager() {
+        return boardManager;
+    }
+
+    public void setBoardManager(BoardManager boardManager) {
+        this.boardManager = boardManager;
+    }
 }

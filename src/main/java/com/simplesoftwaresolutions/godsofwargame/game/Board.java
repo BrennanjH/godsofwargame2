@@ -13,10 +13,11 @@ public class Board {
 
     private List<List<Terrain>> terrainBoard;
 
-    public Board() {
-
+    public void setTerrainBoard(List<List<Terrain>> terrainBoard) {
+        this.terrainBoard = terrainBoard;
     }
 
-
-
+    public List<List<Terrain>> getTerrainBoard() {
+        return terrainBoard;
+    }
 }

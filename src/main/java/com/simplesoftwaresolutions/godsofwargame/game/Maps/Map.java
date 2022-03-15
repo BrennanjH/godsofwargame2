@@ -1,34 +1,15 @@
 package com.simplesoftwaresolutions.godsofwargame.game.Maps;
 
-import com.simplesoftwaresolutions.godsofwargame.Terrain.Mountains;
-import com.simplesoftwaresolutions.godsofwargame.Terrain.Plains;
 import com.simplesoftwaresolutions.godsofwargame.Terrain.Terrain;
-import com.simplesoftwaresolutions.godsofwargame.Terrain.Water;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An interface whose children each generate a unique map of predefined terrain subclasses
+ * An interface whose children each generate a unique map of predefined terrain subclasses, These maps may have new features
+ * attached as such this interface is required
  */
 public interface Map {
 
 
-    public static List<List<Terrain>> generateMap(){
-        List<List<Terrain>> terrainBoard = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            terrainBoard.add(new ArrayList<>());
-            for(int j=0; j< 15; j++){
-                switch (i * j % 3) {
-                    case 0 -> terrainBoard.get(i).add(new Plains());
-                    case 1 -> terrainBoard.get(i).add(new Mountains());
-                    case 2 -> terrainBoard.get(i).add(new Water());
-                    default -> terrainBoard.get(i).add(new Plains());
-                }
-
-            }
-        }
-        return terrainBoard;
-
-    }
+    public List<List<Terrain>> generateMap();
 }
