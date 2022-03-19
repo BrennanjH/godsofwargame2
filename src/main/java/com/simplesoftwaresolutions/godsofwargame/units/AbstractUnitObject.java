@@ -21,7 +21,7 @@ import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
  *
  * @author brenn
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 @JsonSubTypes({
     @Type(value = StandardUnit.class)
 })
@@ -56,7 +56,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     protected FullPositionalCord locationData;
 
     //An object that stores reference information about the object
-    public InstanceId meta;
+    protected InstanceId meta;
 
 
 //End of Serializable fields ******************************************************************
@@ -116,13 +116,6 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         this.turretPlatform = turretPlatform;
     }
 
-    public InstanceId getMeta() {
-        return meta;
-    }
-
-    public void setMeta(InstanceId meta) {
-        this.meta = meta;
-    }
 
     public GameState getGameState() {
         return gameState;
@@ -139,9 +132,37 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     public void setClassName(String className) {
         this.className = className;
     }
-    
-    
-    
+
+
+//Beginning of Meta access methods
+    /** A non-queue changing method that allows code to view but not alter unit owner nickname
+     * @return A string that protects the StringBuilder from anypotentiol illegal changes
+     */
+    public String getOwnerNickName() {
+        return meta.getOwnerNickName().toString();
+    }
+
+    public void setOwnerNickName(StringBuilder ownerNickName) {
+        //update message queue
+        dsb.addToChangeables(this);
+
+        meta.setOwnerNickName(ownerNickName);
+    }
+
+    /** A non-queue changing method that allows code to view but not alter unit instanceID
+     * @return Returns a string that can't affect the class if it's modified
+     */
+    public String getInstanceId() {
+        return meta.getInstanceId();
+    }
+
+    public void setInstanceId(String instanceId) {
+        //Update message queue
+        dsb.addToChangeables(this);
+
+        meta.setInstanceId(instanceId);
+    }
+//End of Meta access methods
     
 //    ***LOGIC CODE********************************************************************************************************************************
 

@@ -6,11 +6,7 @@ package com.simplesoftwaresolutions.godsofwargame;
 public class AltMain {
 
     public static void main(String[] args) {
-        testString ts = new testString();
-        System.out.println(ts.getCheckString());
-        String holder = ts.getCheckString();
-        holder = "The value has changed";
-        System.out.println(ts.getCheckString());
+
     }
 
 }
