@@ -1,7 +1,7 @@
 package com.simplesoftwaresolutions.godsofwargame.messages.servicebus;
 
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class DataServiceBus {
     private DataServiceBus(){
         changeables = new ArrayList<>();
         destroyables = new ArrayList<>();
-        createables = new ArrayList<>();
+        creatables = new ArrayList<>();
     }
 
     public static DataServiceBus getInstance(){
@@ -29,7 +29,7 @@ public class DataServiceBus {
 
     private List<Changeable> changeables;
     private List<Destroyable> destroyables;
-    private List<Createable> createables;
+    private List<Creatable> creatables;
 
     public synchronized void addToChangeables(Changeable oldObject){
         changeables.add(oldObject);
@@ -37,8 +37,8 @@ public class DataServiceBus {
     public synchronized void addToDestroyables(Destroyable removedObject){
         destroyables.add(removedObject);
     }
-    public synchronized void addToCreateables(Createable newObject){
-        createables.add(newObject);
+    public synchronized void addToCreateables(Creatable newObject){
+        creatables.add(newObject);
     }
 
 }

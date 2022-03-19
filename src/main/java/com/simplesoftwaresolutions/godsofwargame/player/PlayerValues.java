@@ -74,11 +74,6 @@ public class PlayerValues implements Changeable {
     }
 
 
-    @Override
-    public void addToChangeableQueue(GameState gameState) {
-        
-    }
-
     public boolean isReadyState() {
         return readyState;
     }

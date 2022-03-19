@@ -12,7 +12,7 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
@@ -25,7 +25,7 @@ import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 @JsonSubTypes({
     @Type(value = StandardUnit.class)
 })
-public abstract class AbstractUnitObject implements Changeable, Destroyable, Createable {
+public abstract class AbstractUnitObject implements Changeable, Destroyable, Creatable {
     
 //    ***CONSTRUCTORS********************************************************************************************************************************
     public AbstractUnitObject(){
@@ -144,21 +144,6 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     
     
 //    ***LOGIC CODE********************************************************************************************************************************
-
-    @Override
-    public void addToChangeableQueue(GameState gameState) {
-        gameState.getChangedObjects().add(this);
-    }
-    
-    @Override
-    public void addToDestroyingQueue(GameState gameState){
-        gameState.getDestroyed().add(this);
-    }
-
-    @Override
-    public void addToNewObjectsQueue(GameState gameState){
-        gameState.getNewObjects().add(this);
-    }
 
 
     public void setDSB(DataServiceBus dataServiceBus) {

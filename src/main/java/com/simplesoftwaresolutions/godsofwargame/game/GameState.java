@@ -6,7 +6,7 @@
 package com.simplesoftwaresolutions.godsofwargame.game;
 
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class GameState{
     //As objects interact with the server they will be placed in one of the following for serialization
     private transient List<Changeable> changedObjects;
     private transient List<Destroyable> destroyed;
-    private transient List<Createable> newObjects;
+    private transient List<Creatable> newObjects;
 
     private Timer timer;
     //A not well protected list, Most alterations need a bit of logic
@@ -156,7 +156,7 @@ public class GameState{
      * Adds passed in value to gamestates newObjects queue list
      * @param toBeAdded
      */
-    public void addCreatableToQueue(Createable toBeAdded){
+    public void addCreatableToQueue(Creatable toBeAdded){
         newObjects.add(toBeAdded);
     }
 
@@ -171,7 +171,7 @@ public class GameState{
     }
 
 
-    public List<Createable> getNewObjects() {
+    public List<Creatable> getNewObjects() {
         return newObjects;
     }
 

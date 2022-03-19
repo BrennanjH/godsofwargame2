@@ -5,12 +5,9 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-
 /** Objects that can be removed from the general sphere of gamestate implement this class
  *
  * @author brenn
  */
 public interface Destroyable {
-    public void addToDestroyingQueue(GameState gameState);
 }

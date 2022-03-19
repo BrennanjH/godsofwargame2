@@ -6,7 +6,7 @@
 package com.simplesoftwaresolutions.godsofwargame.player;
 
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import org.springframework.web.socket.WebSocketSession;
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author brenn
  */
-public class PlayerProfile implements Destroyable, Createable, Changeable{
+public class PlayerProfile implements Destroyable, Creatable, Changeable{
 
     private PlayerValues playerValues;
     public ServerRole serverRole;
@@ -52,18 +52,15 @@ public class PlayerProfile implements Destroyable, Createable, Changeable{
     }
 
 
-    @Override
     public void addToDestroyingQueue(GameState gameState) {
         gameState.addDestroyableToQueue(this);
         //gameState.getDestroyed().add(this);
     }
 
-    @Override
     public void addToNewObjectsQueue(GameState gameState) {
         gameState.getNewObjects().add(this);
     }
 
-    @Override
     public void addToChangeableQueue(GameState gameState) {
         gameState.getChangedObjects().add(this);
     }

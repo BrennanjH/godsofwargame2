@@ -18,7 +18,7 @@ public class ChangeModel extends AbstractReturnModel {
 
     private List<Changeable> update;
     private List<Destroyable> remove;
-    private List<Createable> newObjects;
+    private List<Creatable> newObjects;
     
     public ChangeModel(GameState gameState){
         this.gameState = gameState;

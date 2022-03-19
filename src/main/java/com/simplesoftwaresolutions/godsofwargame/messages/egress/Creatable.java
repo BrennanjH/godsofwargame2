@@ -5,15 +5,11 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-
 /** When used marks an object as something that could be created from scratch
  * Stored by GameState in a List of newObjects,
  *
  * @author brenn
  */
-public interface Createable {
-    
-    public void addToNewObjectsQueue(GameState gameState);
-    
+public interface Creatable {
+
 }

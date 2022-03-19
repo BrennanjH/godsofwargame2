@@ -5,14 +5,11 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-
 /** Sub-classes store volatile information that needs to be updated on frontends
  * This class is used to find if server message is needed
  *
  * @author brenn
  */
 public interface Changeable {
-   
-    public void addToChangeableQueue(GameState gameState);
+
 }
