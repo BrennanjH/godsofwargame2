@@ -31,8 +31,8 @@ public class DataServiceBus {
     private List<Destroyable> destroyables;
     private List<Creatable> creatables;
 
-    public synchronized void addToChangeables(Changeable oldObject){
-        changeables.add(oldObject);
+    public synchronized void addToChangeables(Changeable changedObject){
+        changeables.add(changedObject);
     }
     public synchronized void addToDestroyables(Destroyable removedObject){
         destroyables.add(removedObject);
