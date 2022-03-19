@@ -20,7 +20,7 @@ class CreateUnitCommandTest {
     static WebSocketSession session ;
     @BeforeAll
     static void instantiate(){
-        gameState = new GameState();
+        gameState = new GameState(null);
         session = mock(WebSocketSession.class);
         //Start env
         when(session.getId()).thenReturn("WSID");
@@ -35,10 +35,9 @@ class CreateUnitCommandTest {
                                                     new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);
 
-
-        unit.meta = new InstanceId();
-        //Action
         unit.meta.setOwnerNickName(new StringBuilder(" "));
+        //Action
+
         try {
             command.execute(gameState,session);
         } catch (NullExpectedField nullExpectedField) {
@@ -56,11 +55,9 @@ class CreateUnitCommandTest {
                 new InstanceId(),
                 new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);
-
-
-        unit.meta = new InstanceId();
-        //Action
         unit.meta.setOwnerNickName(new StringBuilder("WSID"));
+
+        //Action
         try {
             command.execute(gameState,session);
         } catch (NullExpectedField nullExpectedField) {

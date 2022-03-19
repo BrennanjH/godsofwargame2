@@ -10,8 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
+import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import org.springframework.web.socket.WebSocketSession;
-import com.simplesoftwaresolutions.godsofwargame.units.*;
 
 /** A command that adds a new unit to the game and then properly informs players of it
  * Unit's implement their own createSelf() which will handle creation so only validation
@@ -46,7 +47,9 @@ public class CreateUnitCommand implements Command{
             
             //Inject Dependents
             unit.setGameState(gameState);
-            
+            //get a singleton DataServiceBus inside the unit so that objects can register themselves
+            unit.setDSB(DataServiceBus.getInstance());
+
             //Allow the Unit to handle it's own creation
             unit.createSelf(gameState.getPlayerData().get(commandMaker));
         }

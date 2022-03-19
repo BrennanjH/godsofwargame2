@@ -17,7 +17,7 @@ class CancelStartCommandTest {
     @BeforeEach
     void buildEnv(){
         //Create gameState and player
-        gameState = new GameState();
+        gameState = new GameState(null);
         session = mock(WebSocketSession.class);
         when(session.getId()).thenReturn("TESTID");
 

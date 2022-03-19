@@ -8,11 +8,13 @@ package com.simplesoftwaresolutions.godsofwargame.units;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.simplesoftwaresolutions.godsofwargame.game.*;
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Createable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
 /**
@@ -37,6 +39,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         this.turretPlatform = turretPlatform;
         this.meta = meta;
         this.locationData = locationData;
+
     }
     
     
@@ -55,8 +58,12 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     //An object that stores reference information about the object
     public InstanceId meta;
 
+
 //End of Serializable fields ******************************************************************
-    
+
+    //The dsb is the queue that objects can add themselves too
+    protected transient DataServiceBus dsb;
+
     private transient GameState gameState;
 //    ***ABSTRACTION FOR SUBCLASSES********************************************************************************************************************************
     
@@ -152,6 +159,9 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     public void addToNewObjectsQueue(GameState gameState){
         gameState.getNewObjects().add(this);
     }
-    
-    
+
+
+    public void setDSB(DataServiceBus dataServiceBus) {
+        this.dsb = dataServiceBus;
+    }
 }
