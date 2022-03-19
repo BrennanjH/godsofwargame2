@@ -22,16 +22,16 @@ public class InstanceId {
         return ownerNickName;
     }
 
-    public void setOwnerNickName(StringBuilder OwnerNickName) {
-        this.ownerNickName = OwnerNickName;
+    public void setOwnerNickName(StringBuilder ownerNickName) {
+        this.ownerNickName = ownerNickName;
     }
 
     public String getInstanceId() {
         return instanceId;
     }
 
-    public void setInstanceId(String InstanceId) {
-        this.instanceId = InstanceId;
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
     
     
