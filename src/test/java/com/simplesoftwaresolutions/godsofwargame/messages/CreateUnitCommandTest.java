@@ -35,7 +35,7 @@ class CreateUnitCommandTest {
                                                     new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);
 
-        unit.meta.setOwnerNickName(new StringBuilder(" "));
+        unit.setOwnerNickName(new StringBuilder(" "));
         //Action
 
         try {
@@ -44,7 +44,7 @@ class CreateUnitCommandTest {
             nullExpectedField.printStackTrace();
         }
         //Assert
-        Assertions.assertTrue(unit.getGameState() == null);
+        Assertions.assertNull(unit.getGameState());
 
     }
     @Test
@@ -55,7 +55,7 @@ class CreateUnitCommandTest {
                 new InstanceId(),
                 new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);
-        unit.meta.setOwnerNickName(new StringBuilder("WSID"));
+        unit.setOwnerNickName(new StringBuilder("WSID"));
 
         //Action
         try {
@@ -64,7 +64,7 @@ class CreateUnitCommandTest {
             nullExpectedField.printStackTrace();
         }
         //Assert
-        Assertions.assertFalse(unit.getGameState() == null);
+        Assertions.assertNotNull(unit.getGameState());
 
     }
 
@@ -76,8 +76,6 @@ class CreateUnitCommandTest {
         Command command = new CreateUnitCommand(unit);
 
 
-        Assertions.assertThrows(NullExpectedField.class , () -> {
-            command.execute(gameState, session);
-        });
+        Assertions.assertThrows(NullExpectedField.class , () -> command.execute(gameState, session));
     }
 }

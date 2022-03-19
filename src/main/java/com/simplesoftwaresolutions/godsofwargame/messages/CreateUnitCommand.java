@@ -40,15 +40,16 @@ public class CreateUnitCommand implements Command{
 
         StringBuilder commandMaker = gameState.getNickNames().get(session.getId());
         //Make sure the Command Issuer is the same person as the units Owner
-        if(commandMaker.compareTo(unit.getMeta().getOwnerNickName()) == 0){
+        if(commandMaker.toString().compareTo(unit.getOwnerNickName()) == 0){
             System.out.println("CreateUnitCommand: Execute(): conditional passed");
-            //Set the Unit's string builder to the sessions
-            unit.getMeta().setOwnerNickName(commandMaker);
-            
+
             //Inject Dependents
             unit.setGameState(gameState);
             //get a singleton DataServiceBus inside the unit so that objects can register themselves
             unit.setDSB(DataServiceBus.getInstance());
+
+            //Set the Unit's string builder to the sessions
+            unit.setOwnerNickName(commandMaker);
 
             //Allow the Unit to handle it's own creation
             unit.createSelf(gameState.getPlayerData().get(commandMaker));
