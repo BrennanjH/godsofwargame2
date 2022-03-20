@@ -10,6 +10,7 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.ChangeModel;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.services.CommunicationService;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
      */
     private CommunicationService messageService;
 
+    //A message service that tracks noteworthy changes in the code
+    DataServiceBus dsb = DataServiceBus.getInstance();
     //A wrapper on integral game related objects
     private static GameState gameState;
     //List of all currently working clients connected to server
@@ -61,9 +64,9 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         messageService.handleCommand(gameState, session, requestedAction);
 
         //prep models for sending
-        if(!gameState.getChangedObjects().isEmpty() 
-                || !gameState.getDestroyed().isEmpty()
-                || !gameState.getNewObjects().isEmpty()){
+        if(!dsb.getChangeables().isEmpty()
+                || !dsb.getDestroyables().isEmpty()
+                || !dsb.getCreatables().isEmpty()){
             
             var changeModel = new ChangeModel(gameState);
             
