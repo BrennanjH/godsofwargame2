@@ -51,6 +51,6 @@ public abstract class AbstractTurretPlatform {
     public void setTargetingRange(float targetingRange) {
         this.targetingRange = targetingRange;
     }
-    
-    
+
+    public abstract int priceOfSelf();
 }

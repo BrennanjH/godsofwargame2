@@ -40,6 +40,6 @@ public abstract class AbstractMovementPlatform {
     public void setHealth(float health) {
         this.health = health;
     }
-    
-    
+
+    public abstract int priceOfSelf();
 }

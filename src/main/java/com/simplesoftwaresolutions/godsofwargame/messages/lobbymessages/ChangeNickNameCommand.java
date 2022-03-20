@@ -24,6 +24,7 @@ public class ChangeNickNameCommand implements Command {
     public ChangeNickNameCommand(@JsonProperty("newNickName") String name){
         this.newNickName = name;
     }
+
     @Override
     public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
         if(gameState.loadState != LoadState.LOBBY){
@@ -32,10 +33,12 @@ public class ChangeNickNameCommand implements Command {
             if(newNickName == null)
                 throw new NullExpectedField();
             gameState.changeNickName(session, newNickName);
-            gameState.getChangedObjects()
-                    .add(gameState.getPlayerData()
-                            .get(gameState.getNickNames()
-                                    .get(session.getId())));
+
+            // This code is removed because objects should now push messages themselves if an alteration to themselves occur
+//            gameState.getChangedObjects()
+//                    .add(gameState.getPlayerData()
+//                            .get(gameState.getNickNames()
+//                                    .get(session.getId())));
         }
         
     }

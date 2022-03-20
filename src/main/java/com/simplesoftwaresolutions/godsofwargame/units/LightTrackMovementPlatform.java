@@ -21,4 +21,9 @@ public class LightTrackMovementPlatform extends AbstractMovementPlatform {
         return true;
     }
 
+    @Override
+    public int priceOfSelf() {
+        return 200;
+    }
+
 }

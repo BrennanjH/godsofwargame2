@@ -47,5 +47,15 @@ public class StandardUnit extends AbstractUnitObject {
         }
     }
 
+    /**
+     * @return The sum of the Unit's movementPlatform, turretPlatform, and any other related fields regarding its type
+     */
+    @Override
+    protected int priceOfSelf() {
+        return movementPlatform.priceOfSelf() +
+                turretPlatform.priceOfSelf() +
+                500;
+    }
+
 
 }

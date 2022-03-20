@@ -22,4 +22,9 @@ public class HeavyCannonTurretPlatform extends AbstractTurretPlatform{
         return true;
     }
 
+    @Override
+    public int priceOfSelf() {
+        return 300;
+    }
+
 }

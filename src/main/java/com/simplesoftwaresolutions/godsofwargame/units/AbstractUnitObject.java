@@ -82,16 +82,22 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 
     abstract public boolean isBuilt();
 
-    //Units might have special properties in how they are created, Those are expressed by it's create Self
-    //As Units are created by reflection from a frontend client a constructor is not a good place for this code.
+    abstract protected int priceOfSelf();
+
+    //Units might have special properties in how they are created, Those are expressed by its create Self
+    //As Units are created by reflection from a frontend client a constructor is not a good place for this code. (Although Jackson makes it possible)
     public void createSelf(PlayerProfile owner){
-        gameState.getNewObjects().add( this);
+        dsb.addToCreateables(this);
+
         owner.getPlayerValues().getUnits().add(this);
         
         //Check if player can afford unit
         //TODO
+        if(owner.getPlayerValues().getCurrency() <= priceOfSelf()) {
             //Remove money from player
             //TODO
+            owner.getPlayerValues().setCurrency(owner.getPlayerValues().getCurrency());
+        }
         
     }
     

@@ -21,4 +21,9 @@ public class AntiAirGunTurretPlatform extends AbstractTurretPlatform {
         return true;
     }
 
+    @Override
+    public int priceOfSelf() {
+        return 100;
+    }
+
 }

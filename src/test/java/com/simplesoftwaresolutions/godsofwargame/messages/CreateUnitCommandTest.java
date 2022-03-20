@@ -3,6 +3,7 @@ package com.simplesoftwaresolutions.godsofwargame.messages;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import com.simplesoftwaresolutions.godsofwargame.units.AntiAirGunTurretPlatform;
 import com.simplesoftwaresolutions.godsofwargame.units.LightTrackMovementPlatform;
@@ -34,6 +35,7 @@ class CreateUnitCommandTest {
                                                     new InstanceId(),
                                                     new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);
+        unit.setDSB(DataServiceBus.getInstance());
 
         unit.setOwnerNickName(new StringBuilder(" "));
         //Action
@@ -55,6 +57,8 @@ class CreateUnitCommandTest {
                 new InstanceId(),
                 new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);
+        unit.setDSB(DataServiceBus.getInstance());
+
         unit.setOwnerNickName(new StringBuilder("WSID"));
 
         //Action

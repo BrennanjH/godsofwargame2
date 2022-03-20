@@ -22,5 +22,10 @@ public class HeavyTrackMovementPlatform extends AbstractMovementPlatform{
         return true;
     }
 
+    @Override
+    public int priceOfSelf() {
+        return 300;
+    }
+
 
 }
