@@ -5,9 +5,6 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.game;
 
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -24,17 +21,12 @@ import java.util.*;
 @Component
 @Scope("singleton")
 public class GameState{
-    
+    //TODO - Update gameState objects to properly add themselves to the DataServiceBus
     //Link of Session Id To NickName
     private HashMap<String, StringBuilder> nickNames;
     
     //Session nickName to PlayerProfile
     private HashMap<StringBuilder, PlayerProfile> playerData;
-
-    //As objects interact with the server they will be placed in one of the following for serialization
-    private transient List<Changeable> changedObjects;
-    private transient List<Destroyable> destroyed;
-    private transient List<Creatable> newObjects;
 
     private Timer timer;
     //A not well protected list, Most alterations need a bit of logic
@@ -51,12 +43,6 @@ public class GameState{
         playerData = new HashMap<>();
         nickNames = new HashMap<>();
 
-        //Create Queues
-        changedObjects = new ArrayList<>();
-        destroyed = new ArrayList<>();
-        newObjects = new ArrayList<>();
-
-
         timer = new Timer();
         tasks = new ArrayList<>();
         //Set loadState
@@ -68,11 +54,6 @@ public class GameState{
 
         playerData = new HashMap<>();
         nickNames = new HashMap<>();
-
-        //Create Queues
-        changedObjects = new ArrayList<>();
-        destroyed = new ArrayList<>();
-        newObjects = new ArrayList<>();
 
         this.boardManager = boardManager; //Spring bean
 
@@ -94,8 +75,8 @@ public class GameState{
         //Using new nickName create playerData
         playerData.put(nickNames.get(newPlayer.getId()), new PlayerProfile(this, temp, newPlayer));
         
-        //Add player Profile to newObject
-        newObjects.add(playerData.get(temp));
+//        //Add player Profile to newObject
+//        newObjects.add(playerData.get(temp));
         
         
     }
@@ -123,8 +104,8 @@ public class GameState{
         StringBuilder playerName = nickNames.get(lostPlayer.getId());
         PlayerProfile focus = playerData.get(playerName);
         
-        //Place the players respective objects into destroy for final removal
-        destroyed.add(focus);
+//        //Place the players respective objects into destroy for final removal
+//        destroyed.add(focus);
         
         //The Following must be removed in this order
         //Remove PlayerProfile
@@ -136,52 +117,20 @@ public class GameState{
 
 
 
-    /**
-     * Adds passed in value to gamestates changedObjects queue list
-     * @param toBeAdded
-     */
-    public void addChangeableToQueue(Changeable toBeAdded){
-        changedObjects.add(toBeAdded);
-    }
-
-    /**
-     * Adds a passed in value to gamestates destroyed queue list
-     * @param toBeAddedToQueue
-     */
-    public void addDestroyableToQueue(Destroyable toBeAddedToQueue){
-        destroyed.add(toBeAddedToQueue);
-    }
-
-    /**
-     * Adds passed in value to gamestates newObjects queue list
-     * @param toBeAdded
-     */
-    public void addCreatableToQueue(Creatable toBeAdded){
-        newObjects.add(toBeAdded);
-    }
 
 
 //**GETTER AND SETTERS********************************************************************************************************************
-    public List<Destroyable> getDestroyed() {
-        return destroyed;
-    }
+
 
     public HashMap<StringBuilder, PlayerProfile> getPlayerData() {
         return playerData;
     }
 
 
-    public List<Creatable> getNewObjects() {
-        return newObjects;
-    }
-
     public HashMap<String, StringBuilder> getNickNames() {
         return nickNames;
     }
 
-    public List<Changeable> getChangedObjects() {
-        return changedObjects;
-    }
 
     public StringBuilder getNickName(WebSocketSession session){
         return nickNames.get(session.getId());

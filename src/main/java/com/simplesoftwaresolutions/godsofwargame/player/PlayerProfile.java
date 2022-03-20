@@ -52,20 +52,6 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
     }
 
 
-    public void addToDestroyingQueue(GameState gameState) {
-        gameState.addDestroyableToQueue(this);
-        //gameState.getDestroyed().add(this);
-    }
-
-    public void addToNewObjectsQueue(GameState gameState) {
-        gameState.getNewObjects().add(this);
-    }
-
-    public void addToChangeableQueue(GameState gameState) {
-        gameState.getChangedObjects().add(this);
-    }
-
-
     public UserIdentity getUid() {
         return uid;
     }

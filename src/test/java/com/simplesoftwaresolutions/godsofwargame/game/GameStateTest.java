@@ -1,9 +1,5 @@
 package com.simplesoftwaresolutions.godsofwargame.game;
 
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
-import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.socket.WebSocketSession;
@@ -16,7 +12,7 @@ class GameStateTest {
     @Test
     void addPlayer() {
         //Init Environment
-        GameState testGameState = new GameState();
+        GameState testGameState = new GameState(null);
         WebSocketSession session = mock(WebSocketSession.class);
         //stub id
         when(session.getId()).thenReturn("WSID");
@@ -27,14 +23,14 @@ class GameStateTest {
         Assertions.assertEquals("WSID", testGameState.getNickName(session).toString());
         //Assert PlayerData
         Assertions.assertNotNull(testGameState.getPlayerData().get(testGameState.getNickName(session)));
-        //Assert Queue Change
-        Assertions.assertFalse(testGameState.getNewObjects().isEmpty());
+//        //Assert Queue Change
+//        Assertions.assertFalse(testGameState.getNewObjects().isEmpty());
     }
 
     @Test
     void changeNickName() {
         //Init Environment
-        GameState testGameState = new GameState();
+        GameState testGameState = new GameState(null);
         WebSocketSession test = mock(WebSocketSession.class);
         //Stub ID
         when(test.getId()).thenReturn("WSID");
@@ -50,7 +46,7 @@ class GameStateTest {
     @Test
     void removePlayer() {
         //Init env
-        GameState gameState = new GameState();
+        GameState gameState = new GameState(null);
         WebSocketSession session = mock(WebSocketSession.class);
         //Stub ID
         when(session.getId()).thenReturn("WSID");
@@ -64,52 +60,9 @@ class GameStateTest {
         Assertions.assertTrue(gameState.getPlayerData().isEmpty());
         //check if players nickname has been fully removed
         Assertions.assertTrue(gameState.getNickNames().isEmpty());
-        //Check if player data is queued for removal
-        Assertions.assertFalse(gameState.getDestroyed().isEmpty());
+//        //Check if player data is queued for removal
+//        Assertions.assertFalse(gameState.getDestroyed().isEmpty());
 
     }
 
-
-
-    @Test
-    void addChangeableToQueue(){
-        //Generate Environment
-        GameState testGameState = new GameState();
-        Changeable mockPlayerProfile = mock(PlayerProfile.class);
-
-        //Perform Tested Method
-        testGameState.addChangeableToQueue(mockPlayerProfile);
-
-        //Assert correct response
-        Assertions.assertFalse(testGameState.getChangedObjects().isEmpty());
-        Assertions.assertEquals(1, testGameState.getChangedObjects().size());
-    }
-    @Test
-    void addCreatableToQueue(){
-        //Generate Environment
-        GameState testGameState = new GameState();
-        Creatable mockPlayerProfile =  mock(PlayerProfile.class);
-
-        //Perform Tested Method
-        testGameState.addCreatableToQueue(mockPlayerProfile);
-
-        //Assert correct response
-        Assertions.assertFalse(testGameState.getNewObjects().isEmpty());
-        Assertions.assertEquals(1, testGameState.getNewObjects().size());
-    }
-
-    @Test
-    void addDestroyableToQueue(){
-        //Generate Environment
-        GameState testGameState = new GameState();
-        Destroyable mockPlayerProfile =  mock(PlayerProfile.class);
-
-        //Perform Tested Method
-        testGameState.addDestroyableToQueue(mockPlayerProfile );
-
-        //Assert
-        Assertions.assertFalse(testGameState.getDestroyed().isEmpty());
-        Assertions.assertEquals(1, testGameState.getDestroyed().size());
-
-    }
 }
