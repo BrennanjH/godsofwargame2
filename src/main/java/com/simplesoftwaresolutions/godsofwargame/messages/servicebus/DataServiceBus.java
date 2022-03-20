@@ -5,6 +5,7 @@ import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,4 +42,15 @@ public class DataServiceBus {
         creatables.add(newObject);
     }
 
+    public List<Changeable> getChangeables() {
+        return Collections.unmodifiableList(changeables);
+    }
+
+    public List<Destroyable> getDestroyables() {
+        return Collections.unmodifiableList(destroyables);
+    }
+
+    public List<Creatable> getCreatables() {
+        return Collections.unmodifiableList(creatables);
+    }
 }
