@@ -28,18 +28,21 @@ public class DataServiceBus {
         return singletonDSB;
     }
 
-    private List<Changeable> changeables;
-    private List<Destroyable> destroyables;
-    private List<Creatable> creatables;
+    private final List<Changeable> changeables;
+    private final List<Destroyable> destroyables;
+    private final List<Creatable> creatables;
 
     public synchronized void addToChangeables(Changeable changedObject){
-        changeables.add(changedObject);
+        if(!changeables.contains(changedObject))
+            changeables.add(changedObject);
     }
     public synchronized void addToDestroyables(Destroyable removedObject){
-        destroyables.add(removedObject);
+        if(!destroyables.contains(removedObject))
+            destroyables.add(removedObject);
     }
-    public synchronized void addToCreateables(Creatable newObject){
-        creatables.add(newObject);
+    public synchronized void addToCreatables(Creatable newObject){
+        if(!creatables.contains(newObject))
+            creatables.add(newObject);
     }
 
     public List<Changeable> getChangeables() {

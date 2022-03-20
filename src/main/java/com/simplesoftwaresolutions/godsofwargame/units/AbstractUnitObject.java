@@ -87,7 +87,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     //Units might have special properties in how they are created, Those are expressed by its create Self
     //As Units are created by reflection from a frontend client a constructor is not a good place for this code. (Although Jackson makes it possible)
     public void createSelf(PlayerProfile owner){
-        dsb.addToCreateables(this);
+        dsb.addToCreatables(this);
 
         owner.getPlayerValues().getUnits().add(this);
         

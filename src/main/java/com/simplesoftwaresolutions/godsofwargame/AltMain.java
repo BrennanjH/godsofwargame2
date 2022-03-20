@@ -11,7 +11,7 @@ public class AltMain {
     public static void main(String[] args) {
         DataServiceBus dsb = DataServiceBus.getInstance();
 
-        dsb.addToCreateables(new StandardUnit());
+        dsb.addToCreatables(new StandardUnit());
 
     }
 
