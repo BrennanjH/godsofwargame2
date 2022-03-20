@@ -5,7 +5,7 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 
 import java.util.List;
 
@@ -20,22 +20,21 @@ public class ChangeModel extends AbstractReturnModel {
     private List<Destroyable> remove;
     private List<Creatable> newObjects;
     
-    public ChangeModel(GameState gameState){
-        this.gameState = gameState;
+    public ChangeModel(DataServiceBus dsb){
+
         
         //Get list of Changed objects
-        this.update = gameState.getChangedObjects();
+        this.update = dsb.getChangeables();
         
         //Get list of deleted objects
-        this.remove = gameState.getDestroyed();
+        this.remove = dsb.getDestroyables();
         
         //Get List of new objects
-        newObjects = gameState.getNewObjects();
-        
+        newObjects = dsb.getCreatables();
+
+        //TODO - clear service bus
         //Clear lists
-        gameState.getChangedObjects().clear();
-        gameState.getDestroyed().clear();
-        gameState.getNewObjects().clear();
+
     }
 
 

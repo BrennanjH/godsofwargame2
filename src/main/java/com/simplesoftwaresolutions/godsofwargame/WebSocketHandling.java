@@ -68,7 +68,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
                 || !dsb.getDestroyables().isEmpty()
                 || !dsb.getCreatables().isEmpty()){
             
-            var changeModel = new ChangeModel(gameState);
+            var changeModel = new ChangeModel(dsb);
             
             //Create unique object model for each User
             //TODO
@@ -99,7 +99,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         //Update players on lost units
         for(WebSocketSession s : users){
             //build model
-            var changeModel = new ChangeModel(gameState);
+            var changeModel = new ChangeModel(dsb);
             
             //Serialize model
             String payload = mapper.writeValueAsString(changeModel);
