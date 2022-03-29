@@ -1,4 +1,4 @@
-package com.simplesoftwaresolutions.godsofwargame.messages.models;
+package com.simplesoftwaresolutions.godsofwargame.messages.egress.models;
 
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.BusinessObject;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
@@ -6,7 +6,7 @@ import com.simplesoftwaresolutions.godsofwargame.player.PlayerValues;
 import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
 
 /**
- * Stores references to all businessobject subclasses
+ * Stores references to all business object subclasses
  */
 public class MappingTableReferences {
 

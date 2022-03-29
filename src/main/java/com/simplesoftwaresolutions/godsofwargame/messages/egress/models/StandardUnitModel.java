@@ -1,4 +1,4 @@
-package com.simplesoftwaresolutions.godsofwargame.messages.models;
+package com.simplesoftwaresolutions.godsofwargame.messages.egress.models;
 
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;

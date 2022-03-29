@@ -5,12 +5,13 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
-import com.simplesoftwaresolutions.godsofwargame.messages.models.MappingTableReferences;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.*;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerValues;
 import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** An object that holds onto the objects that have changed since the last message sent
@@ -20,68 +21,51 @@ import java.util.List;
  */
 public class ChangeModel extends AbstractReturnModel {
 
-    private List<Changeable> update;
-    private List<Destroyable> remove;
-    private List<Creatable> newObjects;
+    private List<Model> update;
+    private List<Model> remove;
+    private List<Model> newObjects;
     
     public ChangeModel(DataServiceBus dsb){
+        //Protect the service bus from change during this operation
+        synchronized (dsb) {
+            //map each object to it's model and store it in appropriate model list
+            this.update = cycleList(dsb.getChangeables());
+            this.remove = cycleList(dsb.getDestroyables());
+            newObjects = cycleList(dsb.getCreatables());
 
-        
-        //Get list of Changed objects
-        this.update = dsb.getChangeables();
-        
-        //Get list of deleted objects
-        this.remove = dsb.getDestroyables();
-        
-        //Get List of new objects
-        newObjects = dsb.getCreatables();
-
-
-        //Clear lists
-        //TODO - clear service bus
-
-        //map each object to it's model
-        for (BusinessObject bo :
-                update) {
-
-            String objectType = bo.getClass().getName();
-            if(objectType.compareTo(MappingTableReferences.getStandardUnit()) == 0){
-                StandardUnit standardUnit = (StandardUnit) bo;
-            } else if (objectType.compareTo(MappingTableReferences.getPlayerValues())==0) {
-                PlayerValues playerValues = (PlayerValues) bo;
-            } else if (objectType.compareTo(MappingTableReferences.getPlayerProfile())==0){
-                PlayerProfile profile = (PlayerProfile) bo;
-            }
-
+            //Clear lists
+            dsb.clearChangeables();
+            dsb.clearCreatables();
+            dsb.clearDestroyables();
         }
-        for (BusinessObject bo :
-                remove) {
-
-            String objectType = bo.getClass().getName();
-            if(objectType.compareTo(MappingTableReferences.getStandardUnit()) == 0){
-                StandardUnit standardUnit = (StandardUnit) bo;
-            } else if (objectType.compareTo(MappingTableReferences.getPlayerValues())==0) {
-                PlayerValues playerValues = (PlayerValues) bo;
-            } else if (objectType.compareTo(MappingTableReferences.getPlayerProfile())==0){
-                PlayerProfile profile = (PlayerProfile) bo;
-            }
-
-        }
-        for (BusinessObject bo :
-                newObjects) {
-
-            String objectType = bo.getClass().getName();
-            if(objectType.compareTo(MappingTableReferences.getStandardUnit()) == 0){
-                StandardUnit standardUnit = (StandardUnit) bo;
-            } else if (objectType.compareTo(MappingTableReferences.getPlayerValues())==0) {
-                PlayerValues playerValues = (PlayerValues) bo;
-            } else if (objectType.compareTo(MappingTableReferences.getPlayerProfile())==0){
-                PlayerProfile profile = (PlayerProfile) bo;
-            }
-
-        }
-
     }
 
+    private static <T extends BusinessObject> List<Model> cycleList(List<T> dataList){
+        String objectType;
+        Model temp;
+        List<Model> modelList = new ArrayList<>();
+        for (BusinessObject bo :
+                dataList) {
+            temp = null;
+
+            objectType = bo.getClass().getName();
+            if(objectType.compareTo(MappingTableReferences.getStandardUnit()) == 0){
+                StandardUnit standardUnit = (StandardUnit) bo;
+                temp = StandardUnitMapper.mapStandardUnitToStandardUnitModel(standardUnit);
+            } else if (objectType.compareTo(MappingTableReferences.getPlayerValues())==0) {
+                PlayerValues playerValues = (PlayerValues) bo;
+                temp = PlayerValuesMapper.mapPlayerValuesToPlayerValuesModel(playerValues);
+            } else if (objectType.compareTo(MappingTableReferences.getPlayerProfile())==0){
+                PlayerProfile profile = (PlayerProfile) bo;
+                temp = PlayerProfileMapper.mapPlayerProfileToPlayerProfileModel(profile);
+            }
+
+            if(null != temp){
+                modelList.add(temp);
+            }
+
+        }
+        return modelList;
+    }
 
 }

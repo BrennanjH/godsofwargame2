@@ -28,9 +28,9 @@ public class DataServiceBus {
         return singletonDSB;
     }
 
-    private final List<Changeable> changeables;
-    private final List<Destroyable> destroyables;
-    private final List<Creatable> creatables;
+    private volatile List<Changeable> changeables;
+    private volatile List<Destroyable> destroyables;
+    private volatile List<Creatable> creatables;
 
     public synchronized void addToChangeables(Changeable changedObject){
         if(!changeables.contains(changedObject))
@@ -56,4 +56,15 @@ public class DataServiceBus {
     public List<Creatable> getCreatables() {
         return Collections.unmodifiableList(creatables);
     }
+
+    public synchronized void clearChangeables(){
+        changeables.clear();
+    }
+    public synchronized void clearDestroyables(){
+        destroyables.clear();
+    }
+    public synchronized void clearCreatables(){
+        creatables.clear();
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.simplesoftwaresolutions.godsofwargame.messages.models;
+package com.simplesoftwaresolutions.godsofwargame.messages.egress.models;
 
 /**
  * A model of PlayerValues.java that is properly built for data sending
