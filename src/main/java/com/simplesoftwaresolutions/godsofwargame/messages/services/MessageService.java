@@ -7,6 +7,9 @@ import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
+/**
+ * an object capable of handling incoming commands from clients
+ */
 @Component
 public class MessageService implements CommunicationService{
 

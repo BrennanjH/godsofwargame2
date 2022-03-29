@@ -10,6 +10,6 @@ package com.simplesoftwaresolutions.godsofwargame.messages.egress;
  *
  * @author brenn
  */
-public interface Changeable {
+public interface Changeable extends BusinessObject {
 
 }

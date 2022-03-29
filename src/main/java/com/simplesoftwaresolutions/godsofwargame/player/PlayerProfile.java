@@ -5,10 +5,10 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.player;
 
+import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.ArrayList;
@@ -18,6 +18,8 @@ import java.util.List;
  *
  * @author brenn
  */
+//TODO - redesign objects and class so that changes in class allow for smaller data chunks for example changing a players
+    //money should not force every single unit they own to also be sent to other players
 public class PlayerProfile implements Destroyable, Creatable, Changeable{
 
     private PlayerValues playerValues;
@@ -77,4 +79,5 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
         }
         return oldTeams;
     }
+
 }

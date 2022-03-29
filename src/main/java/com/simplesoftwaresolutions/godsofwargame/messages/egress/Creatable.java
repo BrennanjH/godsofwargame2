@@ -10,6 +10,6 @@ package com.simplesoftwaresolutions.godsofwargame.messages.egress;
  *
  * @author brenn
  */
-public interface Creatable {
+public interface Creatable  extends BusinessObject{
 
 }

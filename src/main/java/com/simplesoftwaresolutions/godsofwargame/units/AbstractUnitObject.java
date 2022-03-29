@@ -105,6 +105,21 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 //    ***GETTERS AND SETTERS********************************************************************************************************************************
 
 
+    public FullPositionalCord getLocationData() {
+        return locationData;
+    }
+
+    public void setLocationData(FullPositionalCord locationData) {
+        this.locationData = locationData;
+    }
+
+    public InstanceId getMeta() {
+        return meta;
+    }
+
+    public void setMeta(InstanceId meta) {
+        this.meta = meta;
+    }
 
     public AbstractMovementPlatform getMovementPlatform() {
         return movementPlatform;

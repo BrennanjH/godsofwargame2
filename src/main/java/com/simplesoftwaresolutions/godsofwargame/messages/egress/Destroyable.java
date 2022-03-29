@@ -9,5 +9,5 @@ package com.simplesoftwaresolutions.godsofwargame.messages.egress;
  *
  * @author brenn
  */
-public interface Destroyable {
+public interface Destroyable  extends BusinessObject{
 }

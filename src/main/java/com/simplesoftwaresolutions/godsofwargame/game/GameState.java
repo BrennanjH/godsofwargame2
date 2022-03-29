@@ -85,7 +85,7 @@ public class GameState{
      * command validation as such a nickName should only be allowed to change when
      * using this method
      * 
-     * @param alteredUser
+     * @param alteredUser - the session object of the user whose nickname is changing
      * @param newNickName the new nickname requested by user
      */
     public void changeNickName(WebSocketSession alteredUser, String newNickName){
@@ -97,7 +97,7 @@ public class GameState{
     }
     /**
      * Removes all objects owned by the player from the server and adds it to removal queue
-     * @param lostPlayer 
+     * @param lostPlayer - the session object of the player who's leaving
      */
     public void removePlayer( WebSocketSession lostPlayer){ //Order removed is important
         //Grab all the players related objects & keys
