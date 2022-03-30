@@ -21,7 +21,7 @@ public class DataServiceBus {
         creatables = new ArrayList<>();
     }
 
-    public static DataServiceBus getInstance(){
+    public synchronized static DataServiceBus getInstance(){
         if(singletonDSB == null){
             singletonDSB = new DataServiceBus();
         }
