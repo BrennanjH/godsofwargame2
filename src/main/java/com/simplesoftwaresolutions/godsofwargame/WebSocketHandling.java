@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.ChangeModel;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.ChangePayload;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.services.CommunicationService;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
@@ -68,7 +68,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
                 || !dsb.getDestroyables().isEmpty()
                 || !dsb.getCreatables().isEmpty()){
             
-            var changeModel = new ChangeModel(dsb);
+            var changeModel = new ChangePayload(dsb);
             
             //Create unique object model for each User
             //TODO
@@ -99,7 +99,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         //Update players on lost units
         for(WebSocketSession s : users){
             //build model
-            var changeModel = new ChangeModel(dsb);
+            var changeModel = new ChangePayload(dsb);
             
             //Serialize model
             String payload = mapper.writeValueAsString(changeModel);

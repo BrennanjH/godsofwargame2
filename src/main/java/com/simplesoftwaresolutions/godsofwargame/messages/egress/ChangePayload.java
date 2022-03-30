@@ -19,13 +19,15 @@ import java.util.List;
  *
  * @author brenn
  */
-public class ChangeModel extends AbstractReturnModel {
+public class ChangePayload extends AbstractReturnModel {
+
+
 
     private List<Model> update;
     private List<Model> remove;
     private List<Model> newObjects;
     
-    public ChangeModel(DataServiceBus dsb){
+    public ChangePayload(DataServiceBus dsb){
         //Protect the service bus from change during this operation
         synchronized (dsb) {
             //map each object to it's model and store it in appropriate model list

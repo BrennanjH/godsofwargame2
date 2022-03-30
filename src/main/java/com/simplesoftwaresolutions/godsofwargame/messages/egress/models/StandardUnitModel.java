@@ -1,10 +1,12 @@
 package com.simplesoftwaresolutions.godsofwargame.messages.egress.models;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractMovementPlatform;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractTurretPlatform;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 public class StandardUnitModel implements Model {
 
     //The following Fields are to be serialized when sending this object to clients ***************

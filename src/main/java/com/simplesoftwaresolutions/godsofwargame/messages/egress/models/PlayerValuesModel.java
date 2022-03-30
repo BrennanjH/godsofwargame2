@@ -1,8 +1,11 @@
 package com.simplesoftwaresolutions.godsofwargame.messages.egress.models;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * A model of PlayerValues.java that is properly built for data sending
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 public class PlayerValuesModel implements Model{
 
     private int points;
