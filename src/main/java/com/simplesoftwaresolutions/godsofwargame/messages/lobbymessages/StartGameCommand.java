@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.game.SwitchToPreGameHandler;
-import com.simplesoftwaresolutions.godsofwargame.game.TaskStart;
+import com.simplesoftwaresolutions.godsofwargame.game.tasks.TaskStart;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
@@ -26,7 +26,8 @@ public class StartGameCommand implements Command {
 
     }
 
-    /**
+    /** Starts a timer, after verifying validity of command, which will after 10 seconds begin the process of switching
+     * the server from lobby-state to a pre-game state
      * @param gameState The servers gameState object
      * @param session the session of the user who sent the request
      * @throws NullExpectedField Not thrown as no values are passed into this command
@@ -51,10 +52,13 @@ public class StartGameCommand implements Command {
                 SwitchToPreGameHandler handler = new SwitchToPreGameHandler();
                 handler.SwitchToPreGame(gameState);
             } else {
+
                 //If Not, Start a 10-second countdown Timer
                 TimerTask task = new TaskStart(gameState);
-
                 gameState.schedule(task, 10000);
+
+
+
             }
 
         }

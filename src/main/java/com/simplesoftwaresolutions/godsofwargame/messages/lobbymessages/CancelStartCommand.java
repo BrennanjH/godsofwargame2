@@ -3,7 +3,7 @@ package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
-import com.simplesoftwaresolutions.godsofwargame.game.TaskStart;
+import com.simplesoftwaresolutions.godsofwargame.game.tasks.TaskStart;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;

@@ -30,7 +30,7 @@ public class GameState{
 
     private Timer timer;
     //A not well protected list, Most alterations need a bit of logic
-    List<TimerTask> tasks;
+    private List<TimerTask> tasks;
 
 
     BoardManager boardManager;
@@ -63,9 +63,9 @@ public class GameState{
         loadState = LoadState.LOBBY;
     }
     
-    /** Adds a new player to the gamestate and sets up their references
+    /** Adds a new player to the GameState and sets up their references
      * 
-     * @param newPlayer 
+     * @param newPlayer - A websocket session of a connecting client that is to be added a new player
      */
     public void addPlayer(WebSocketSession newPlayer){
         //Set the player nickname

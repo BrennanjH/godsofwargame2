@@ -5,6 +5,10 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
+
+import java.util.List;
+
 /** A class that represents the anti-air guns attack behavior
  *
  * @author brenn
@@ -19,6 +23,11 @@ public class AntiAirGunTurretPlatform extends AbstractTurretPlatform {
     @Override
     public boolean isBuilt() {
         return true;
+    }
+
+    @Override
+    public void findTarget(List<PlayerProfile> playerProfiles, AbstractUnitObject owner) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

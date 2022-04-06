@@ -58,7 +58,6 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     //An object that stores reference information about the object
     protected InstanceId meta;
 
-
 //End of Serializable fields ******************************************************************
 
     //The dsb is the queue that objects can add themselves too
@@ -67,7 +66,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     private transient GameState gameState;
 //    ***ABSTRACTION FOR SUBCLASSES********************************************************************************************************************************
     
-    //convenience method to access movementplatform move method
+    //convenience method to access movementPlatform move method
     public void move(){
         movementPlatform.move();
     }
@@ -90,13 +89,12 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         dsb.addToCreatables(this);
 
         owner.getPlayerValues().getUnits().add(this);
-        
-        //Check if player can afford unit
-        //TODO
+
+        //Check if owner can afford this unit
         if(owner.getPlayerValues().getCurrency() <= priceOfSelf()) {
+
             //Remove money from player
-            //TODO
-            owner.getPlayerValues().setCurrency(owner.getPlayerValues().getCurrency());
+            owner.getPlayerValues().setCurrency(owner.getPlayerValues().getCurrency() - priceOfSelf());
         }
         
     }
@@ -190,5 +188,13 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 
     public void setDSB(DataServiceBus dataServiceBus) {
         this.dsb = dataServiceBus;
+    }
+
+    public void setTarget(AbstractUnitObject targetedUnit) {
+
+        turretPlatform.target.setTargetedUnit(targetedUnit);
+
+        //Add self to message queue
+        dsb.addToChangeables(this);
     }
 }

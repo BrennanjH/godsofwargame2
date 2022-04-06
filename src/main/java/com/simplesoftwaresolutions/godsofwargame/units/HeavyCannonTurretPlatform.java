@@ -5,6 +5,10 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
+
+import java.util.List;
+
 /**
  *
  * @author brenn
@@ -21,6 +25,24 @@ public class HeavyCannonTurretPlatform extends AbstractTurretPlatform{
     public boolean isBuilt() {
         return true;
     }
+
+    @Override
+    public void findTarget(List<PlayerProfile> playerProfiles, AbstractUnitObject owner) {
+        for (PlayerProfile profile :
+                playerProfiles) {
+            if(profile.getNickname().compareTo(owner.getOwnerNickName()) == 0)
+                continue;
+            for (AbstractUnitObject unit :
+                    profile.getPlayerValues().getUnits()) {
+
+                if(canShoot(owner, unit) ) {
+                    owner.setTarget(unit);
+                    return;
+                }
+            }
+        }
+    }
+
 
     @Override
     public int priceOfSelf() {
