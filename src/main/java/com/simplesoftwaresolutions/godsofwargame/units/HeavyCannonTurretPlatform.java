@@ -44,8 +44,6 @@ public class HeavyCannonTurretPlatform extends AbstractTurretPlatform{
                     profile.getPlayerValues().getUnits()) {
 
                 if(canShoot(owner, unit) ) {
-                    System.out.println(owner.getOwnerNickName());
-                    System.out.println(unit.getOwnerNickName());
                     owner.setTarget(unit);
                     return;
                 }
