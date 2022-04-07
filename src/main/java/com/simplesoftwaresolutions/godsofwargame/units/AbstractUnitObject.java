@@ -40,6 +40,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         this.meta = meta;
         this.locationData = locationData;
 
+        dsb = DataServiceBus.getInstance();
     }
     
     

@@ -51,7 +51,7 @@ public class CreateUnitCommand implements Command{
             //Set the Unit's string builder to the sessions
             unit.setOwnerNickName(commandMaker);
 
-            //Allow the Unit to handle it's own creation
+            //Allow the Unit to handle its own creation
             unit.createSelf(gameState.getPlayerData().get(commandMaker));
         }
     }

@@ -5,6 +5,8 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
 import java.util.List;
@@ -15,7 +17,13 @@ import java.util.List;
  */
 public class HeavyCannonTurretPlatform extends AbstractTurretPlatform{
 
-    
+    @JsonCreator
+    public HeavyCannonTurretPlatform(@JsonProperty("damage") int damage,
+                                     @JsonProperty("fireSpeed")int fireSpeed,
+                                     @JsonProperty("range")int targetingRange) {
+        super(damage,fireSpeed,targetingRange);
+    }
+
     @Override
     public void attack() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -36,6 +44,8 @@ public class HeavyCannonTurretPlatform extends AbstractTurretPlatform{
                     profile.getPlayerValues().getUnits()) {
 
                 if(canShoot(owner, unit) ) {
+                    System.out.println(owner.getOwnerNickName());
+                    System.out.println(unit.getOwnerNickName());
                     owner.setTarget(unit);
                     return;
                 }
@@ -46,6 +56,7 @@ public class HeavyCannonTurretPlatform extends AbstractTurretPlatform{
 
     @Override
     public int priceOfSelf() {
+
         return 300;
     }
 

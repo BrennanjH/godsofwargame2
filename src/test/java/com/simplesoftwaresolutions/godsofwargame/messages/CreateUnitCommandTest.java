@@ -31,7 +31,7 @@ class CreateUnitCommandTest {
     void execute() {
         //Init Env
         AbstractUnitObject unit = new StandardUnit( new LightTrackMovementPlatform(),
-                                                    new AntiAirGunTurretPlatform(),
+                                                    new AntiAirGunTurretPlatform(-1,-1,-1),
                                                     new InstanceId(),
                                                     new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);
@@ -53,7 +53,7 @@ class CreateUnitCommandTest {
     void executeRealUser() {
         //Init Env
         AbstractUnitObject unit = new StandardUnit( new LightTrackMovementPlatform(),
-                new AntiAirGunTurretPlatform(),
+                new AntiAirGunTurretPlatform(-1,-1,-1),
                 new InstanceId(),
                 new FullPositionalCord());
         Command command = new CreateUnitCommand(unit);

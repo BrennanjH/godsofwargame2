@@ -79,6 +79,10 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
         return oldTeams;
     }
 
+    public UserIdentity getUid() {
+        return uid;
+    }
+
     public String getId() {
         return uid.getId();
     }

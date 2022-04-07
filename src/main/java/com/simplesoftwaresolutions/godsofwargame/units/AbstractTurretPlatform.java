@@ -23,7 +23,13 @@ public abstract class AbstractTurretPlatform {
     targetingRange - How close a hostile unit must be before unit can fire
     */
     protected float damage, fireSpeed, targetingRange;
-    
+
+    public AbstractTurretPlatform(float damage, float fireSpeed, float targetingRange) {
+        this.damage = damage;
+        this.fireSpeed = fireSpeed;
+        this.targetingRange = targetingRange;
+    }
+
     protected Target target = new Target();
     
     abstract public void attack();
