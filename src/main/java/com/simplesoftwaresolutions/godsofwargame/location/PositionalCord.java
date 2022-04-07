@@ -17,4 +17,16 @@ public class PositionalCord implements CoordinatePlane{
     public int getY() {
         return yCord;
     }
+
+    @Override
+    public void setX(int x) {
+        xCord = x;
+    }
+
+    @Override
+    public void setY(int y) {
+        yCord = y;
+    }
+
+
 }
