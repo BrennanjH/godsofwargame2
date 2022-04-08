@@ -29,7 +29,7 @@ class StartGameCommandTest {
     @Test
     void executeAllReady()  {
         gameState.loadState = LoadState.LOBBY;
-        gameState.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_HOST;
+        gameState.getPlayerFromSession(session).setServerRole(ServerRole.LOBBY_HOST);
         gameState.getPlayerFromSession(session).getPlayerValues().setReadyState(true);
         StartGameCommand command = new StartGameCommand();
 
@@ -50,7 +50,7 @@ class StartGameCommandTest {
 
         //Set up lobby host and gameState
         gameState.loadState = LoadState.LOBBY;
-        gameState.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_HOST;
+        gameState.getPlayerFromSession(session).setServerRole(ServerRole.LOBBY_HOST);
         gameState.getPlayerFromSession(session).getPlayerValues().setReadyState(true);
         //Create tested command object
         StartGameCommand command = new StartGameCommand();
@@ -68,7 +68,7 @@ class StartGameCommandTest {
     void executeInvalidUser(){
         //Set up lobby host and gameState
         gameState.loadState = LoadState.LOBBY;
-        gameState.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_MEMBER;
+        gameState.getPlayerFromSession(session).setServerRole(ServerRole.LOBBY_MEMBER);
         gameState.getPlayerFromSession(session).getPlayerValues().setReadyState(true);
         //Create tested command object
         StartGameCommand command = new StartGameCommand();
@@ -79,7 +79,7 @@ class StartGameCommandTest {
             e.printStackTrace();
         }
 
-        Assertions.assertTrue(gameState.getPlayerFromSession(session).serverRole == ServerRole.LOBBY_MEMBER);
+        Assertions.assertTrue(gameState.getPlayerFromSession(session).getServerRole() == ServerRole.LOBBY_MEMBER);
     }
 
 }

@@ -40,7 +40,7 @@ public class ChangeMapCommand implements Command {
         }
 
         //Verify sender is LobbyHost
-        if(gameState.getPlayerFromSession(session).serverRole == ServerRole.LOBBY_HOST){
+        if(gameState.getPlayerFromSession(session).getServerRole() == ServerRole.LOBBY_HOST){
             //Set gameState Map to mapName
             gameState.getBoardManager().setMap(map);
         }

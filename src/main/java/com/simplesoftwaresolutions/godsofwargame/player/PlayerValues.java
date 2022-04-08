@@ -28,7 +28,7 @@ public class PlayerValues implements Changeable{
     private List<AbstractUnitObject> units;
 
 
-    public boolean readyState;
+    private boolean readyState;
 
 
 

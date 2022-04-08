@@ -23,8 +23,8 @@ import java.util.List;
     //money should not force every single unit they own to also be sent to other players
 public class PlayerProfile implements Destroyable, Creatable, Changeable{
 
-    private PlayerValues playerValues;
-    public ServerRole serverRole;
+    private PlayerValues playerValues; //Protects its own values
+    private ServerRole serverRole; //value protected
     private UserIdentity uid;
 
     private List<Team> joinedTeams;
@@ -48,6 +48,22 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
         this.playerValues = playerValues;
     }
 
+    /** a legal COPY of the PlayerProfiles serverRole
+     * @return - a server role that if changed won't affect this object thus protecting the PlayerProfile from illegal changes
+     */
+    public ServerRole getServerRole() {
+        return serverRole;
+    }
+
+
+    /** Sets the player role to a new role and adds them to message queue
+     * @param serverRole - The role that the player is to become
+     */
+    public void setServerRole(ServerRole serverRole) {
+        dsb.addToChangeables(this);
+
+        this.serverRole = serverRole;
+    }
 
     public List<Team> getJoinedTeams() {
         return joinedTeams;

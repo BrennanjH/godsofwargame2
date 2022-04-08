@@ -120,7 +120,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
 
         //Check if session is first joiner and if so make them host of Lobby
         if(users.isEmpty() && gameState.loadState == LoadState.LOBBY){
-            gameState.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_HOST;
+            gameState.getPlayerFromSession(session).setServerRole(ServerRole.LOBBY_HOST);
         }
         //Add new session to users
         users.add(session);

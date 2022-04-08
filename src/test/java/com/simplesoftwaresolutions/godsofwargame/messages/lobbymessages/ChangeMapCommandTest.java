@@ -37,7 +37,7 @@ class ChangeMapCommandTest {
         gs.addPlayer(session);
 
         //Assign player a role
-        gs.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_HOST;
+        gs.getPlayerFromSession(session).setServerRole(ServerRole.LOBBY_HOST);
     }
 
     @Test
@@ -70,7 +70,7 @@ class ChangeMapCommandTest {
     void executeInvalidUser() {
         //env
 
-        gs.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_MEMBER;
+        gs.getPlayerFromSession(session).setServerRole(ServerRole.LOBBY_MEMBER);
         //exec
         try {
             command.execute(gs,session);

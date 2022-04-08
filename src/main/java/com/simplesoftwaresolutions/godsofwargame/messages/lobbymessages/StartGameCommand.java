@@ -37,7 +37,7 @@ public class StartGameCommand implements Command {
         //Verify loadState is LOBBY
         if(gameState.loadState == LoadState.LOBBY
                 //Verify Command Sender is lobby Host
-                && gameState.getPlayerFromSession(session).serverRole == ServerRole.LOBBY_HOST ){
+                && gameState.getPlayerFromSession(session).getServerRole() == ServerRole.LOBBY_HOST ){
             boolean allPlayersReady = true;
             for (StringBuilder b:
                  gameState.getPlayerData().keySet()) {

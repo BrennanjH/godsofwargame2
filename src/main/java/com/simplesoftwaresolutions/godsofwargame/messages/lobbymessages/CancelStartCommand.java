@@ -28,7 +28,7 @@ public class CancelStartCommand implements Command {
         //Verify loadState is LOBBY
         if(gameState.loadState == LoadState.LOBBY
                 //Verify Command Sender is lobby Host
-                && gameState.getPlayerFromSession(session).serverRole == ServerRole.LOBBY_HOST){
+                && gameState.getPlayerFromSession(session).getServerRole() == ServerRole.LOBBY_HOST){
             int indexOf = -1;
             //Check if timer has a startgame task going
             for ( TimerTask t : gameState.getTasks()){

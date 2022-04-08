@@ -4,7 +4,7 @@ import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
 public class PlayerProfileMapper {
     public static Model mapPlayerProfileToPlayerProfileModel(PlayerProfile profile) {
-        return new PlayerProfileModel(profile.serverRole,
+        return new PlayerProfileModel(profile.getServerRole(),
                 profile.getUid(),
                 profile.getJoinedTeams());
     }

@@ -1,7 +1,6 @@
 package com.simplesoftwaresolutions.godsofwargame;
 
-import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
-import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
+import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 
 /**
  * A class that holds a test main method, not used during live production
@@ -9,14 +8,16 @@ import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
 public class AltMain {
 
     public static void main(String[] args) {
-        DataServiceBus dsb = DataServiceBus.getInstance();
-
-        dsb.addToCreatables(new StandardUnit());
-
-        Class usb = dsb.getCreatables().get(0).getClass();
 
 
-        System.out.println();
+        ServerRole role1 = ServerRole.LOBBY_MEMBER;
+
+        ServerRole role2 = role1;
+
+        role1 = ServerRole.LOBBY_HOST;
+
+        System.out.println(role1);
+        System.out.println(role2);
 
     }
 

@@ -23,7 +23,7 @@ class CancelStartCommandTest {
 
         //add Player to gamestate
         gameState.addPlayer(session);
-        gameState.getPlayerFromSession(session).serverRole = ServerRole.LOBBY_HOST;
+        gameState.getPlayerFromSession(session).setServerRole(ServerRole.LOBBY_HOST);
 
     }
 
@@ -68,7 +68,7 @@ class CancelStartCommandTest {
             e.printStackTrace();
         }
         //remove the role of Lobby host
-        gameState.getPlayerFromSession(session).serverRole = ServerRole.GAME_MEMBER;
+        gameState.getPlayerFromSession(session).setServerRole(ServerRole.GAME_MEMBER);
 
         //Now have a non lobby host execute command
         CancelStartCommand command = new CancelStartCommand();

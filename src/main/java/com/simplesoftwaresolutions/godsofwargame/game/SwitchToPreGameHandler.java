@@ -16,7 +16,7 @@ public class SwitchToPreGameHandler {
         gameState.loadState = LoadState.PRE_GAME;
         //Update all player roles
         for(StringBuilder s : gameState.getPlayerData().keySet()) {
-            gameState.getPlayerData().get(s).serverRole = ServerRole.GAME_MEMBER;
+            gameState.getPlayerData().get(s).setServerRole(ServerRole.GAME_MEMBER);
         }
         //Create and send a message to all players saying that a gamestate change has occured
         //TODO
