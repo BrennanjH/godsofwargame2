@@ -34,7 +34,7 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
     public PlayerProfile( GameState gameState, StringBuilder id, WebSocketSession session){
         dsb = DataServiceBus.getInstance();
 
-        uid = new UserIdentity(gameState, session, id);
+        uid = new UserIdentity(session, id);
         playerValues = new PlayerValues(gameState, session);
         joinedTeams = new ArrayList<>();
         serverRole = ServerRole.LOBBY_MEMBER;
