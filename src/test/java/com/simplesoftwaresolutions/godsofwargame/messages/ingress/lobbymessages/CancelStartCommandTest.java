@@ -1,4 +1,4 @@
-package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
+package com.simplesoftwaresolutions.godsofwargame.messages.ingress.lobbymessages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;

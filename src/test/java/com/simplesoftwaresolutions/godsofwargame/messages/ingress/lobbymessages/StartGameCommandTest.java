@@ -1,7 +1,8 @@
-package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
+package com.simplesoftwaresolutions.godsofwargame.messages.ingress.lobbymessages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
+import com.simplesoftwaresolutions.godsofwargame.messages.ingress.lobbymessages.StartGameCommand;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.junit.jupiter.api.Assertions;

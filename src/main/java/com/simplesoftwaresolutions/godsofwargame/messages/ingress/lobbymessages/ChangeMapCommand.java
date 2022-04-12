@@ -1,4 +1,4 @@
-package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
+package com.simplesoftwaresolutions.godsofwargame.messages.ingress.lobbymessages;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;

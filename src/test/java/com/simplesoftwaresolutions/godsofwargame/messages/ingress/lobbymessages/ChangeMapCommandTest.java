@@ -1,4 +1,4 @@
-package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
+package com.simplesoftwaresolutions.godsofwargame.messages.ingress.lobbymessages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.Board;
 import com.simplesoftwaresolutions.godsofwargame.game.BoardManager;
@@ -6,6 +6,7 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.game.Maps.BrennansFolly;
 import com.simplesoftwaresolutions.godsofwargame.game.Maps.Map;
+import com.simplesoftwaresolutions.godsofwargame.messages.ingress.lobbymessages.ChangeMapCommand;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.junit.jupiter.api.Assertions;

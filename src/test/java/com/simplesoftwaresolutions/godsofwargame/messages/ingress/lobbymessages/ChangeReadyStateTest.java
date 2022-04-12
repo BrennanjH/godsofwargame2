@@ -1,13 +1,13 @@
-package com.simplesoftwaresolutions.godsofwargame.messages.lobbymessages;
+package com.simplesoftwaresolutions.godsofwargame.messages.ingress.lobbymessages;
 
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
+import com.simplesoftwaresolutions.godsofwargame.messages.ingress.lobbymessages.ChangeReadyState;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.socket.WebSocketSession;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

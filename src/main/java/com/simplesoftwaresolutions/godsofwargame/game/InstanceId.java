@@ -33,6 +33,13 @@ public class InstanceId {
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
     }
-    
-    
+
+    /** A method that compares an Instance ID to another to verify if they are equal
+     * @param comparisonInstance - The instance Id to be compared with
+     * @return - true if both values are equivalent to each other
+     */
+    public boolean compareTo(InstanceId comparisonInstance){
+
+        return ownerNickName.compareTo(comparisonInstance.getOwnerNickName()) == 0 && instanceId.compareTo(comparisonInstance.getInstanceId()) == 0;
+    }
 }
