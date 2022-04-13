@@ -32,7 +32,7 @@ public class AttackTimer extends TimerTask {
 
         }
 
-        //get list of units for each player
+        //Loop through each unit and handle it's attack
         List<AbstractUnitObject> playersUnits;
 
         for (PlayerProfile p :
