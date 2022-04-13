@@ -8,21 +8,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
-/**
- * A TimerTask that when run will cause all existing units to attack their targets
- * if the target is not set or is invalid it will attempt to find a target and if it still fails it simply won't shoot
- * anything
- */
-public class AttackTimer extends TimerTask {
-
+public class GameTimeProcessTasks extends TimerTask {
     private GameState gameState;
 
-    public AttackTimer(GameState gameState){
+    public GameTimeProcessTasks(GameState gameState) {
         this.gameState = gameState;
     }
 
     @Override
     public void run() {
+        handleAttack();
+        handleMovement();
+    }
+
+    private void handleMovement() {
+        //get a list of each Player in the game
+        List<PlayerProfile> playerData = new ArrayList<>();
+
+        for(StringBuilder playerString : gameState.getPlayerData().keySet()) {
+
+            playerData.add(gameState.getPlayerData().get(playerString));
+
+        }
+
+        //for each unit in the game handle it's movement
+        List<AbstractUnitObject> playersUnits;
+
+        for (PlayerProfile p :
+                playerData) {
+            playersUnits = p.getPlayerValues().getUnits();
+
+            //for each loop of each unit owned by PlayerProfile p
+            for (AbstractUnitObject unit :
+                    playersUnits) {
+                //Unlike attacking units are micromanaged by the player only as such no effort to decide a path is made
+                //by the server it lets each unit decide when it can move
+                unit.move();
+            }
+
+        }
+    }
+
+    private void handleAttack() {
         //get a list of each Player in the game
         List<PlayerProfile> playerData = new ArrayList<>();
 
@@ -52,15 +79,7 @@ public class AttackTimer extends TimerTask {
             }
 
         }
-
-
     }
 
-    /** Finds a new AbstractUnitObject that can become a unit's target
-     * @param unit The unit that is to receive a new target
-     */
-    private void assignNewTarget(AbstractUnitObject unit){
-
-    }
 
 }

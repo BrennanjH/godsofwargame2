@@ -1,6 +1,9 @@
 package com.simplesoftwaresolutions.godsofwargame;
 
-import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
+import com.simplesoftwaresolutions.godsofwargame.game.tasks.TaskStart;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A class that holds a test main method, not used during live production
@@ -10,14 +13,19 @@ public class AltMain {
     public static void main(String[] args) {
 
 
-        ServerRole role1 = ServerRole.LOBBY_MEMBER;
+        Timer timer = new Timer();
 
-        ServerRole role2 = role1;
+        TimerTask task = new TaskStart(null);
 
-        role1 = ServerRole.LOBBY_HOST;
 
-        System.out.println(role1);
-        System.out.println(role2);
+
+
+
+            timer.schedule(task, 1000);
+            task.cancel();
+            task.cancel();
+
+            timer.schedule(new TaskStart(null), 500);
 
     }
 

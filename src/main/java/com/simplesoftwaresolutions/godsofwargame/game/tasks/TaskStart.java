@@ -17,10 +17,7 @@ public class TaskStart extends TimerTask {
         handler.SwitchToPreGame(gameState);
 
         //Schedule attack timer for game
-        TimerTask task = new AttackTimer(gameState);
-        gameState.schedule(task, 5000);
-
-        task = new MoveTimer(gameState);
+        TimerTask task = new GameTimeProcessTasks(gameState);
         gameState.schedule(task, 5000);
 
         //remove self from gameState task list

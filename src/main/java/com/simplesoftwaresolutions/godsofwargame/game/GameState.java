@@ -147,7 +147,6 @@ public class GameState{
         tasks.add(task);
     }
 
-
     public List<TimerTask> getTasks() {
         return tasks;
     }
