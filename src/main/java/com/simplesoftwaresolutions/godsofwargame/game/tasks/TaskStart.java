@@ -20,6 +20,9 @@ public class TaskStart extends TimerTask {
         TimerTask task = new AttackTimer(gameState);
         gameState.schedule(task, 5000);
 
+        task = new MoveTimer(gameState);
+        gameState.schedule(task, 5000);
+
         //remove self from gameState task list
         gameState.getTasks().remove(this);
     }
