@@ -6,6 +6,9 @@
 package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
+
+import java.util.List;
 
 /** an abstract class that defines the behavior of a tank movement platform
  *
@@ -20,7 +23,17 @@ public abstract class AbstractMovementPlatform {
     health - How much damage a unit can take before dying
     */
     protected float speed, health;
-    
+
+    private Route movePath = new Route();
+
+    public void changeRoute(List<PositionalCord> newRoute){
+        movePath.setStepList(newRoute);
+    }
+
+    public Route getMovePath() {
+        return movePath;
+    }
+
     abstract void move();
 
     abstract public boolean isBuilt();

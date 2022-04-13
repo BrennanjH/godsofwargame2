@@ -11,11 +11,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
+import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -99,7 +103,13 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         }
         
     }
-    
+    public void setRoute(List<PositionalCord> path){
+        //Add to message queue
+        dsb.addToChangeables(this);
+
+        //Set path
+        this.movementPlatform.changeRoute(path);
+    }
     
 //    ***GETTERS AND SETTERS********************************************************************************************************************************
 
@@ -136,6 +146,9 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         this.turretPlatform = turretPlatform;
     }
 
+    public List<PositionalCord> getPath(){
+        return Collections.unmodifiableList(movementPlatform.getMovePath().getStepList()) ;
+    }
 
     public GameState getGameState() {
         return gameState;

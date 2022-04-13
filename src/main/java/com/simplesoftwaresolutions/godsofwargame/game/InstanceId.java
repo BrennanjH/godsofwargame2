@@ -5,6 +5,9 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.game;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /** A class that represents an instance Owner as well as it's unique Id
  * It doesn't check to make sure it's Unique Id is Unique that is performed 
  * by implementation
@@ -14,9 +17,19 @@ package com.simplesoftwaresolutions.godsofwargame.game;
 public class InstanceId {
     
     private StringBuilder ownerNickName;
-    
+
     //Although an int would be better here, An objects Id is frequently serialized so String is better
     private String instanceId;
+
+    public InstanceId(){
+
+    }
+
+    @JsonCreator
+    public InstanceId(@JsonProperty("instanceId") String instanceId){
+        this.instanceId = instanceId;
+    }
+
 
     public StringBuilder getOwnerNickName() {
         return ownerNickName;

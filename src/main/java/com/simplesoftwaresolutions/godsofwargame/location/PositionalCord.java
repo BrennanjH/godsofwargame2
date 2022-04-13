@@ -1,29 +1,38 @@
 package com.simplesoftwaresolutions.godsofwargame.location;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * A class that stores the xy coords of a server object
  */
-public class PositionalCord implements CoordinatePlane{
+public class PositionalCord {
 
     protected int xCord;
     protected int yCord;
 
-    @Override
+    @JsonCreator
+    public PositionalCord(@JsonProperty("x") int xCord,
+                          @JsonProperty("y") int yCord){
+        this.xCord = xCord;
+        this.yCord = yCord;
+    }
+
     public int getX() {
         return xCord;
     }
 
-    @Override
+
     public int getY() {
         return yCord;
     }
 
-    @Override
+
     public void setX(int x) {
         xCord = x;
     }
 
-    @Override
+
     public void setY(int y) {
         yCord = y;
     }
