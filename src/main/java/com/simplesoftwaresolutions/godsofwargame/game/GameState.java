@@ -140,8 +140,8 @@ public class GameState{
         return playerData.get(nickNames.get(session.getId()));
     }
 
-    public void schedule( TimerTask task, long time){
-        timer.schedule(task, time);
+    public void schedule( TimerTask task, long period){
+        timer.schedule(task,100,  period);
 
         //Register task with gameState
         tasks.add(task);
