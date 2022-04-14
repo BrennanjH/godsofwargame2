@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class LightTrackMovementPlatformTest {
-
+//TODO - change tests to test validateMove() not move()
     @Test
     void moveToValidLocation() {
         //env

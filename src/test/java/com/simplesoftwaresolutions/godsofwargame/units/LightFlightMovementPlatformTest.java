@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HeavyTrackMovementPlatformTest {
-//TODO - change methods to test validateMove() instead of move()
+class LightFlightMovementPlatformTest {
+    //TODO - change methods to test LightFLightMovementPlatform not HeavyTrack
     @Test
     void moveToValidLocation() {
         //env

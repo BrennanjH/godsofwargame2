@@ -35,7 +35,31 @@ public abstract class AbstractMovementPlatform {
         return movePath;
     }
 
-    protected abstract void move(PositionalCord locationData, BoardManager boardManager);
+    protected void move(PositionalCord locationData, BoardManager boardManager){
+        PositionalCord moveTo;
+
+        for(int i = 0; i < speed; i++){
+            //get the next movement location
+            if(movePath.getStepList().isEmpty()){
+                break;
+            }
+            moveTo = movePath.nextLocation();
+            //If location is valid change unit location to that
+            if(validateMove(locationData, moveTo, boardManager)){
+                locationData.setX(moveTo.getX());
+                locationData.setY(moveTo.getY());
+            } else {
+                //Clear units route as it is not valid if the next path is invalid
+                movePath.clear();
+
+                break; //with the move being invalid movement should stop
+            }
+        }
+
+    }
+
+    protected abstract boolean validateMove(PositionalCord locationData, PositionalCord moveTo, BoardManager boardManager) ;
+
 
     abstract public boolean isBuilt();
 
