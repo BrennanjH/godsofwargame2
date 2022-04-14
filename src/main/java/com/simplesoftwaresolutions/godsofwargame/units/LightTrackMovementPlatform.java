@@ -28,6 +28,9 @@ public class LightTrackMovementPlatform extends AbstractMovementPlatform {
 
         for(int i = 0; i < speed; i++){
             //get the next movement location
+            if(movePath.getStepList().isEmpty()){
+                break;
+            }
             moveTo = movePath.nextLocation();
             //If location is valid change unit location to that
             if(validateMove(locationData, moveTo, boardManager)){
@@ -42,8 +45,6 @@ public class LightTrackMovementPlatform extends AbstractMovementPlatform {
         }
 
 
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
