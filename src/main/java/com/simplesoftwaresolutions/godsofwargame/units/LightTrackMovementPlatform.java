@@ -5,6 +5,8 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import com.simplesoftwaresolutions.godsofwargame.Terrain.Terrain;
+import com.simplesoftwaresolutions.godsofwargame.Terrain.TerrainTypes;
 import com.simplesoftwaresolutions.godsofwargame.game.BoardManager;
 import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 
@@ -13,6 +15,8 @@ import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
  * @author brenn
  */
 public class LightTrackMovementPlatform extends AbstractMovementPlatform {
+
+    public TerrainTypes[] validTerrain = {TerrainTypes.PLAINS};
 
     public LightTrackMovementPlatform(){
         speed = 1;
@@ -63,9 +67,12 @@ public class LightTrackMovementPlatform extends AbstractMovementPlatform {
                 Math.abs(startCoord.getY() - checkCoord.getY()) <= 1 ) {
 
             //Validate Terrain
-            //TODO - handle terrain checking
-            if(true){
-                return true;
+            Terrain nextPosTerrain = manager.getTerrain(checkCoord.getX(), checkCoord.getY());
+            for (TerrainTypes t :
+                    validTerrain) {
+                if (t == nextPosTerrain.getType()) {
+                    return true;
+                }
             }
         }
         return false;

@@ -28,4 +28,9 @@ public class BoardManager {
         return gameBoard.getTerrainBoard();
     }
 
+    public Terrain getTerrain(int x, int y){
+        //WARNING - there might be a discrepancy in the lists x,y and the Terrains xy this is not intended and is a bug
+        return gameBoard.getTerrainBoard().get(x).get(y);
+    }
+
 }
