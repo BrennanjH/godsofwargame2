@@ -6,6 +6,7 @@
 package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.simplesoftwaresolutions.godsofwargame.game.BoardManager;
 import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public abstract class AbstractMovementPlatform {
     */
     protected float speed, health;
 
-    private Route movePath = new Route();
+    protected Route movePath = new Route();
 
     public void changeRoute(List<PositionalCord> newRoute){
         movePath.setStepList(newRoute);
@@ -34,7 +35,7 @@ public abstract class AbstractMovementPlatform {
         return movePath;
     }
 
-    abstract void move();
+    protected abstract void move(PositionalCord locationData, BoardManager boardManager);
 
     abstract public boolean isBuilt();
 

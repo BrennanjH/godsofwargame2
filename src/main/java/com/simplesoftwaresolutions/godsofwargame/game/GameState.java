@@ -21,7 +21,7 @@ import java.util.*;
 @Component
 @Scope("singleton")
 public class GameState{
-    //TODO - Update gameState objects to properly add themselves to the DataServiceBus
+
     //Link of Session Id To NickName
     private HashMap<String, StringBuilder> nickNames;
     

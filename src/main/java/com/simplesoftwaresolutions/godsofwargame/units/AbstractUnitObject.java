@@ -73,7 +73,9 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     
     //convenience method to access movementPlatform move method
     public void move(){
-        movementPlatform.move();
+        dsb.addToChangeables(this);
+
+        movementPlatform.move(locationData, gameState.getBoardManager());
     }
     
     //convenience method to access turretPlatforms attack method

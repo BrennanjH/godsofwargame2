@@ -17,7 +17,12 @@ public class GameTimeProcessTasks extends TimerTask {
 
     @Override
     public void run() {
+        //Allow all units to attempt to attack
         handleAttack();
+
+        //Remove dead units
+        //TODO
+        //Move all existing units according to their routes
         handleMovement();
     }
 
@@ -43,6 +48,9 @@ public class GameTimeProcessTasks extends TimerTask {
                     playersUnits) {
                 //Unlike attacking units are micromanaged by the player only as such no effort to decide a path is made
                 //by the server it lets each unit decide when it can move
+                if (unit.getPath().isEmpty() ){
+                    continue;
+                }
                 unit.move();
             }
 

@@ -5,6 +5,9 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import com.simplesoftwaresolutions.godsofwargame.game.BoardManager;
+import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
+
 /** A slow moving but higher health ground platform
  *
  * @author brenn
@@ -13,7 +16,7 @@ package com.simplesoftwaresolutions.godsofwargame.units;
 public class HeavyTrackMovementPlatform extends AbstractMovementPlatform{
 
     @Override
-    void move() {
+    protected void move(PositionalCord locationData, BoardManager boardManager) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
