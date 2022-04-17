@@ -9,10 +9,7 @@ import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class HeavyTrackMovementPlatformTest {
-//TODO - change methods to test validateMove() instead of move()
     @Test
     void moveToValidLocation() {
         //env
@@ -28,17 +25,16 @@ class HeavyTrackMovementPlatformTest {
 
         //Create Route;
         PositionalCord moveToPosition = new PositionalCord(1,0); //THis coordinate is a known PLAINS
-        Route route = new Route(); //Not needed but I did it by accident
-        route.getStepList().add(moveToPosition);
-        movementPlatform.changeRoute(route.getStepList());
+//        Route route = new Route(); //Not needed but I did it by accident
+//        route.getStepList().add(moveToPosition);
+//        movementPlatform.changeRoute(route.getStepList());
 
         //execute
-        movementPlatform.move( startPos, manager);
+        boolean bool = movementPlatform.validateMove( startPos, moveToPosition,manager);
 
 
         //assert
-        System.out.println(manager.getTerrain(moveToPosition.getX(),moveToPosition.getY()).getType());
-        Assertions.assertTrue(startPos.getX() == moveToPosition.getX() && startPos.getY() == moveToPosition.getY());
+        Assertions.assertTrue(bool);
     }
 
     @Test
@@ -56,17 +52,16 @@ class HeavyTrackMovementPlatformTest {
 
         //Create Route;
         PositionalCord moveToPosition = new PositionalCord(1,1); //THis coordinate is a known PLAINS
-        Route route = new Route(); //Not needed but I did it by accident
-        route.getStepList().add(moveToPosition);
-        movementPlatform.changeRoute(route.getStepList());
+//        Route route = new Route(); //Not needed but I did it by accident
+//        route.getStepList().add(moveToPosition);
+//        movementPlatform.changeRoute(route.getStepList());
 
         //execute
-        movementPlatform.move( startPos, manager);
+        boolean bool = movementPlatform.validateMove( startPos, moveToPosition,manager);
 
 
         //assert
-        System.out.println(manager.getTerrain(moveToPosition.getX(),moveToPosition.getY()).getType());
-        Assertions.assertFalse(startPos.getX() == moveToPosition.getX() && startPos.getY() == moveToPosition.getY());
+        Assertions.assertFalse(bool);
     }
     @Test
     void moveToInvalidDistance() {
@@ -83,16 +78,15 @@ class HeavyTrackMovementPlatformTest {
 
         //Create Route;
         PositionalCord moveToPosition = new PositionalCord(0,2); //THis coordinate is a known PLAINS
-        Route route = new Route(); //Not needed but I did it by accident
-        route.getStepList().add(moveToPosition);
-        movementPlatform.changeRoute(route.getStepList());
+//        Route route = new Route(); //Not needed but I did it by accident
+//        route.getStepList().add(moveToPosition);
+//        movementPlatform.changeRoute(route.getStepList());
 
         //execute
-        movementPlatform.move( startPos, manager);
+        boolean bool = movementPlatform.validateMove( startPos, moveToPosition,manager);
 
 
         //assert
-        System.out.println(manager.getTerrain(moveToPosition.getX(),moveToPosition.getY()).getType());
-        Assertions.assertFalse(startPos.getX() == moveToPosition.getX() && startPos.getY() == moveToPosition.getY());
+        Assertions.assertFalse(bool);
     }
 }

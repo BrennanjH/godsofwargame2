@@ -9,10 +9,8 @@ import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class LightFlightMovementPlatformTest {
-    //TODO - change methods to test LightFLightMovementPlatform not HeavyTrack
+
     @Test
     void moveToValidLocation() {
         //env
@@ -24,50 +22,22 @@ class LightFlightMovementPlatformTest {
 
         //Create moving platform (the complete unit isn't needed for movement)
         FullPositionalCord startPos = new FullPositionalCord(0,0,0);
-        HeavyTrackMovementPlatform movementPlatform = new HeavyTrackMovementPlatform();
+        LightFlightMovementPlatform movementPlatform = new LightFlightMovementPlatform();
 
         //Create Route;
         PositionalCord moveToPosition = new PositionalCord(1,0); //THis coordinate is a known PLAINS
-        Route route = new Route(); //Not needed but I did it by accident
-        route.getStepList().add(moveToPosition);
-        movementPlatform.changeRoute(route.getStepList());
+//        Route route = new Route(); //Not needed but I did it by accident
+//        route.getStepList().add(moveToPosition);
+//        movementPlatform.changeRoute(route.getStepList());
 
         //execute
-        movementPlatform.move( startPos, manager);
+        boolean bool = movementPlatform.validateMove( startPos, moveToPosition,manager);
 
 
         //assert
-        System.out.println(manager.getTerrain(moveToPosition.getX(),moveToPosition.getY()).getType());
-        Assertions.assertTrue(startPos.getX() == moveToPosition.getX() && startPos.getY() == moveToPosition.getY());
+        Assertions.assertTrue(bool);
     }
 
-    @Test
-    void moveToInvalidTerrain() {
-        //env
-        //Set up map
-        Board board = new Board();
-        Map map = new BrennansFolly();
-        board.setTerrainBoard(map.generateMap());
-        BoardManager manager = new BoardManager(board);
-
-        //Create moving platform (the complete unit isn't needed for movement)
-        FullPositionalCord startPos = new FullPositionalCord(0,0,0);
-        HeavyTrackMovementPlatform movementPlatform = new HeavyTrackMovementPlatform();
-
-        //Create Route;
-        PositionalCord moveToPosition = new PositionalCord(1,1); //THis coordinate is a known PLAINS
-        Route route = new Route(); //Not needed but I did it by accident
-        route.getStepList().add(moveToPosition);
-        movementPlatform.changeRoute(route.getStepList());
-
-        //execute
-        movementPlatform.move( startPos, manager);
-
-
-        //assert
-        System.out.println(manager.getTerrain(moveToPosition.getX(),moveToPosition.getY()).getType());
-        Assertions.assertFalse(startPos.getX() == moveToPosition.getX() && startPos.getY() == moveToPosition.getY());
-    }
     @Test
     void moveToInvalidDistance() {
         //env
@@ -79,20 +49,19 @@ class LightFlightMovementPlatformTest {
 
         //Create moving platform (the complete unit isn't needed for movement)
         FullPositionalCord startPos = new FullPositionalCord(0,0,0);
-        HeavyTrackMovementPlatform movementPlatform = new HeavyTrackMovementPlatform();
+        LightFlightMovementPlatform movementPlatform = new LightFlightMovementPlatform();
 
         //Create Route;
         PositionalCord moveToPosition = new PositionalCord(0,2); //THis coordinate is a known PLAINS
-        Route route = new Route(); //Not needed but I did it by accident
-        route.getStepList().add(moveToPosition);
-        movementPlatform.changeRoute(route.getStepList());
+//        Route route = new Route(); //Not needed but I did it by accident
+//        route.getStepList().add(moveToPosition);
+//        movementPlatform.changeRoute(route.getStepList());
 
         //execute
-        movementPlatform.move( startPos, manager);
+        boolean bool = movementPlatform.validateMove( startPos, moveToPosition,manager);
 
 
         //assert
-        System.out.println(manager.getTerrain(moveToPosition.getX(),moveToPosition.getY()).getType());
-        Assertions.assertFalse(startPos.getX() == moveToPosition.getX() && startPos.getY() == moveToPosition.getY());
+        Assertions.assertFalse(bool);
     }
 }
