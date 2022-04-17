@@ -15,8 +15,7 @@ import java.util.List;
  *
  * @author brenn
  */
-//TODO - make a test that handles the move() method of abstractMovementPlatform
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 public abstract class AbstractMovementPlatform {
     
     /*Variables that define unit behaviors
