@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author brenn
  */
-
+//TODO - make a test that handles the move() method of abstractMovementPlatform
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
 public abstract class AbstractMovementPlatform {
     
@@ -23,7 +23,7 @@ public abstract class AbstractMovementPlatform {
     Speed - How fast the unit can move over time
     health - How much damage a unit can take before dying
     */
-    protected float speed, health;
+    protected float speed =1, health =1;
 
     protected Route movePath = new Route();
 
