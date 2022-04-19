@@ -31,15 +31,26 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
 
     private DataServiceBus dsb;
 
-    public PlayerProfile( GameState gameState, StringBuilder id, WebSocketSession session){
+    public PlayerProfile( StringBuilder id, WebSocketSession session){
         dsb = DataServiceBus.getInstance();
 
         uid = new UserIdentity(session, id);
-        playerValues = new PlayerValues(gameState, session);
+        playerValues = new PlayerValues();
         joinedTeams = new ArrayList<>();
         serverRole = ServerRole.LOBBY_MEMBER;
     }
 
+    public PlayerProfile(UserIdentity uid){
+        dsb = DataServiceBus.getInstance();
+
+        this.uid = uid;
+        playerValues = new PlayerValues();
+        joinedTeams = new ArrayList<>();
+        serverRole = ServerRole.LOBBY_MEMBER;
+    }
+    public PlayerProfile(GameState gameState, PlayerProfile playerProfile){
+
+    }
     public PlayerValues getPlayerValues() {
         return playerValues;
     }
@@ -47,6 +58,7 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
     public void setPlayerValues(PlayerValues playerValues) {
         this.playerValues = playerValues;
     }
+
 
     /** a legal COPY of the PlayerProfiles serverRole
      * @return - a server role that if changed won't affect this object thus protecting the PlayerProfile from illegal changes

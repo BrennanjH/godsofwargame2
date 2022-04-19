@@ -6,6 +6,7 @@
 package com.simplesoftwaresolutions.godsofwargame.game;
 
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
+import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -73,7 +74,7 @@ public class GameState{
                 new StringBuilder(newPlayer.getId()));
         
         //Using new nickName create playerData
-        playerData.put(nickNames.get(newPlayer.getId()), new PlayerProfile(this, temp, newPlayer));
+        playerData.put(nickNames.get(newPlayer.getId()), new PlayerProfile(temp, newPlayer));
         
 //        //Add player Profile to newObject
 //        newObjects.add(playerData.get(temp));
@@ -116,7 +117,34 @@ public class GameState{
     }
 
 
+    /**
+     * Resets the gameState and its fields back to their LobbyState values, (PlayerProfile)
+     */
+    public void returnToLobbyState(){
+        //return gameState to lobbyState
+            //Change loadState value
+        this.loadState = LoadState.LOBBY;
+            //cancel the timer objects and clean the list
+        this.tasks.clear();
+        this.timer.cancel();
+        timer = new Timer();
+        //Return all player PlayerProfiles to LobbyMembers and set 1 to lobbyHost
+        boolean firstFlag = true;
+        for (PlayerProfile p :
+                playerData.values()) {
+            if(firstFlag){
+                p = new PlayerProfile(p.getUid());
+                p.setServerRole((ServerRole.LOBBY_HOST));
+                firstFlag = false;
+            } else {
+                p = new PlayerProfile(p.getUid());
+                p.setServerRole(ServerRole.LOBBY_MEMBER);
+            }
 
+        }
+        
+        
+    }
 
 
 //**GETTER AND SETTERS********************************************************************************************************************

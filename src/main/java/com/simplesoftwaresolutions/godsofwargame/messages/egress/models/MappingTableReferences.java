@@ -11,8 +11,8 @@ import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
 public class MappingTableReferences {
 
     static String standardUnit = new StandardUnit().getClass().getName();
-    static String playerValues = new PlayerValues(null,null).getClass().getName();
-    static String playerProfile = new PlayerProfile(null,null,null).getClass().getName();
+    static String playerValues = new PlayerValues().getClass().getName();
+    static String playerProfile = new PlayerProfile(null).getClass().getName();
 
     public void useMapper(BusinessObject bo){
         String objectType = bo.getClass().getName();

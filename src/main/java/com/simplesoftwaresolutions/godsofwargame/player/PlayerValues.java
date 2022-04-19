@@ -1,10 +1,8 @@
 package com.simplesoftwaresolutions.godsofwargame.player;
 
 
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
-import org.springframework.web.socket.WebSocketSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +28,7 @@ public class PlayerValues implements Changeable{
 
     private boolean readyState;
 
-
-
-
-    public PlayerValues( GameState gameState, WebSocketSession newPlayer){
+    public PlayerValues(){
         units = new ArrayList<>();
         readyState = false;
         this.points = 0;

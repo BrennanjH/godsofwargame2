@@ -22,7 +22,7 @@ class PlayerProfileTest {
 
         Coalition coat = new Coalition("TestTeam");
         Team coat2 = mock(Team.class);
-        PlayerProfile profile = new PlayerProfile(game, build, session);
+        PlayerProfile profile = new PlayerProfile(build, session);
 
         profile.getJoinedTeams().add(coat);
         profile.getJoinedTeams().add(coat);
@@ -46,7 +46,7 @@ class PlayerProfileTest {
 
         Coalition coat = mock(Coalition.class);
         Coalition coat2 = mock(Coalition.class);
-        PlayerProfile profile = new PlayerProfile(game, build, session);
+        PlayerProfile profile = new PlayerProfile(build, session);
 
         profile.getJoinedTeams().add(coat);
         profile.getJoinedTeams().add(coat2);
@@ -65,7 +65,7 @@ class PlayerProfileTest {
 
         Coalition coat = mock(Coalition.class);
 
-        PlayerProfile profile = new PlayerProfile(game, build, session);
+        PlayerProfile profile = new PlayerProfile(build, session);
         //Action
         PlayerProfile.removeCoalitionFromProfile(coat, profile);
         //Assert

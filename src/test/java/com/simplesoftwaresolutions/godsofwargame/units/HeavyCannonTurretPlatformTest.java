@@ -59,8 +59,8 @@ class HeavyCannonTurretPlatformTest {
         when(sess2.getId()).thenReturn("sess2 session id");
 
         //Set up player profiles
-        player1 = new PlayerProfile(null, id1.getOwnerNickName(), sess1);
-        player2 = new PlayerProfile(null, id2.getOwnerNickName() ,sess2);
+        player1 = new PlayerProfile(id1.getOwnerNickName(), sess1);
+        player2 = new PlayerProfile(id2.getOwnerNickName() ,sess2);
 
         //give units to players
         player1.getPlayerValues().getUnits().add(ownsTurret);
