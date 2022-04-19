@@ -128,6 +128,9 @@ public class GameState{
         this.tasks.clear();
         this.timer.cancel();
         timer = new Timer();
+
+
+
         //Return all player PlayerProfiles to LobbyMembers and set 1 to lobbyHost
         boolean firstFlag = true;
         for (PlayerProfile p :
