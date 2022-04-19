@@ -14,6 +14,7 @@ import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
+import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
 import org.springframework.web.socket.WebSocketSession;
 
 /** A command that adds a new unit to the game and then properly informs players of it
@@ -21,14 +22,14 @@ import org.springframework.web.socket.WebSocketSession;
  * is performed by this command
  * @author brenn
  */
-public class CreateUnitCommand implements Command {
+public class CreateStandardUnitCommand implements Command {
     
     
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
-    private AbstractUnitObject unit;
+    private StandardUnit unit;
     
     @JsonCreator
-    public CreateUnitCommand(@JsonProperty("unit")AbstractUnitObject unit){
+    public CreateStandardUnitCommand(@JsonProperty("unit")StandardUnit unit){
         this.unit = unit;
     }
     
@@ -71,10 +72,6 @@ public class CreateUnitCommand implements Command {
     public AbstractUnitObject getUnit() {
         return unit;
     }
-    
-    
-    public void setUnit(AbstractUnitObject unit) {
-        this.unit = unit;
-    }
+
     
 }

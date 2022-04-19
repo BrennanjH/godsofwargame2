@@ -6,7 +6,6 @@ import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
-import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 import com.simplesoftwaresolutions.godsofwargame.units.AntiAirGunTurretPlatform;
 import com.simplesoftwaresolutions.godsofwargame.units.LightTrackMovementPlatform;
 import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
@@ -18,7 +17,7 @@ import org.springframework.web.socket.WebSocketSession;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class CreateUnitCommandTest {
+class CreateStandardUnitCommandTest {
     static GameState gameState ;
     static WebSocketSession session ;
     @BeforeAll
@@ -32,11 +31,11 @@ class CreateUnitCommandTest {
     @Test
     void execute() {
         //Init Env
-        AbstractUnitObject unit = new StandardUnit( new LightTrackMovementPlatform(),
+        StandardUnit unit = new StandardUnit( new LightTrackMovementPlatform(),
                                                     new AntiAirGunTurretPlatform(-1,-1,-1),
                                                     new InstanceId(),
                                                     new FullPositionalCord());
-        Command command = new CreateUnitCommand(unit);
+        Command command = new CreateStandardUnitCommand(unit);
         unit.setDSB(DataServiceBus.getInstance());
 
         unit.setOwnerNickName(new StringBuilder(" "));
@@ -54,11 +53,11 @@ class CreateUnitCommandTest {
     @Test
     void executeRealUser() {
         //Init Env
-        AbstractUnitObject unit = new StandardUnit( new LightTrackMovementPlatform(),
+        StandardUnit unit = new StandardUnit( new LightTrackMovementPlatform(),
                 new AntiAirGunTurretPlatform(-1,-1,-1),
                 new InstanceId(),
                 new FullPositionalCord());
-        Command command = new CreateUnitCommand(unit);
+        Command command = new CreateStandardUnitCommand(unit);
         unit.setDSB(DataServiceBus.getInstance());
 
         unit.setOwnerNickName(new StringBuilder("WSID"));
@@ -78,8 +77,8 @@ class CreateUnitCommandTest {
     @Test
     void executeThrowable(){
         //Init Env
-        AbstractUnitObject unit = new StandardUnit();
-        Command command = new CreateUnitCommand(unit);
+        StandardUnit unit = new StandardUnit();
+        Command command = new CreateStandardUnitCommand(unit);
 
 
         Assertions.assertThrows(NullExpectedField.class , () -> command.execute(gameState, session));
