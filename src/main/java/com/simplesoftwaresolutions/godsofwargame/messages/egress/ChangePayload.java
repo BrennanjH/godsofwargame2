@@ -42,31 +42,14 @@ public class ChangePayload extends AbstractReturnModel {
 
 
     private static <T extends Envelope> List<Model> cycleList(List<T> dataList){
-        String objectType;
         Model temp;
         List<Model> modelList = new ArrayList<>();
         for (Envelope envelope :
                 dataList) {
-//            temp = null;
 
             temp = envelope.getObjectMapper().map(envelope.getPayload());
-//
-//
-//            objectType = bo.getClass().getName();
-//            if(objectType.compareTo(MappingTableReferences.getStandardUnit()) == 0){
-//                StandardUnit standardUnit = (StandardUnit) bo;
-//                temp = StandardUnitMapper.mapStandardUnitToStandardUnitModel(standardUnit);
-//            } else if (objectType.compareTo(MappingTableReferences.getPlayerValues())==0) {
-//                PlayerValues playerValues = (PlayerValues) bo;
-//                temp = PlayerValuesMapper.mapPlayerValuesToPlayerValuesModel(playerValues);
-//            } else if (objectType.compareTo(MappingTableReferences.getPlayerProfile())==0){
-//                PlayerProfile profile = (PlayerProfile) bo;
-//                temp = PlayerProfileMapper.mapPlayerProfileToPlayerProfileModel(profile);
-//            }
-//
-//            if(null != temp){
-//                modelList.add(temp);
-//            }
+
+            modelList.add(temp);
 
         }
         return modelList;

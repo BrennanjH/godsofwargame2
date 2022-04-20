@@ -35,7 +35,7 @@ class LightTrackMovementPlatformTest {
 
 
         //assert
-        Assertions.assertFalse(bool);
+        Assertions.assertTrue(bool);
     }
 
     @Test
