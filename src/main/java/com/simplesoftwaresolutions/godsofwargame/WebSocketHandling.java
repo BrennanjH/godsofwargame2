@@ -94,8 +94,8 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         
         //Remove Sessions Respected player data from gameState
         gameState.removePlayer(session);
-        
-        
+
+
         //Update players on lost units
         for(WebSocketSession s : users){
             //build model
@@ -106,6 +106,10 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
             TextMessage toSend = new TextMessage(payload);
             //send model to users
             s.sendMessage(toSend);
+        }
+        //Check if lost player was last connection
+        if(gameState.getPlayerData().isEmpty()){
+            gameState.returnToLobbyState();
         }
     }
     

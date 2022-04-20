@@ -59,8 +59,7 @@ public class PlayerValues implements Changeable{
     }
 
     public void addUnit(AbstractUnitObject newUnit){
-        
-        
+
     }
     public List<AbstractUnitObject> getUnits() {
         return units;
@@ -71,7 +70,6 @@ public class PlayerValues implements Changeable{
 
 
     }
-
 
     public void setUnits(List<AbstractUnitObject> units) {
         this.units = units;

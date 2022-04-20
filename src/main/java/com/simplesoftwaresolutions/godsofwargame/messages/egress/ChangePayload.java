@@ -5,6 +5,7 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Model;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
@@ -17,9 +18,8 @@ import java.util.List;
  *
  * @author brenn
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 public class ChangePayload extends AbstractReturnModel {
-
-
 
     private List<Model> update;
     private List<Model> remove;

@@ -200,6 +200,14 @@ public class GameState{
     public void setPlayerToSpectator(PlayerProfile playerProfile) {
 
         playerProfile.roleToSpectator();
-        throw new UnsupportedOperationException("not yet supported");
+
+        //Check if that player was the last player if not return
+        for (PlayerProfile p :
+                playerData.values()) {
+            if (p.getServerRole() == ServerRole.GAME_MEMBER) {
+                return;
+            }
+        }
+        returnToLobbyState();
     }
 }
