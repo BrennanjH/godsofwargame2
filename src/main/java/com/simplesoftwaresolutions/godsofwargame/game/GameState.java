@@ -193,4 +193,13 @@ public class GameState{
     public void setBoardManager(BoardManager boardManager) {
         this.boardManager = boardManager;
     }
+
+    /** Sets a PlayerProfile as a spectator
+     * @param playerProfile - the playerprofile that is to become a spectator
+     */
+    public void setPlayerToSpectator(PlayerProfile playerProfile) {
+
+        playerProfile.roleToSpectator();
+        throw new UnsupportedOperationException("not yet supported");
+    }
 }

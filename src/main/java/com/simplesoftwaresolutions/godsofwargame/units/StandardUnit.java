@@ -7,15 +7,21 @@ package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
-//TODO - integrate service bus with unit
-/** A general class that represents most units in the game, 
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.StandardUnitMapper;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
+import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
+
+/** A general class that represents most units in the game,
  * These units require no special consideration in how they are created
  * or destroyed
  *
  * @author brenn
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 public class StandardUnit extends AbstractUnitObject {
 
     @JsonCreator
@@ -31,7 +37,17 @@ public class StandardUnit extends AbstractUnitObject {
     }
     @Override
     public void removeSelf() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Create envelope
+        Mapper mapper = new StandardUnitMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToDestroyables(ev);
+
+        //get units owner from gameState
+        PlayerProfile pv = getGameState().getPlayerData().get(meta.getOwnerNickName());
+
+        //Remove unit from retrieved playerValues
+        pv.removeUnit(this);
     }
 
     @Override

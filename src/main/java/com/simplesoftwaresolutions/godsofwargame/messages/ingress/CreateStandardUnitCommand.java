@@ -7,7 +7,6 @@ package com.simplesoftwaresolutions.godsofwargame.messages.ingress;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
@@ -25,7 +24,6 @@ import org.springframework.web.socket.WebSocketSession;
 public class CreateStandardUnitCommand implements Command {
     
     
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
     private StandardUnit unit;
     
     @JsonCreator
@@ -44,7 +42,7 @@ public class CreateStandardUnitCommand implements Command {
         StringBuilder commandMaker = gameState.getNickNames().get(session.getId());
         //Make sure the Command Issuer is the same person as the units Owner
         if(commandMaker.toString().compareTo(unit.getOwnerNickName()) == 0){
-            System.out.println("CreateUnitCommand: Execute(): conditional passed");
+            System.out.println("CreateStandardUnitCommand: Execute(): conditional passed");
 
             //Inject Dependents
             unit.setGameState(gameState);

@@ -2,6 +2,10 @@ package com.simplesoftwaresolutions.godsofwargame.player;
 
 
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.PlayerValuesMapper;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
 
 import java.util.ArrayList;
@@ -24,7 +28,6 @@ public class PlayerValues implements Changeable{
     private int currency;
 
     private List<AbstractUnitObject> units;
-
 
     private boolean readyState;
 
@@ -63,6 +66,12 @@ public class PlayerValues implements Changeable{
         return units;
     }
 
+    public void removeUnit(AbstractUnitObject unitObject){
+        units.remove(unitObject);
+
+
+    }
+
 
     public void setUnits(List<AbstractUnitObject> units) {
         this.units = units;
@@ -78,4 +87,15 @@ public class PlayerValues implements Changeable{
     }
 
 
+    public void deleteAllUnits() {
+        DataServiceBus dsb = DataServiceBus.getInstance();
+
+        units.clear();
+
+        //Create envelope
+        Mapper mapper = new PlayerValuesMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToChangeables(ev);
+    }
 }

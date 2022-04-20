@@ -9,7 +9,12 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.PlayerProfileMapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
+import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
+import com.simplesoftwaresolutions.godsofwargame.units.CommandStructure;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.ArrayList;
@@ -19,8 +24,7 @@ import java.util.List;
  *
  * @author brenn
  */
-//TODO - redesign objects and class so that changes in class allow for smaller data chunks for example changing a players
-    //money should not force every single unit they own to also be sent to other players
+
 public class PlayerProfile implements Destroyable, Creatable, Changeable{
 
     private PlayerValues playerValues; //Protects its own values
@@ -72,7 +76,11 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
      * @param serverRole - The role that the player is to become
      */
     public void setServerRole(ServerRole serverRole) {
-        dsb.addToChangeables(this);
+        //Create envelope
+        Mapper mapper = new PlayerProfileMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToChangeables(ev);
 
         this.serverRole = serverRole;
     }
@@ -117,5 +125,35 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
 
     public String getNickname() {
         return uid.getNickname().toString();
+    }
+
+    public void removeUnit(AbstractUnitObject unitObject){
+        playerValues.removeUnit(unitObject);
+    }
+
+    /** A method designed to remove commandObjects specifically
+     * @param commandObject - the command object that is going to be removed
+     * @param gameState - the gamestate object that will manage the removal of the PlayerProfile
+     */
+    public void removeCommandUnit(CommandStructure commandObject, GameState gameState){
+        playerValues.removeUnit(commandObject);
+
+        List<AbstractUnitObject> units = playerValues.getUnits();
+
+        //check if any other commandStructures exist all's well if not the player needs to be removed
+        for (AbstractUnitObject focus :
+                units) {
+            if (focus instanceof CommandStructure) {
+                return;
+            }
+        }
+        gameState.setPlayerToSpectator(this);
+
+    }
+
+    public void roleToSpectator() {
+        serverRole = ServerRole.SPECTATOR;
+
+        playerValues.deleteAllUnits();
     }
 }

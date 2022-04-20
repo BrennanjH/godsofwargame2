@@ -15,7 +15,11 @@ import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.PlayerProfileMapper;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.StandardUnitMapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
 import java.util.Collections;
@@ -27,7 +31,8 @@ import java.util.List;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 @JsonSubTypes({
-    @Type(value = StandardUnit.class)
+    @Type(value = StandardUnit.class),
+    @Type(value = CommandStructure.class)
 })
 public abstract class AbstractUnitObject implements Changeable, Destroyable, Creatable {
     
@@ -73,7 +78,11 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     
     //convenience method to access movementPlatform move method
     public void move(){
-        dsb.addToChangeables(this);
+        //Create envelope
+        Mapper mapper = new StandardUnitMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToChangeables(ev);
 
         movementPlatform.move(locationData, gameState.getBoardManager());
     }
@@ -93,7 +102,11 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     //Units might have special properties in how they are created, Those are expressed by its create Self
     //As Units are created by reflection from a frontend client a constructor is not a good place for this code. (Although Jackson makes it possible)
     public void createSelf(PlayerProfile owner){
-        dsb.addToCreatables(this);
+        //Create envelope
+        Mapper mapper = new PlayerProfileMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToCreatables(ev);
 
         owner.getPlayerValues().getUnits().add(this);
 
@@ -106,8 +119,11 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         
     }
     public void setRoute(List<PositionalCord> path){
-        //Add to message queue
-        dsb.addToChangeables(this);
+        //Create envelope
+        Mapper mapper = new StandardUnitMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToChangeables(ev);
 
         //Set path
         this.movementPlatform.changeRoute(path);
@@ -178,8 +194,11 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     }
 
     public void setOwnerNickName(StringBuilder ownerNickName) {
-        //update message queue
-        dsb.addToChangeables(this);
+        //Create envelope
+        Mapper mapper = new StandardUnitMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToChangeables(ev);
 
         meta.setOwnerNickName(ownerNickName);
     }
@@ -192,8 +211,11 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     }
 
     public void setInstanceId(String instanceId) {
-        //Update message queue
-        dsb.addToChangeables(this);
+        //Create envelope
+        Mapper mapper = new StandardUnitMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToChangeables(ev);
 
         meta.setInstanceId(instanceId);
     }
@@ -210,7 +232,10 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 
         turretPlatform.target.setTargetedUnit(targetedUnit);
 
-        //Add self to message queue
-        dsb.addToChangeables(this);
+        //Create envelope
+        Mapper mapper = new StandardUnitMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToChangeables(ev);
     }
 }

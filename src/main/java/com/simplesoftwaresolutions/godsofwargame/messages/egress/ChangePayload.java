@@ -5,11 +5,9 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.messages.egress;
 
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.*;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Model;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
-import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
-import com.simplesoftwaresolutions.godsofwargame.player.PlayerValues;
-import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,29 +40,33 @@ public class ChangePayload extends AbstractReturnModel {
         }
     }
 
-    private static <T extends BusinessObject> List<Model> cycleList(List<T> dataList){
+
+    private static <T extends Envelope> List<Model> cycleList(List<T> dataList){
         String objectType;
         Model temp;
         List<Model> modelList = new ArrayList<>();
-        for (BusinessObject bo :
+        for (Envelope envelope :
                 dataList) {
-            temp = null;
+//            temp = null;
 
-            objectType = bo.getClass().getName();
-            if(objectType.compareTo(MappingTableReferences.getStandardUnit()) == 0){
-                StandardUnit standardUnit = (StandardUnit) bo;
-                temp = StandardUnitMapper.mapStandardUnitToStandardUnitModel(standardUnit);
-            } else if (objectType.compareTo(MappingTableReferences.getPlayerValues())==0) {
-                PlayerValues playerValues = (PlayerValues) bo;
-                temp = PlayerValuesMapper.mapPlayerValuesToPlayerValuesModel(playerValues);
-            } else if (objectType.compareTo(MappingTableReferences.getPlayerProfile())==0){
-                PlayerProfile profile = (PlayerProfile) bo;
-                temp = PlayerProfileMapper.mapPlayerProfileToPlayerProfileModel(profile);
-            }
-
-            if(null != temp){
-                modelList.add(temp);
-            }
+            temp = envelope.getObjectMapper().map(envelope.getPayload());
+//
+//
+//            objectType = bo.getClass().getName();
+//            if(objectType.compareTo(MappingTableReferences.getStandardUnit()) == 0){
+//                StandardUnit standardUnit = (StandardUnit) bo;
+//                temp = StandardUnitMapper.mapStandardUnitToStandardUnitModel(standardUnit);
+//            } else if (objectType.compareTo(MappingTableReferences.getPlayerValues())==0) {
+//                PlayerValues playerValues = (PlayerValues) bo;
+//                temp = PlayerValuesMapper.mapPlayerValuesToPlayerValuesModel(playerValues);
+//            } else if (objectType.compareTo(MappingTableReferences.getPlayerProfile())==0){
+//                PlayerProfile profile = (PlayerProfile) bo;
+//                temp = PlayerProfileMapper.mapPlayerProfileToPlayerProfileModel(profile);
+//            }
+//
+//            if(null != temp){
+//                modelList.add(temp);
+//            }
 
         }
         return modelList;
