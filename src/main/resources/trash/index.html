@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gods Of Wargame</title>
+        <link rel = "stylesheet" type = "text/css" href = "CanvasStyles.css" />
+        <link rel = "stylesheet" type = "text/css" href = "SliderCSS.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7061512221346925" crossorigin="anonymous"></script>
+    </head>
+    
+    <body>
+        <p id="money"></p>
+        <button id="playerButton" type="button" onClick="return setNextUnit()">Show Players</button>
+        <table>
+            <tr>
+                <td>
+                    <div id="CanvasBorder">
+                    <canvas id="myCanvas" width="1000" height="750"></canvas>
+                    </div>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <a onMouseOver="return changeImageTank()" onMouseOut="return changeImageBackTank()" 
+                                onMouseDown="return handleMDownTank()" onMouseUp="return handleMUpTank()"   >
+                                <img name="tankButton" src="UnitTank.png" width="110" height="60" border="0" alt="javascript button" title="Not a camera :|"></a>
+                            </td>
+                            <td>
+                                <a onMouseOver="return changeImageAA()" onMouseOut="return changeImageBackAA()" 
+                                onMouseDown="return handleMDownAA()" onMouseUp="return handleMUpAA()"   >
+                                <img name="AAButton" src="UnitAntiAir.png" width="110" height="60" border="0" alt="javascript button"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a onMouseOver="return changeImagePlane()" onMouseOut="return changeImageBackPlane()" 
+                                onMouseDown="return handleMDownPlane()" onMouseUp="return handleMUpPlane()"   >
+                                <img name="planeButton" src="UnitPlane.png" width="110" height="60" border="0" alt="javascript button"></a>
+                            </td>
+                            <td>
+                                <a onMouseOver="return changeImageUCS()" onMouseOut="return changeImageBackUCS()" 
+                                onMouseDown="return handleMDownUCS()" onMouseUp="return handleMUpUCS()"   >
+                                <img name="commandUnitButton" src="UnitCommandStructure.png" width="110" height="60" border="0" alt="javascript button"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                
+                    <td>
+                        <div class="workspace">
+                        <!-- If the default value changes the price placed in the cost span must be updated manually -->
+                            <div class="slidecontainer">
+                                <p>Health Val: <span id="healthVal"></span>  || Cost: <span id="healthPrice"></span></p>
+                               <input type="range" min="1" max="40" value="5" class="slider" id="HealthSlider">
+
+                               <p>Damage Val: <span id="damageVal"></span>  || Cost: <span id="damagePrice"></span></p>
+                               <input type="range" min="1" max="30" value="5" class="slider" id="DamageSlider">
+
+                               <p>Speed Val: <span id="speedVal"></span>  || Cost: <span id="speedPrice"></span></p>
+                               <input type="range" min="0" max="5" value="1" class="slider" id="SpeedSlider">
+
+                               <p>Range Val: <span id="rangeVal"></span>  || Cost: <span id="rangePrice"></span></p>
+                               <input type="range" min="0" max="5" value="1" class="slider" id="RangeSlider">
+
+
+
+                               <button type="button" onClick="return setNextUnit()">Create Unit</button> Price of unit: <span id="UnitPrice">230</span>
+                               <script src="Sliders.js"></script>
+                            </div>
+                        <br>
+                            <div class="pre-loadInteractions">
+                                <P>currently: <span id="readyState">Not Ready</span></P><button type="button" onClick="return readyUp()"> Ready</button><br>
+                                <input type="text" id="tName"><button type="button" onClick="return joinTeam()" >Join Team</button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p id="teams">Team Names: </p>
+                        <p id="players"></p>    
+                    </td>
+                    <td>
+                        
+                            
+                        
+                        <!--
+                        <div class="behaviors">
+                            <label for="behaviorCheckbox">
+                                <input type="checkbox" id="behaviorCheckbox"/>CheckBox
+                            </label>
+                            <select name="attackTypes" id="types">
+                                <option value="tanktargeting">tank attack</option>
+                                <option value="planeTargeting">Plane Attack</option>
+                            </select>
+                        </div>
+                        -->
+                    </td>
+                
+            </tr>
+        </table>
+        
+        <script src="commands.js"></script>
+        <script src="playerData.js"></script>
+        <script src="ButtonHandlers.js"></script>
+        <script src="JSONdecoder.js"></script>
+        <script src="UnitObject.js"></script>
+        <script src="playerInputs.js"></script>
+        <script src="ruleChecking.js"></script>
+        <script src="settingsVar.js"></script>
+        <script src="websocket.js"></script>
+        <script src="renderEngine.js"></script>
+        <!-- <script src="settingsCommand.js"></script> -->
+        
+        
+        <!-- Pathfinding and location files-->
+        <script src="MovementScripts\coordinates.js"></script>
+        <script src="MovementScripts\Routing.js"></script>
+        <script src="TerrainRules.js"></script>
+        <script src="bower_components/pathfinding/pathfinding-browser.min.js"></script>
+        
+    </body>
+</html>
