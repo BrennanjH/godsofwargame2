@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.CommandStructureMapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
