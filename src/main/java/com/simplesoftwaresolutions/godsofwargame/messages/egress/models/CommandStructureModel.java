@@ -1,4 +1,4 @@
-package com.simplesoftwaresolutions.godsofwargame.units;
+package com.simplesoftwaresolutions.godsofwargame.messages.egress.models;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;

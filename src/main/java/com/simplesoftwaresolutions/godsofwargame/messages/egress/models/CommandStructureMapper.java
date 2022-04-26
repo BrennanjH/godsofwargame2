@@ -1,8 +1,7 @@
-package com.simplesoftwaresolutions.godsofwargame.units;
+package com.simplesoftwaresolutions.godsofwargame.messages.egress.models;
 
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.BusinessObject;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Model;
+import com.simplesoftwaresolutions.godsofwargame.units.CommandStructure;
 
 public class CommandStructureMapper implements Mapper {
 
