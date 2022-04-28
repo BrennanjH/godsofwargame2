@@ -29,9 +29,13 @@ public class PlayerValues implements Changeable{
 
     private List<AbstractUnitObject> units;
 
+
+    private UserIdentity uid;
+
     private boolean readyState;
 
-    public PlayerValues(){
+    public PlayerValues(UserIdentity uid){
+        this.uid = uid;
         units = new ArrayList<>();
         readyState = false;
         this.points = 0;
@@ -39,7 +43,10 @@ public class PlayerValues implements Changeable{
         
     }
 
-    
+    public UserIdentity getUid() {
+        return uid;
+    }
+
     public int getPoints() {
         return points;
     }

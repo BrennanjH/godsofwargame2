@@ -19,7 +19,8 @@ public class PlayerValuesMapper implements Mapper {
         return new PlayerValuesModel(
                 businessValue.getPoints(),
                 businessValue.getCurrency(),
-                businessValue.isReadyState()
+                businessValue.isReadyState(),
+                businessValue.getUid()
         );
     }
 
@@ -33,7 +34,8 @@ public class PlayerValuesMapper implements Mapper {
         return new PlayerValuesModel(
                 pv.getPoints(),
                 pv.getCurrency(),
-                pv.isReadyState()
+                pv.isReadyState(),
+                pv.getUid()
         );
     }
 }

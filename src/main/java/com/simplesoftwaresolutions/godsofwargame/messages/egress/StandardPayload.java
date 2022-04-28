@@ -19,18 +19,18 @@ import java.util.List;
  * @author brenn
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
-public class ChangePayload extends AbstractReturnModel {
+public class StandardPayload extends AbstractReturnModel {
 
-    private List<Model> update;
-    private List<Model> remove;
+    private List<Model> changedObjects;
+    private List<Model> removedObjects;
     private List<Model> newObjects;
     
-    public ChangePayload(DataServiceBus dsb){
+    public StandardPayload(DataServiceBus dsb){
         //Protect the service bus from change during this operation
         synchronized (dsb) {
             //map each object to it's model and store it in appropriate model list
-            this.update = cycleList(dsb.getChangeables());
-            this.remove = cycleList(dsb.getDestroyables());
+            this.changedObjects = cycleList(dsb.getChangeables());
+            this.removedObjects = cycleList(dsb.getDestroyables());
             newObjects = cycleList(dsb.getCreatables());
 
             //Clear lists

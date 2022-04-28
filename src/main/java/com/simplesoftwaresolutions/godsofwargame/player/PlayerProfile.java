@@ -39,7 +39,7 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
         dsb = DataServiceBus.getInstance();
 
         uid = new UserIdentity(session, id);
-        playerValues = new PlayerValues();
+        playerValues = new PlayerValues(uid);
         joinedTeams = new ArrayList<>();
         serverRole = ServerRole.LOBBY_MEMBER;
     }
@@ -48,7 +48,7 @@ public class PlayerProfile implements Destroyable, Creatable, Changeable{
         dsb = DataServiceBus.getInstance();
 
         this.uid = uid;
-        playerValues = new PlayerValues();
+        playerValues = new PlayerValues(uid);
         joinedTeams = new ArrayList<>();
         serverRole = ServerRole.LOBBY_MEMBER;
     }
