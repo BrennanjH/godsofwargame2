@@ -27,8 +27,7 @@ public class PlayerValues implements Changeable{
     private int points;
     private int currency;
 
-    private List<AbstractUnitObject> units;
-
+    private transient List<AbstractUnitObject> units;
 
     private UserIdentity uid;
 

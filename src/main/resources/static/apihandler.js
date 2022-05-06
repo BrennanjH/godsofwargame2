@@ -2,6 +2,8 @@
 let units = new Array();
 let terrain = new Array();
 let players = new Array();
+let commandUnits = new Array();
+
 
 //init websocket
 var wsUri = "ws://localhost:8649/socket" ;//+ document.location.host;// + document.location.pathname + "godsofwargame";//TODO oncreation of new matchmaking lobby change this to be dynamic
@@ -88,6 +90,7 @@ function CommandStructureModelMapper(json){
 }
 
 function PlayerProfileModelMapper(json){
+    let playerValues = json.playerValues;
 
     let serverRole;
     if(json.serverRole != null){
@@ -104,7 +107,7 @@ function PlayerProfileModelMapper(json){
         teams = json.teams;
     }
 
-    return new PlayerProfile(serverRole, uid, teams);
+    return new PlayerProfile(playerValues, serverRole, uid, teams);
 }
 
 //parse websocket data
@@ -141,10 +144,28 @@ class StandardUnit{
         this.fullPositionalCoord = fullPositionalCoord; //the location of the unit
     }
     updateExisting(){
-        //TODO
+        for(let i = 0; i < units[units.length] ; i++){
+            if(compareInstanceMeta(this.meta, units[i].meta) ){
+                units[i] = this;
+                //end function if unit does exist
+                return;
+            }
+        }
     }
+
     deleteExisting(){
-        //TODO
+        this.deleteStandardUnit(this);
+    }
+
+    deleteStandardUnit(standardUnit) {
+        for(let i = 0; i < units[units.length] ; i++){
+            if(compareInstanceMeta(standardUnit.meta, units[i].meta) ){
+                units[i] = null;
+                cleanArray(units);
+                //end function if unit does exist
+                return;
+            }
+        }
     }
     createNew(){
         addUnitObject(this);
@@ -156,28 +177,53 @@ class CommandStructure{
         this.fullPositionalCoord = fullPositionalCoord;
     }
     updateExisting(){
-        //TODO
+        for(let i = 0; i < commandUnits[commandUnits.length] ; i++){
+            if(compareInstanceMeta(this.meta, commandUnits[i].meta) ){
+                commandUnits[i] = this;
+                //end function if unit does exist
+                return;
+            }
+        }
     }
+
     deleteExisting(){
-        //TODO
+        for(let i = 0; i < commandUnits[commandUnits.length] ; i++){
+            if(compareInstanceMeta(this.meta, commandUnits[i].meta) ){
+                commandUnits[i] = null;
+                cleanArray(commandUnits);
+                return;
+            }
+        }
     }
     createNew(){
-        addUnitObject(this);
+        addCommandUnitObject(this);
     }
 
 }
-
-class PlayerProfile{
-    constructor(serverRole, uid, teams) {
+class PlayerProfile {
+    constructor(playerValues, serverRole, uid, teams) {
+        this.playerValues = playerValues;
         this.serverRole = serverRole;
         this.uid = uid;
         this.teams = teams;
     }
     updateExisting(){
-        //TODO
+        for(let i = 0; i < players[players.length] ; i++){
+            if(compareUserIdentity(this.uid, players[i].uid) ){ //doesn't compare playerValue uid since that's the same
+                players[i] = this;
+                return;
+            }
+        }
     }
     deleteExisting(){
-        //TODO
+        for(let i = 0; i < players[players.length] ; i++){
+            if(compareUserIdentity(this.uid, players[i].uid) ){ //doesn't compare playerValue uid since that's the same
+                players[i] = null;
+                //end function if unit does exist
+                cleanArray(players);
+                return;
+            }
+        }
     }
     createNew(){
         addPlayerProfile(this);
@@ -190,11 +236,17 @@ class PlayerValues{
         this.currency = currency;
         this.readyState = readyState;
     }
+
     updateExisting(){
-        //TODO
+        for(let i = 0; i < players[players.length] ; i++){
+            if(compareUserIdentity(this.uid, players[i].uid) ){ //doesn't compare playerValue uid since that's the same
+                players[i].playerValues = this;
+                return;
+            }
+        }
     }
     deleteExisting(){
-        //TODO
+        console.log("ERROR: PlayerValues is not capable of being removed")
     }
     createNew(){
         console.log("ERROR: PlayerValues is not capable of being a new object")
@@ -228,12 +280,20 @@ function jsonToObject(jsonToModel){
 }
 
 /**
- * simply adds passed parameter to it's relevant list
+ * simply adds passed parameter to its relevant list
  * @param gameObject
  */
 function addUnitObject(gameObject) {
 
     units[units.length] = gameObject;
+}
+
+/**
+ * simply adds passed parameter to its relevant list
+ * @param gameObject
+ */
+function addCommandUnitObject(gameObject){
+    commandUnits[commandUnits.length] = gameObject;
 }
 
 /**
@@ -250,4 +310,38 @@ function addTerrain(newLocation){
  */
 function addPlayerProfile(playerProfile) {
     players[players.length] = playerProfile;
+}
+
+/**
+ * compares two instanceIds, returns boolean values, parameter entry order doesn't matter
+ * @param meta - the first instanceId
+ * @param meta2 - the second instanceId
+ * @returns {boolean} - true if equal false if different
+ */
+function compareInstanceMeta(meta, meta2) {
+    if (meta.ownerNickName === meta2.ownerNickName && meta.instanceId === meta2.instanceId) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * compares two UserIdentities, returns boolean values, parameter entry order doesn't matter
+ * @param id1 - the first id to compare
+ * @param id2 - the second id to compare
+ * @returns {boolean} - true if equal false if different
+ */
+function compareUserIdentity(id1, id2){
+    if( id1.nickname === id2.nickname && id1.id === id2.id ){
+        return true;
+    }
+    return false;
+}
+
+/**
+ * A method that removes null values from an array and properly shifts remaining elements down
+ * @param arrayToClean - the array that presumably has null values;
+ */
+function cleanArray(arrayToClean){
+    //TODO
 }
