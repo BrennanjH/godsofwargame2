@@ -38,7 +38,6 @@ public class GameState{
 
     public LoadState loadState;
 
-    @Deprecated
     public GameState(){
         
         playerData = new HashMap<>();
@@ -50,13 +49,12 @@ public class GameState{
         loadState = LoadState.LOBBY;
     }
 
-    @Autowired
     public GameState(BoardManager boardManager){
 
         playerData = new HashMap<>();
         nickNames = new HashMap<>();
 
-        this.boardManager = boardManager; //Spring bean
+        this.boardManager = boardManager; //not a spring bean
 
         timer = new Timer();
         tasks = new ArrayList<>();
@@ -190,6 +188,7 @@ public class GameState{
         return boardManager;
     }
 
+    @Autowired
     public void setBoardManager(BoardManager boardManager) {
         this.boardManager = boardManager;
     }

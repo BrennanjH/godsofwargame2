@@ -253,10 +253,6 @@ class PlayerValues{
     }
 }
 
-function updateModel(jsonToExistingObject){
-
-}
-
 /** A function that returns a js object
  *
  * @param jsonToModel - a serial object that needs to be transformed from json to a js object
@@ -343,5 +339,14 @@ function compareUserIdentity(id1, id2){
  * @param arrayToClean - the array that presumably has null values;
  */
 function cleanArray(arrayToClean){
-    //TODO
+    let tempArray = new Array();
+    //Create fill array with old values
+    for(let i = 0, x = 0; i < arrayToClean.length;i++){
+        if(arrayToClean[i] !== null ){
+            tempArray[x] = arrayToClean[i];
+            x++;
+        }
+    }
+    arrayToClean = tempArray;
+    return arrayToClean;
 }

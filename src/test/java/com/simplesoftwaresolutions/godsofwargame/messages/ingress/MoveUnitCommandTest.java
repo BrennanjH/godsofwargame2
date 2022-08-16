@@ -25,7 +25,7 @@ class MoveUnitCommandTest {
         WebSocketSession session =  mock(WebSocketSession.class);
         when(session.getId()).thenReturn("player00SessionId");
 
-        GameState gs = new GameState(null);
+        GameState gs = new GameState();
         gs.addPlayer(session);
         InstanceId id = new InstanceId("instanceId000");
         id.setOwnerNickName(gs.getNickName(session));

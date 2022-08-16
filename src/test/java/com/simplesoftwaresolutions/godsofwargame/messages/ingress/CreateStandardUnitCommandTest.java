@@ -22,7 +22,7 @@ class CreateStandardUnitCommandTest {
     static WebSocketSession session ;
     @BeforeAll
     static void instantiate(){
-        gameState = new GameState(null);
+        gameState = new GameState();
         session = mock(WebSocketSession.class);
         //Start env
         when(session.getId()).thenReturn("WSID");

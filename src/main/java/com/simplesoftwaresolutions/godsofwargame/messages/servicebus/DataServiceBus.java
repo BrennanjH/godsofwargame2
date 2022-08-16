@@ -50,7 +50,7 @@ public class DataServiceBus {
 
     /** a method to find if passed in value exists within passed in list of envelopes
      * @param envelopes - the list of envelopes where we wish to find its payload
-     * @param findPresence - the Busiess object that we are looking for a copy of
+     * @param findPresence - the Business object that we are looking for a copy of
      * @return - true if object is present in the list and false if not
      */
     private boolean listContains(List<Envelope> envelopes, BusinessObject findPresence){

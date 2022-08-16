@@ -12,7 +12,7 @@ class GameStateTest {
     @Test
     void addPlayer() {
         //Init Environment
-        GameState testGameState = new GameState(null);
+        GameState testGameState = new GameState();
         WebSocketSession session = mock(WebSocketSession.class);
         //stub id
         when(session.getId()).thenReturn("WSID");
@@ -30,7 +30,7 @@ class GameStateTest {
     @Test
     void changeNickName() {
         //Init Environment
-        GameState testGameState = new GameState(null);
+        GameState testGameState = new GameState();
         WebSocketSession test = mock(WebSocketSession.class);
         //Stub ID
         when(test.getId()).thenReturn("WSID");
@@ -46,7 +46,7 @@ class GameStateTest {
     @Test
     void removePlayer() {
         //Init env
-        GameState gameState = new GameState(null);
+        GameState gameState = new GameState();
         WebSocketSession session = mock(WebSocketSession.class);
         //Stub ID
         when(session.getId()).thenReturn("WSID");

@@ -9,9 +9,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.AbstractReturnModel;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.StandardPayload;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.services.CommunicationService;
+import com.simplesoftwaresolutions.godsofwargame.messages.services.PlayerViewService;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,7 @@ import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /** The websocket handler that handles how messages are handled in different situations such as joining, leaving, and talking
  *
@@ -32,22 +35,23 @@ import java.util.List;
 public class WebSocketHandling extends AbstractWebSocketHandler  { //More overrides may be needed and can be found in extended class
 
 
-    @Autowired
-    public WebSocketHandling(GameState gameState, CommunicationService communicationService){
-        System.out.println("WebsocketHandling constructor entered");
-        this.gameState = gameState;
-        messageService = communicationService;
-    }
+    @Autowired PlayerViewService viewService;
 
-    /**
-     * A Communication service that will handle the commands built and verify their integrity
-     */
-    private CommunicationService messageService;
+    //A wrapper on integral game related objects
+    @Autowired GameState gameState;
+
+    @Autowired CommunicationService messageService;
+
+//    public WebSocketHandling(GameState gameState, CommunicationService communicationService){
+//        System.out.println("WebsocketHandling constructor entered");
+//        this.gameState = gameState;
+//        messageService = communicationService;
+//    }
+
 
     //A message service that tracks noteworthy changes in the code
     DataServiceBus dsb = DataServiceBus.getInstance();
-    //A wrapper on integral game related objects
-    private static GameState gameState;
+
     //List of all currently working clients connected to server
     static List<WebSocketSession> users;
     //Json handler
@@ -68,17 +72,17 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
                 || !dsb.getDestroyables().isEmpty()
                 || !dsb.getCreatables().isEmpty()){
             
-            var changeModel = new StandardPayload(dsb);
+            StandardPayload changeModel = new StandardPayload(dsb);
             
             //Create unique object model for each User
-            //TODO
-            
-            //Serialize model
-            String payload = mapper.writeValueAsString(changeModel);
-            TextMessage toSend = new TextMessage(payload);
-            
+            Map<String, AbstractReturnModel> clientViews = viewService.createUniqueMessageForEachClient(changeModel, users);
+
             //send message to respective clients
-            for(WebSocketSession s : users){ //Currently just broadcasting messages
+            for(WebSocketSession s : users){
+                //Serialize model
+                String payload = mapper.writeValueAsString(clientViews.get(s.getId()));
+                TextMessage toSend = new TextMessage(payload);
+                //send model to respective player
                 s.sendMessage(toSend);
             }
         }
@@ -99,7 +103,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         //Update players on lost units
         for(WebSocketSession s : users){
             //build model
-            var changeModel = new StandardPayload(dsb);
+            StandardPayload changeModel = new StandardPayload(dsb);
             
             //Serialize model
             String payload = mapper.writeValueAsString(changeModel);
