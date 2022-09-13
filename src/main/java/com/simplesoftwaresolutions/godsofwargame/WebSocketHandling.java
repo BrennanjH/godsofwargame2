@@ -42,13 +42,6 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
 
     @Autowired CommunicationService messageService;
 
-//    public WebSocketHandling(GameState gameState, CommunicationService communicationService){
-//        System.out.println("WebsocketHandling constructor entered");
-//        this.gameState = gameState;
-//        messageService = communicationService;
-//    }
-
-
     //A message service that tracks noteworthy changes in the code
     DataServiceBus dsb = DataServiceBus.getInstance();
 
