@@ -17,8 +17,4 @@ public class GodsofwargameApplication {
 		SpringApplication.run(GodsofwargameApplication.class, args);
 	}
 
-
-
-
-
 }

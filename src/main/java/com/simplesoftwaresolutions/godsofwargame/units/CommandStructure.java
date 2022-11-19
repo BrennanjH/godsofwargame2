@@ -10,6 +10,9 @@ import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
+/**
+ * A command structure follows the normal rules of a unit but on death or creation unique events might need to occur
+ */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 public class CommandStructure extends AbstractUnitObject{
 

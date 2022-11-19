@@ -10,11 +10,14 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.AbstractReturnModel;
+import com.simplesoftwaresolutions.godsofwargame.messages.egress.ErrorMessage;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.StandardPayload;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.services.CommunicationService;
 import com.simplesoftwaresolutions.godsofwargame.messages.services.PlayerViewService;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -34,7 +37,7 @@ import java.util.Map;
 @Component
 public class WebSocketHandling extends AbstractWebSocketHandler  { //More overrides may be needed and can be found in extended class
 
-
+    private static final Logger logger= LoggerFactory.getLogger(WebSocketHandling.class);
     @Autowired PlayerViewService viewService;
 
     //A wrapper on integral game related objects
@@ -51,14 +54,19 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     private ObjectMapper mapper;
     
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        System.out.println("New Text Message Received: \n" + message.getPayload());
-        
+    protected synchronized void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
+        logger.info("New Text Message Received: \n" + message.getPayload());
+
         //De-Serialize message with Jackson
         Command requestedAction = mapper.readValue(message.getPayload(), Command.class);
 
         //Execute command inside command service
-        messageService.handleCommand(gameState, session, requestedAction);
+        try {
+            messageService.handleCommand(gameState, session, requestedAction);
+        } catch (Exception e) {
+
+            ErrorMessage error = new ErrorMessage(e.getMessage());
+        }
 
         //prep models for sending
         if(!dsb.getChangeables().isEmpty()
@@ -83,7 +91,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     }
     
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public synchronized void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         System.out.println("Session left: " + session.getId());
         
         //Remove Session from users
@@ -111,7 +119,7 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
     }
     
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public synchronized void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println("Session started: " + session.getId());
         init();
 

@@ -16,7 +16,6 @@ import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Destroyable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.PlayerProfileMapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.StandardUnitMapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
@@ -103,7 +102,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     //As Units are created by reflection from a frontend client a constructor is not a good place for this code. (Although Jackson makes it possible)
     public void createSelf(PlayerProfile owner){
         //Create envelope
-        Mapper mapper = new PlayerProfileMapper();
+        Mapper mapper = new StandardUnitMapper();
         Envelope ev = new Envelope( mapper,this);
         //store envelope
         dsb.addToCreatables(ev);
@@ -224,6 +223,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 //    ***LOGIC CODE********************************************************************************************************************************
 
 
+    @Deprecated
     public void setDSB(DataServiceBus dataServiceBus) {
         this.dsb = dataServiceBus;
     }

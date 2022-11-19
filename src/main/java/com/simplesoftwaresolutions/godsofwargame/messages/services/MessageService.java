@@ -4,6 +4,9 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
+import com.simplesoftwaresolutions.godsofwargame.messages.ingress.CreateStandardUnitCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -13,6 +16,7 @@ import org.springframework.web.socket.WebSocketSession;
 @Component
 public class MessageService implements CommunicationService{
 
+    private static final Logger logger= LoggerFactory.getLogger(MessageService.class);
     @Override
     public boolean handleCommand(GameState gameState, WebSocketSession session, Command command) {
         //Verify that command is usable by
@@ -21,7 +25,7 @@ public class MessageService implements CommunicationService{
             try {
                 command.execute(gameState,session);
             } catch (NullExpectedField e) {
-                System.err.println("NullExpectedField thrown, Caught inside MessageService" +
+                logger.error("NullExpectedField thrown, Caught inside MessageService" +
                         "\n Command: " + command.getClass().toString());
                 return false;
             }

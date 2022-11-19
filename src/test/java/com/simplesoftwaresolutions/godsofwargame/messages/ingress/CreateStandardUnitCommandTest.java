@@ -1,86 +1,25 @@
 package com.simplesoftwaresolutions.godsofwargame.messages.ingress;
 
-import com.simplesoftwaresolutions.godsofwargame.game.GameState;
-import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
-import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
-import com.simplesoftwaresolutions.godsofwargame.messages.Command;
-import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
-import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
-import com.simplesoftwaresolutions.godsofwargame.units.AntiAirGunTurretPlatform;
-import com.simplesoftwaresolutions.godsofwargame.units.LightTrackMovementPlatform;
-import com.simplesoftwaresolutions.godsofwargame.units.StandardUnit;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.socket.WebSocketSession;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+@ExtendWith(MockitoExtension.class)
 class CreateStandardUnitCommandTest {
-    static GameState gameState ;
-    static WebSocketSession session ;
-    @BeforeAll
-    static void instantiate(){
-        gameState = new GameState();
-        session = mock(WebSocketSession.class);
-        //Start env
-        when(session.getId()).thenReturn("WSID");
-        gameState.addPlayer(session);
-    }
+
+    @Spy
+    CreateStandardUnitCommand testedCommand;
+
     @Test
     void execute() {
-        //Init Env
-        StandardUnit unit = new StandardUnit( new LightTrackMovementPlatform(),
-                                                    new AntiAirGunTurretPlatform(-1,-1,-1),
-                                                    new InstanceId(),
-                                                    new FullPositionalCord());
-        Command command = new CreateStandardUnitCommand(unit);
-        unit.setDSB(DataServiceBus.getInstance());
-
-        unit.setOwnerNickName(new StringBuilder(" "));
-        //Action
-
-        try {
-            command.execute(gameState,session);
-        } catch (NullExpectedField nullExpectedField) {
-            nullExpectedField.printStackTrace();
-        }
-        //Assert
-        Assertions.assertNull(unit.getGameState());
-
-    }
-    @Test
-    void executeRealUser() {
-        //Init Env
-        StandardUnit unit = new StandardUnit( new LightTrackMovementPlatform(),
-                new AntiAirGunTurretPlatform(-1,-1,-1),
-                new InstanceId(),
-                new FullPositionalCord());
-        Command command = new CreateStandardUnitCommand(unit);
-        unit.setDSB(DataServiceBus.getInstance());
-
-        unit.setOwnerNickName(new StringBuilder("WSID"));
-
-        //Action
-        try {
-            command.execute(gameState,session);
-        } catch (NullExpectedField nullExpectedField) {
-            nullExpectedField.printStackTrace();
-        }
-        //Assert
-        Assertions.assertNotNull(unit.getGameState());
-
     }
 
+    @Test
+    void isBuilt() {
+    }
 
     @Test
-    void executeThrowable(){
-        //Init Env
-        StandardUnit unit = new StandardUnit();
-        Command command = new CreateStandardUnitCommand(unit);
-
-
-        Assertions.assertThrows(NullExpectedField.class , () -> command.execute(gameState, session));
+    void expectedLoadStates() {
     }
 }

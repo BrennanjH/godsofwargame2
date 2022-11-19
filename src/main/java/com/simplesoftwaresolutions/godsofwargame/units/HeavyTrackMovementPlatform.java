@@ -5,6 +5,8 @@
  */
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simplesoftwaresolutions.godsofwargame.Terrain.Terrain;
 import com.simplesoftwaresolutions.godsofwargame.Terrain.TerrainTypes;
 import com.simplesoftwaresolutions.godsofwargame.game.BoardManager;
@@ -19,9 +21,11 @@ public class HeavyTrackMovementPlatform extends AbstractMovementPlatform{
 
     private TerrainTypes[] validTerrain = {TerrainTypes.PLAINS};
 
-    public HeavyTrackMovementPlatform() {
-        speed = 1;
-        health = 10;
+    @JsonCreator
+    public HeavyTrackMovementPlatform(@JsonProperty("speed") int speed,
+                                      @JsonProperty("health") int health) {
+        this.speed = speed;
+        this.health = health;
     }
 
     @Override

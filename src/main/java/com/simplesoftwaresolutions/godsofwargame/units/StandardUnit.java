@@ -12,6 +12,7 @@ import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
 import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.StandardUnitMapper;
+import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
@@ -29,8 +30,9 @@ public class StandardUnit extends AbstractUnitObject {
                         @JsonProperty("turretPlatform")AbstractTurretPlatform turretPlatform,
                         @JsonProperty("meta")InstanceId meta,
                         @JsonProperty("locationData") FullPositionalCord locationData){
-        
+
         super( movementPlatform, turretPlatform, meta, locationData);
+        dsb = DataServiceBus.getInstance();
     }
     public StandardUnit(){
 

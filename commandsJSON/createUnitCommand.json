@@ -1,0 +1,36 @@
+{
+  "className" : "CreateUnitCommand",
+  "unit" : {
+    "movementPlatform" : {
+      "className" : "HeavyTrackMovementPlatform",
+      "speed" : null,
+      "health" : null,
+      "movePath" : {
+        "stepList" : [
+          {
+            "x" : null,
+            "y" : null
+          },
+          {
+            "x" : null,
+            "y" : null
+          }
+        ]
+      }
+    },
+    "turretPlatform" : {
+      "className" : "HeavyCannonTurretPlatform",
+      "damage" : null,
+      "fireSpeed" : null,
+      "range" : null
+    },
+    "meta" : {
+      "instanceId" : "instanceId",
+      "ownerNickname" : "ownerNickname"
+    },
+    "locationData" : {
+      "x" : null,
+      "y" : null
+    }
+  }
+}
