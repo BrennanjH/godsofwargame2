@@ -187,7 +187,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 
 //Beginning of Meta access methods
     /** A non-queue changing method that allows code to view but not alter unit owner nickname
-     * @return A string that protects the StringBuilder from anypotentiol illegal changes
+     * @return A string that protects the StringBuilder from any potential illegal changes
      */
     public String getOwnerNickName() {
         return meta.getOwnerNickName().toString();

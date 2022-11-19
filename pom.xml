@@ -18,18 +18,6 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>com.github.Cubxity</groupId>
-			<artifactId>AgonesKt</artifactId>
-			<version>master-05e93fea95-1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.avro</groupId>
-			<artifactId>avro</artifactId>
-			<version>1.11.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>2.6.7</version>
@@ -81,15 +69,17 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+<!--		This is for accessing kubernetes API in order to create pods-->
+		<dependency>
+			<groupId>io.kubernetes</groupId>
+			<artifactId>client-java</artifactId>
+			<version>16.0.0</version>
+		</dependency>
     </dependencies>
 
 
 	<repositories>
-		<!-- The repo the java sdk for agones is sourced from -->
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
+
 	</repositories>
 
 	<build>

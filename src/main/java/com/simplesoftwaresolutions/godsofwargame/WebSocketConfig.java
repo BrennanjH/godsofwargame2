@@ -6,7 +6,7 @@
 package com.simplesoftwaresolutions.godsofwargame;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
@@ -18,7 +18,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
  * I'm confused again 3-13-22
  * @author brenn
  */
-@Component
+@Configuration
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer  {
 
