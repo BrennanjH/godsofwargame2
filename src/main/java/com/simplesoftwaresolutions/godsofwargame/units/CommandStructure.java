@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
-import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
+import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.CommandStructureMapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
@@ -18,7 +18,7 @@ public class CommandStructure extends AbstractUnitObject{
 
     @JsonCreator
     public CommandStructure(@JsonProperty("meta") InstanceId meta,
-                        @JsonProperty("locationData") FullPositionalCord locationData){
+                        @JsonProperty("locationData") PositionalCord locationData){
 
         super( new StandStillMovementPlatform(), new NoGunTurretPlatform(), meta, locationData);
     }

@@ -10,6 +10,8 @@ import com.simplesoftwaresolutions.godsofwargame.game.Maps.Map;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.WebSocketSession;
 
 /**
@@ -18,6 +20,9 @@ import org.springframework.web.socket.WebSocketSession;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
 public class ChangeMapCommand implements Command {
+
+    private static final Logger logger= LoggerFactory.getLogger(ChangeMapCommand.class);
+
     Map map;
 
     @JsonCreator
@@ -33,18 +38,20 @@ public class ChangeMapCommand implements Command {
      * @throws NullExpectedField Thrown if a map object was not included in command
      */
     @Override
-    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
+    public void execute(GameState gameState, WebSocketSession session)  {
+        try {
+            if (map == null) {
+                throw new NullExpectedField("map is null");
+            }
 
-        if(map == null){
-            throw new NullExpectedField();
+            //Verify sender is LobbyHost
+            if (gameState.getPlayerFromSession(session).getServerRole() == ServerRole.LOBBY_HOST) {
+                //Set gameState Map to mapName
+                gameState.getBoardManager().setMap(map);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
         }
-
-        //Verify sender is LobbyHost
-        if(gameState.getPlayerFromSession(session).getServerRole() == ServerRole.LOBBY_HOST){
-            //Set gameState Map to mapName
-            gameState.getBoardManager().setMap(map);
-        }
-
 
     }
 

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
-import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Changeable;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.Creatable;
@@ -42,13 +41,11 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     public AbstractUnitObject(AbstractMovementPlatform movementPlatform,
                               AbstractTurretPlatform turretPlatform,
                               InstanceId meta,
-                              FullPositionalCord locationData) {
+                              PositionalCord locationData) {
         this.movementPlatform = movementPlatform;
         this.turretPlatform = turretPlatform;
         this.meta = meta;
         this.locationData = locationData;
-
-        dsb = DataServiceBus.getInstance();
     }
     
     
@@ -62,7 +59,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
     protected AbstractTurretPlatform turretPlatform;
 
     //Stores where a unit exists in the world space
-    protected FullPositionalCord locationData;
+    protected PositionalCord locationData;
 
     //An object that stores reference information about the object
     protected InstanceId meta;
@@ -70,7 +67,7 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 //End of Serializable fields ******************************************************************
 
     //The dsb is the queue that objects can add themselves too
-    protected transient DataServiceBus dsb;
+    protected transient final DataServiceBus dsb = DataServiceBus.getInstance();
 
     private transient GameState gameState;
 //    ***ABSTRACTION FOR SUBCLASSES********************************************************************************************************************************
@@ -131,11 +128,11 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 //    ***GETTERS AND SETTERS********************************************************************************************************************************
 
 
-    public FullPositionalCord getLocationData() {
+    public PositionalCord getLocationData() {
         return locationData;
     }
 
-    public void setLocationData(FullPositionalCord locationData) {
+    public void setLocationData(PositionalCord locationData) {
         this.locationData = locationData;
     }
 
@@ -221,12 +218,6 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
 //End of Meta access methods
     
 //    ***LOGIC CODE********************************************************************************************************************************
-
-
-    @Deprecated
-    public void setDSB(DataServiceBus dataServiceBus) {
-        this.dsb = dataServiceBus;
-    }
 
     public void setTarget(AbstractUnitObject targetedUnit) {
 

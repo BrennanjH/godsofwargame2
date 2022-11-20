@@ -18,7 +18,7 @@ import org.springframework.web.socket.WebSocketSession;
 public interface Command {
     
     //All commands have a series of tasks they attempt to complete, They start here
-    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField, InstanceIdMistmatchException;
+    public void execute(GameState gameState, WebSocketSession session);
     
     //returns true if a command has been fully prepped and can be expected to run without error
     public boolean isBuilt();

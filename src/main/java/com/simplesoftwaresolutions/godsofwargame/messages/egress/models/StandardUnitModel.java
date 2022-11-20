@@ -2,22 +2,21 @@ package com.simplesoftwaresolutions.godsofwargame.messages.egress.models;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
-import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
+import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractMovementPlatform;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractTurretPlatform;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 public class StandardUnitModel implements Model {
 
-    //The following Fields are to be serialized when sending this object to clients ***************
-    protected String className;// = "com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject";
+    protected String className;
 
     protected AbstractMovementPlatform movementPlatform;
 
     protected AbstractTurretPlatform turretPlatform;
 
     //Stores where a unit exists in the world space
-    protected FullPositionalCord locationData;
+    protected PositionalCord locationData;
 
     //An object that stores reference information about the object
     protected InstanceId meta;
@@ -25,7 +24,7 @@ public class StandardUnitModel implements Model {
     public StandardUnitModel(String className,
                              AbstractMovementPlatform movementPlatform,
                              AbstractTurretPlatform turretPlatform,
-                             FullPositionalCord locationData,
+                             PositionalCord locationData,
                              InstanceId meta) {
         this.className = className;
         this.movementPlatform = movementPlatform;

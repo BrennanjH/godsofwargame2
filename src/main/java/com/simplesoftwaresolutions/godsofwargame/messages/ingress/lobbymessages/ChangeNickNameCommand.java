@@ -11,6 +11,8 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.WebSocketSession;
 
 /** A command that changes a players nickname
@@ -19,6 +21,8 @@ import org.springframework.web.socket.WebSocketSession;
  */
 public class ChangeNickNameCommand implements Command {
 
+    private static final Logger logger= LoggerFactory.getLogger(ChangeNickNameCommand.class);
+
     String newNickName;
     @JsonCreator
     public ChangeNickNameCommand(@JsonProperty("newNickName") String name){
@@ -26,21 +30,19 @@ public class ChangeNickNameCommand implements Command {
     }
 
     @Override
-    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
-        if(gameState.loadState != LoadState.LOBBY){
-            return;
-        } else {
-            if(newNickName == null)
-                throw new NullExpectedField();
-            gameState.changeNickName(session, newNickName);
+    public void execute(GameState gameState, WebSocketSession session)  {
+        try {
+            if (gameState.loadState != LoadState.LOBBY) {
+                return;
+            } else {
+                if (newNickName == null)
+                    throw new NullExpectedField("new nickname is null");
+                gameState.changeNickName(session, newNickName);
 
-            // This code is removed because objects should now push messages themselves if an alteration to themselves occur
-//            gameState.getChangedObjects()
-//                    .add(gameState.getPlayerData()
-//                            .get(gameState.getNickNames()
-//                                    .get(session.getId())));
+            }
+        } catch( Exception e ) {
+            logger.error(e.getMessage());
         }
-        
     }
 
     @Override

@@ -10,7 +10,6 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.AbstractReturnModel;
-import com.simplesoftwaresolutions.godsofwargame.messages.egress.ErrorMessage;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.StandardPayload;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.services.CommunicationService;
@@ -61,11 +60,12 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         Command requestedAction = mapper.readValue(message.getPayload(), Command.class);
 
         //Execute command inside command service
+
         try {
             messageService.handleCommand(gameState, session, requestedAction);
         } catch (Exception e) {
-
-            ErrorMessage error = new ErrorMessage(e.getMessage());
+            logger.error("error occurred while trying to handle command");
+            logger.error(e.getMessage());
         }
 
         //prep models for sending

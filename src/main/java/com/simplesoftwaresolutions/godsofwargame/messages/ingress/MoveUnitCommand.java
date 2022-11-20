@@ -15,6 +15,8 @@ import com.simplesoftwaresolutions.godsofwargame.messages.Command;
 import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import com.simplesoftwaresolutions.godsofwargame.units.AbstractUnitObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.List;
@@ -25,6 +27,8 @@ import java.util.List;
  * @author brenn
  */
 public class MoveUnitCommand implements Command {
+
+    private static final Logger logger= LoggerFactory.getLogger(MoveUnitCommand.class);
 
     private AbstractUnitObject movingUnit;
     
@@ -38,28 +42,31 @@ public class MoveUnitCommand implements Command {
     }
 
     @Override
-    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
-        if(movingUnit == null || pathingRoute == null){
-            throw new NullExpectedField();
-        }
-        //Get profile of command calling player
-        PlayerProfile commandCaller = gameState.getPlayerFromSession(session);
-
-        //Find servers instance of movingUnit inside PlayerProfile
-        AbstractUnitObject serverSideUnit = null;
-        for (AbstractUnitObject playersUnits : commandCaller.getPlayerValues().getUnits() ) {
-            if(playersUnits.getMeta().compareTo(movingUnit.getMeta()) ) {
-                serverSideUnit = playersUnits;
-                break;
+    public void execute(GameState gameState, WebSocketSession session) {
+        try {
+            if (movingUnit == null || pathingRoute == null) {
+                throw new NullExpectedField(" movingUnit is null or pathingRoute is null");
             }
-        }
-        //Verify if unit exists
-        if(serverSideUnit == null) {
-            //TODO - create a custom error message for the session that send this command
-        }
-        //Change serverSideUnit's route
-        serverSideUnit.setRoute(pathingRoute);
+            //Get profile of command calling player
+            PlayerProfile commandCaller = gameState.getPlayerFromSession(session);
 
+            //Find servers instance of movingUnit inside PlayerProfile
+            AbstractUnitObject serverSideUnit = null;
+            for (AbstractUnitObject playersUnits : commandCaller.getPlayerValues().getUnits()) {
+                if (playersUnits.getMeta().compareTo(movingUnit.getMeta())) {
+                    serverSideUnit = playersUnits;
+                    break;
+                }
+            }
+            //Verify if unit exists
+            if (serverSideUnit == null) {
+                //TODO - create a custom error message for the session that send this command
+            }
+            //Change serverSideUnit's route
+            serverSideUnit.setRoute(pathingRoute);
+        } catch (Exception e ) {
+            logger.error(e.getMessage());
+        }
     }
 
     public List<PositionalCord> getPathingRoute() {

@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.InstanceId;
-import com.simplesoftwaresolutions.godsofwargame.location.FullPositionalCord;
+import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Mapper;
 import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.StandardUnitMapper;
-import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 
@@ -28,15 +27,12 @@ public class StandardUnit extends AbstractUnitObject {
     @JsonCreator
     public StandardUnit(@JsonProperty("movementPlatform")AbstractMovementPlatform movementPlatform,
                         @JsonProperty("turretPlatform")AbstractTurretPlatform turretPlatform,
-                        @JsonProperty("meta")InstanceId meta,
-                        @JsonProperty("locationData") FullPositionalCord locationData){
+                        @JsonProperty(value = "meta" , required = true)InstanceId meta,
+                        @JsonProperty(value = "locationData" ) PositionalCord locationData){
 
         super( movementPlatform, turretPlatform, meta, locationData);
-        dsb = DataServiceBus.getInstance();
     }
-    public StandardUnit(){
 
-    }
     @Override
     public void removeSelf() {
         //Create envelope
@@ -56,8 +52,8 @@ public class StandardUnit extends AbstractUnitObject {
     public boolean isBuilt() {
         boolean nullCheck = (movementPlatform != null)
                 && (turretPlatform != null)
-                && (meta != null) ;
-                //&& (transform != null);
+                && (meta != null)
+                && (locationData != null);
         if(nullCheck) {
             return nullCheck && movementPlatform.isBuilt() && turretPlatform.isBuilt();
         } else {

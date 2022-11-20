@@ -33,7 +33,7 @@ public class StartGameCommand implements Command {
      * @throws NullExpectedField Not thrown as no values are passed into this command
      */
     @Override
-    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
+    public void execute(GameState gameState, WebSocketSession session)  {
         //Verify loadState is LOBBY
         if(gameState.loadState == LoadState.LOBBY
                 //Verify Command Sender is lobby Host

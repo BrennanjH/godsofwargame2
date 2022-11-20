@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
-import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
-import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.units.CommandStructure;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -19,7 +17,7 @@ public class CreateCommandStructureCommand implements Command {
 
 
     @Override
-    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
+    public void execute(GameState gameState, WebSocketSession session) {
 
 
         StringBuilder commandMaker = gameState.getNickNames().get(session.getId());
@@ -30,7 +28,6 @@ public class CreateCommandStructureCommand implements Command {
             //Inject Dependents
             commandStructure.setGameState(gameState);
             //get a singleton DataServiceBus inside the unit so that objects can register themselves
-            commandStructure.setDSB(DataServiceBus.getInstance());
 
             //Set the Unit's string builder to the sessions
             commandStructure.setOwnerNickName(commandMaker);

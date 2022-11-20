@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
-import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import org.springframework.web.socket.WebSocketSession;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
@@ -19,7 +18,7 @@ public class ChangeReadyState implements Command {
     }
 
     @Override
-    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
+    public void execute(GameState gameState, WebSocketSession session)  {
         //Verify Loadstate is LOBBY
         if(gameState.loadState == LoadState.LOBBY){
             //get senders PlayerProfile //Set PlayerProfile's PlayerValue to changeToState

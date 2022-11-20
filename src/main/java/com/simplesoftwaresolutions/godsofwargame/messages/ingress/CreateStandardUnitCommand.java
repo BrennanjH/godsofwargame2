@@ -38,11 +38,12 @@ public class CreateStandardUnitCommand implements Command {
     }
     
     @Override
-    public synchronized void execute(GameState gameState, WebSocketSession session) throws NullExpectedField, InstanceIdMistmatchException {
+    public synchronized void execute(GameState gameState, WebSocketSession session) {
         try {
+            //verify that all required pieces of information are present in the unit recieved from the front end
             if (!unit.isBuilt()) {
                 logger.error("Command CreateUnit Failed To Create Unit");
-                throw new NullExpectedField();
+                throw new NullExpectedField("Unit failed to build");
             }
 
             StringBuilder commandMaker = gameState.getNickNames().get(session.getId());

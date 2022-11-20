@@ -3,8 +3,6 @@ package com.simplesoftwaresolutions.godsofwargame.messages.services;
 import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
-import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
-import com.simplesoftwaresolutions.godsofwargame.messages.ingress.CreateStandardUnitCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -22,13 +20,8 @@ public class MessageService implements CommunicationService{
         //Verify that command is usable by
         if( isExpectedLoadStateInArray(command.expectedLoadStates(),gameState.loadState) ) {
 
-            try {
-                command.execute(gameState,session);
-            } catch (NullExpectedField e) {
-                logger.error("NullExpectedField thrown, Caught inside MessageService" +
-                        "\n Command: " + command.getClass().toString());
-                return false;
-            }
+            command.execute(gameState,session);
+
             return true;
         }
         return false;

@@ -26,8 +26,8 @@ public class InstanceId {
     }
 
     @JsonCreator
-    public InstanceId(@JsonProperty("instanceId") String instanceId,
-                      @JsonProperty("ownerNickname")String ownerNickname){
+    public InstanceId(@JsonProperty(value = "instanceId" , required = true) String instanceId,
+                      @JsonProperty(value = "ownerNickname", required = true)String ownerNickname){
         this.instanceId = instanceId;
         this.ownerNickName = new StringBuilder(ownerNickname);
     }

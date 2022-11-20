@@ -5,7 +5,6 @@ import com.simplesoftwaresolutions.godsofwargame.game.GameState;
 import com.simplesoftwaresolutions.godsofwargame.game.LoadState;
 import com.simplesoftwaresolutions.godsofwargame.game.tasks.TaskStart;
 import com.simplesoftwaresolutions.godsofwargame.messages.Command;
-import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.ServerRole;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -24,7 +23,7 @@ public class CancelStartCommand implements Command {
     }
 
     @Override
-    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
+    public void execute(GameState gameState, WebSocketSession session) {
         //Verify loadState is LOBBY
         if(gameState.loadState == LoadState.LOBBY
                 //Verify Command Sender is lobby Host

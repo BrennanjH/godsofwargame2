@@ -12,8 +12,8 @@ public class PositionalCord {
     protected int yCord;
 
     @JsonCreator
-    public PositionalCord(@JsonProperty("x") int xCord,
-                          @JsonProperty("y") int yCord){
+    public PositionalCord(@JsonProperty(value = "x") int xCord,
+                          @JsonProperty(value = "y") int yCord){
         this.xCord = xCord;
         this.yCord = yCord;
     }

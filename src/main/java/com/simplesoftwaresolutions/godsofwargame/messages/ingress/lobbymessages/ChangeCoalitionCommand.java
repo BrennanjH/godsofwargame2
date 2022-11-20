@@ -10,6 +10,8 @@ import com.simplesoftwaresolutions.godsofwargame.messages.NullExpectedField;
 import com.simplesoftwaresolutions.godsofwargame.player.Coalition;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
 import com.simplesoftwaresolutions.godsofwargame.player.Team;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import java.util.List;
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
 public class ChangeCoalitionCommand implements Command {
 
+    private static final Logger logger= LoggerFactory.getLogger(ChangeCoalitionCommand.class);
+
     //The name of the team that session is switching too
     String switchTo;
 
@@ -30,39 +34,44 @@ public class ChangeCoalitionCommand implements Command {
     }
 
     @Override
-    public void execute(GameState gameState, WebSocketSession session) throws NullExpectedField {
-        if(switchTo == null) {
-            throw new NullExpectedField();
-        }
-        if( gameState.loadState == LoadState.LOBBY) {
-            //Get PlayerProfile of request sender
-            PlayerProfile requestSenderProfile = gameState.getPlayerData()
-                    .get(gameState.getNickName(session));
-            //Verify Team exists or create one if it doesn't
-            Team chosenTeam;
-            //Get a list of teams with the same name as switchTo
-            List<Team> validTeams = loopThroughTeams(gameState, switchTo);
-            //Find a coalition from the joined Team
-            chosenTeam = pickCoalition(validTeams);
-            //Null check
-            if (chosenTeam == null) {
-                chosenTeam = new Coalition(switchTo);
+    public void execute(GameState gameState, WebSocketSession session){
+        try {
+            if(switchTo == null) {
+                throw new NullExpectedField("switchTO is null");
             }
+            if( gameState.loadState == LoadState.LOBBY) {
+                //Get PlayerProfile of request sender
+                PlayerProfile requestSenderProfile = gameState.getPlayerData()
+                        .get(gameState.getNickName(session));
+                //Verify Team exists or create one if it doesn't
+                Team chosenTeam;
+                //Get a list of teams with the same name as switchTo
+                List<Team> validTeams = loopThroughTeams(gameState, switchTo);
+                //Find a coalition from the joined Team
+                chosenTeam = pickCoalition(validTeams);
+                //Null check
+                if (chosenTeam == null) {
+                    chosenTeam = new Coalition(switchTo);
+                }
 
-            //Remove Player relations to Coalitions
-            for (Coalition c : requestSenderProfile.getProfileCoalitions()) {
-                //Remove coalitions from player
-                PlayerProfile.removeCoalitionFromProfile(c, requestSenderProfile);
-                //Remove requestSender from any prior Coalitions
-                Coalition.removeProfileFromCoalition(c, requestSenderProfile);
+                //Remove Player relations to Coalitions
+                for (Coalition c : requestSenderProfile.getProfileCoalitions()) {
+                    //Remove coalitions from player
+                    PlayerProfile.removeCoalitionFromProfile(c, requestSenderProfile);
+                    //Remove requestSender from any prior Coalitions
+                    Coalition.removeProfileFromCoalition(c, requestSenderProfile);
+                }
+
+
+                //Add Team to players Team list
+                requestSenderProfile.getJoinedTeams().add(chosenTeam);
+                //Add player to Teams playerList
+                chosenTeam.getPlayersOnTeam().add(requestSenderProfile);
             }
-
-
-            //Add Team to players Team list
-            requestSenderProfile.getJoinedTeams().add(chosenTeam);
-            //Add player to Teams playerList
-            chosenTeam.getPlayersOnTeam().add(requestSenderProfile);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
         }
+
     }
 
     @Override
