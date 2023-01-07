@@ -60,7 +60,6 @@ public class WebSocketHandling extends AbstractWebSocketHandler  { //More overri
         Command requestedAction = mapper.readValue(message.getPayload(), Command.class);
 
         //Execute command inside command service
-
         try {
             messageService.handleCommand(gameState, session, requestedAction);
         } catch (Exception e) {
