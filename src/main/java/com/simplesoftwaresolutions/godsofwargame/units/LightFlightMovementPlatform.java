@@ -6,8 +6,8 @@ import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
 public class LightFlightMovementPlatform extends AbstractMovementPlatform{
 
     public LightFlightMovementPlatform(){
-        speed = 1;
-        health = 2;
+        speed = 1L;
+        health = 2L;
     }
 
 

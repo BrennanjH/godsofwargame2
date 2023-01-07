@@ -19,8 +19,8 @@ public class LightTrackMovementPlatform extends AbstractMovementPlatform {
     public TerrainTypes[] validTerrain = {TerrainTypes.PLAINS};
 
     public LightTrackMovementPlatform(){
-        speed = 2;
-        health = 5;
+        speed = 2L;
+        health = 5L;
     }
 
 

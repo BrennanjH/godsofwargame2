@@ -12,5 +12,6 @@ public class AltMain {
         System.out.println(test1.compareTo(test2));
     }
 
+
 }
 

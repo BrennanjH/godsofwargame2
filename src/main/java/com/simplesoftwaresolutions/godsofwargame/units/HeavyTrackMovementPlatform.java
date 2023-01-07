@@ -22,8 +22,8 @@ public class HeavyTrackMovementPlatform extends AbstractMovementPlatform{
     private TerrainTypes[] validTerrain = {TerrainTypes.PLAINS};
 
     @JsonCreator
-    public HeavyTrackMovementPlatform(@JsonProperty("speed") int speed,
-                                      @JsonProperty("health") int health) {
+    public HeavyTrackMovementPlatform(@JsonProperty("speed") Long speed,
+                                      @JsonProperty("health") Long health) {
         this.speed = speed;
         this.health = health;
     }

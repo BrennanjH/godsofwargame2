@@ -8,6 +8,7 @@ package com.simplesoftwaresolutions.godsofwargame.units;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.game.BoardManager;
 import com.simplesoftwaresolutions.godsofwargame.location.PositionalCord;
+import lombok.Data;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  *
  * @author brenn
  */
+@Data
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 public abstract class AbstractMovementPlatform {
     
@@ -22,7 +24,7 @@ public abstract class AbstractMovementPlatform {
     Speed - How fast the unit can move over time
     health - How much damage a unit can take before dying
     */
-    protected float speed =1, health =1;
+    protected Long speed =1L, health =1L;
 
     protected Route movePath = new Route();
 
@@ -62,21 +64,13 @@ public abstract class AbstractMovementPlatform {
 
     abstract public boolean isBuilt();
 
-    public float getSpeed() {
-        return speed;
-    }
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
+    /** This method is called when other units are attacking this unit, and it will calculate the remaining health of the unit after taking damage
+     * @param damage - the damage that an attacking unit is wanting to do to this unit
+     */
+    public void takeDamage(Long damage){
+        health -= damage;
     }
-
-    public float getHealth() {
-        return health;
-    }
-
-    public void setHealth(float health) {
-        this.health = health;
-    }
-
     public abstract int priceOfSelf();
+
 }

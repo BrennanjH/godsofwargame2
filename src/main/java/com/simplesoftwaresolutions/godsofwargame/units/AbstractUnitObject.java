@@ -19,6 +19,7 @@ import com.simplesoftwaresolutions.godsofwargame.messages.egress.models.Standard
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.DataServiceBus;
 import com.simplesoftwaresolutions.godsofwargame.messages.servicebus.Envelope;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
+import lombok.Data;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.List;
  *
  * @author brenn
  */
+@Data
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
 @JsonSubTypes({
     @Type(value = StandardUnit.class),
@@ -88,7 +90,20 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         turretPlatform.attack();
     }
 
-    //Units need to "die" in some sense but how they die is up to the unit's direct choice
+    /**
+     * Controlled method that allows units to be added to dsb after taking damage
+     */
+    public void takeDamage(Long damage){
+        //Create envelope
+        Mapper mapper = new StandardUnitMapper();
+        Envelope ev = new Envelope( mapper,this);
+        //store envelope
+        dsb.addToChangeables(ev);
+
+        movementPlatform.takeDamage(damage);
+    }
+
+    //Units need to "die" in some sense but how they die is up to the unit's direct control
     abstract public void removeSelf();
 
     abstract public boolean isBuilt();
@@ -197,6 +212,13 @@ public abstract class AbstractUnitObject implements Changeable, Destroyable, Cre
         dsb.addToChangeables(ev);
 
         meta.setOwnerNickName(ownerNickName);
+    }
+
+    /**
+     * @return Returns a long that is not linked to unit's health so that other systems can't accidently alter player health
+     */
+    public long getHealthControlled(){
+        return movementPlatform.getHealth().longValue();
     }
 
     /** A non-queue changing method that allows code to view but not alter unit instanceID

@@ -1,16 +1,12 @@
 package com.simplesoftwaresolutions.godsofwargame.units;
 
+import lombok.Data;
+
 /**
  * A class that represents an AbstractUnitObject that is being stored for some purpose related to the instantiating object
  */
+@Data
 public class Target {
     private AbstractUnitObject targetedUnit;
 
-    public AbstractUnitObject getTargetedUnit() {
-        return targetedUnit;
-    }
-
-    public void setTargetedUnit(AbstractUnitObject targetedUnit) {
-        this.targetedUnit = targetedUnit;
-    }
 }

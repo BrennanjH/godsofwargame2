@@ -18,15 +18,18 @@ import java.util.List;
 public class HeavyCannonTurretPlatform extends AbstractTurretPlatform{
 
     @JsonCreator
-    public HeavyCannonTurretPlatform(@JsonProperty("damage") int damage,
-                                     @JsonProperty("fireSpeed")int fireSpeed,
-                                     @JsonProperty("range")int targetingRange) {
+    public HeavyCannonTurretPlatform(@JsonProperty("damage") Long damage,
+                                     @JsonProperty("fireSpeed")Long fireSpeed,
+                                     @JsonProperty("range")Long targetingRange) {
         super(damage,fireSpeed,targetingRange);
     }
 
     @Override
     public void attack() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //Take target unit and subtract health from that unit.
+        target.getTargetedUnit().takeDamage(damage);
+
+
     }
 
     @Override

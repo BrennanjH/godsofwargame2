@@ -7,6 +7,7 @@ package com.simplesoftwaresolutions.godsofwargame.units;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.simplesoftwaresolutions.godsofwargame.player.PlayerProfile;
+import lombok.Data;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author brenn
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "className")
+@Data
 public abstract class AbstractTurretPlatform {
     
     /*Variables that define unit behaviors
@@ -22,9 +24,9 @@ public abstract class AbstractTurretPlatform {
     fireSpeed - How often the main weapon can fire
     targetingRange - How close a hostile unit must be before unit can fire
     */
-    protected float damage, fireSpeed, targetingRange;
+    protected Long damage, fireSpeed, targetingRange;
 
-    public AbstractTurretPlatform(float damage, float fireSpeed, float targetingRange) {
+    public AbstractTurretPlatform(Long damage, Long fireSpeed, Long targetingRange) {
         this.damage = damage;
         this.fireSpeed = fireSpeed;
         this.targetingRange = targetingRange;
@@ -40,32 +42,9 @@ public abstract class AbstractTurretPlatform {
         return target;
     }
 
-    public float getDamage() {
-        return damage;
-    }
-
-    public void setDamage(float damage) {
-        this.damage = damage;
-    }
-
-    public float getFireSpeed() {
-        return fireSpeed;
-    }
-
-    public void setFireSpeed(float fireSpeed) {
-        this.fireSpeed = fireSpeed;
-    }
-
-    public float getTargetingRange() {
-        return targetingRange;
-    }
-
-    public void setTargetingRange(float targetingRange) {
-        this.targetingRange = targetingRange;
-    }
 
     /** Checks to see if a stored target is a valid target
-     * accomplishes this by checking it's range and affiliation (currently just looks at owner)
+     * accomplishes this by checking its range and affiliation (currently just looks at owner)
      *
      * @param owner - The owner of the firing turret object
      * @return returns true if this is able to fire on it's stored target

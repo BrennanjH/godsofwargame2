@@ -21,7 +21,7 @@ import org.springframework.web.socket.WebSocketSession;
 import java.util.List;
 
 
-/** A command that adds a new unit to the game and then properly informs players of it
+/** A command that adds a new unit to the game and then?(this happens automatically) properly informs players of it
  * Unit's implement their own createSelf() which will handle creation so only validation
  * is performed by this command
  * @author brenn
