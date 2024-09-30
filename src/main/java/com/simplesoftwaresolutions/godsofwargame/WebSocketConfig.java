@@ -16,6 +16,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
  * I don't know how this works 12-26-21
  * I have finally understood how this works 2-2-22
  * I'm confused again 3-13-22
+ * I finally understand how this work 9-30-2024
  * @author brenn
  */
 @Configuration
